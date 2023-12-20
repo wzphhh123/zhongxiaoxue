@@ -15,6 +15,14 @@ Router.prototype.push = function push(location) {
 import Antd from "ant-design-vue";
 import "ant-design-vue/dist/antd.css";
 Vue.use(Antd);
+
+// 星座图
+import VueParticles from "vue-particles";
+Vue.use(VueParticles);
+
+// echarts图表
+import *as echarts from 'echarts'
+Vue.prototype.$echarts = echarts
  
 new Vue({
   render: h => h(App),

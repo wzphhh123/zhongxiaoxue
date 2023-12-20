@@ -1,12 +1,31 @@
 <template>
-  <div>
-    <div class="bk">
+  <div class="bk">
+    <div class="bk2">
+      <vue-particles
+        style="position: fixed; width: 100%"
+        color="#fff"
+        :particleOpacity="0.7"
+        :particlesNumber="60"
+        shapeType="circle"
+        :particleSize="4"
+        linesColor="#fff"
+        :linesWidth="1"
+        :lineLinked="true"
+        :lineOpacity="0.4"
+        :linesDistance="150"
+        :moveSpeed="2"
+        :hoverEffect="true"
+        hoverMode="grab"
+        :clickEffect="true"
+        clickMode="push"
+      >
+      </vue-particles>
       <div class="top"></div>
       <div class="main">
         <div class="content">
           <a-row>
             <a-col :span="6"> <gundongVue /> </a-col>
-            <a-col :span="12"> col-12 </a-col>
+            <a-col :span="12"> <contentP2Vue /></a-col>
             <a-col :span="6"> col-12 </a-col>
           </a-row>
         </div>
@@ -23,32 +42,38 @@
 </template>
 
 <script>
-import gundongVue from './component/gundong.vue';
+import contentP2Vue from "./component/contentP2.vue";
+import gundongVue from "./component/gundong.vue";
 export default {
-    components:{gundongVue},
-    data() {
-        return {
-        }
-    },
+  components: { gundongVue, contentP2Vue },
+  data() {
+    return {};
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .bk {
-  background-image: url("../../assets/imgaes/椭圆 4.png");
+  background-image: url("../../assets/images/图层 1011.png");
   background-repeat: no-repeat;
-  background-size: 100% ;
+  background-size: 100%;
   height: 100vh;
-  
+}
+.bk2 {
+  background-image: url("../../assets/images/bk.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  height: 100vh;
 }
 .top {
-  background-image: url("../../assets/imgaes/top.png");
+  background-image: url("../../assets/images/top.png");
   background-repeat: no-repeat;
-  //   width: 100vw;
+  width: 100vw;
   height: 66px;
-  background-size: 100% ;
+  // background-size: 100% ;
+  background-size: contain;
 }
-.main{
-    padding: 5px 18px 18px 18px;
+.main {
+  padding: 5px 18px 18px 18px;
 }
 </style>
