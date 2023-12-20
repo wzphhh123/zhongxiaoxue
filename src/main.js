@@ -22,6 +22,7 @@ Vue.use(VueParticles);
 
 // echarts图表
 import *as echarts from 'echarts'
+import 'echarts-gl';
 Vue.prototype.$echarts = echarts
  
 new Vue({

@@ -137,6 +137,13 @@ export default {
           lu: "64%",
         },
       ],
+      echartList: [
+        { value: 1048, name: "111" },
+        { value: 735, name: "22" },
+        { value: 580, name: "33" },
+        { value: 484, name: "444" },
+        { value: 300, name: "55" },
+      ],
     };
   },
   methods: {
@@ -157,7 +164,7 @@ export default {
           itemGap: 10, //设置图例之间的间距
           padding: [0, 0, 8, 0], //设置图例与圆环图之间的间距
           formatter: (name) => {
-            var data = this.dataList;
+            var data = this.echartList;
             var total = 0;
             var tarValue;
             for (var i = 0; i < data.length; i++) {
@@ -226,13 +233,7 @@ export default {
             labelLine: {
               show: false,
             },
-            data: [
-              { value: 1048, name: "111" },
-              { value: 735, name: "22" },
-              { value: 580, name: "33" },
-              { value: 484, name: "444" },
-              { value: 300, name: "55" },
-            ],
+            data: this.echartList,
           },
         ],
       };
