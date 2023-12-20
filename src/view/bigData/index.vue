@@ -26,7 +26,9 @@
           <a-row>
             <a-col :span="6"> <gundongVue /> </a-col>
             <a-col :span="12"> <contentP2Vue /></a-col>
-            <a-col :span="6"> col-12 </a-col>
+            <a-col :span="6"> 
+              <contentP3Vue /> 
+              </a-col>
           </a-row>
         </div>
         <div class="footer">
@@ -43,9 +45,10 @@
 
 <script>
 import contentP2Vue from "./component/contentP2.vue";
+import contentP3Vue from './component/contentP3.vue';
 import gundongVue from "./component/gundong.vue";
 export default {
-  components: { gundongVue, contentP2Vue },
+  components: { gundongVue, contentP2Vue,contentP3Vue, },
   data() {
     return {};
   },

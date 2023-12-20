@@ -1,0 +1,234 @@
+<template>
+  <div style="padding-left: 13px">
+    <div class="top"></div>
+    <div class="content">
+      <div class="imgDiv">
+        <img src="../../../assets/images/xiao2.png" alt="" />
+        <img src="../../../assets/images/xiao1.png" alt="" />
+        <img src="../../../assets/images/xiao3.png" alt="" />
+      </div>
+      <div class="footer">
+        <div
+          ref="chartPanel"
+          id="chart-panel"
+          style="width: 100%; height: 220px"
+        ></div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import * as echarts from "echarts";
+import "echarts-gl";
+import { getPie3D } from "../../../assets/js/getPie3D";
+
+export default {
+  components: {},
+  data() {
+    return {
+      optionData: [
+        {
+          name: "医药研发",
+          value: 12,
+          itemStyle: {
+            opacity: 0.2,
+            color: "#D6476C",
+          },
+        },
+        {
+          name: "生物科技",
+          value: 16,
+          itemStyle: {
+            opacity: 0.2,
+            color: "#017DC1",
+          },
+        },
+        {
+          name: "房地产",
+          value: 14,
+          itemStyle: {
+            opacity: 0.2,
+            color: "#804BC6",
+          },
+        },
+        {
+          name: "互联网科技",
+          value: 81,
+          itemStyle: {
+            opacity: 0.2,
+            color: "#44BA9C",
+          },
+        },
+        {
+          name: "软件外包",
+          value: 66,
+          itemStyle: {
+            opacity: 0.2,
+            color: "#3F14C9",
+          },
+        },
+        // {
+        //   name: "林地面积统计",
+        //   value: 10000,
+        //   itemStyle: {
+        //     opacity: 0.2,
+        //     color: "#22c4ff",
+        //   },
+        // },
+        // {
+        //   name: "草地面积统计",
+        //   value: 12116,
+        //   itemStyle: {
+        //     opacity: 0.2,
+        //     color: "#aaff00",
+        //   },
+        // },
+      ],
+    };
+  },
+  methods: {
+    draw3d() {
+      // 基于准备好的dom，初始化echarts实例
+      let chartPanel = echarts.init(document.getElementById("chart-panel"));
+      for (let i = 0; i < this.optionData.length; i++) {
+        delete this.optionData[i].itemStyle.opacity;
+      }
+      // 传入数据生成 option
+      let series = getPie3D(this.optionData, 0);
+      let option = {
+        tooltip: {
+          formatter: (params) => {
+            // console.log(params)
+            if (
+              params.seriesName !== "mouseoutSeries" &&
+              params.seriesName !== "pie2d"
+            ) {
+              return `<div style="padding:0 10px">${params.seriesName}：${(
+                option.series[params.seriesIndex].pieData.proportion * 100
+              ).toFixed(2)}%</div>`;
+            }
+          },
+        },
+        // legend: {
+        //   data: legendData,
+        //   width: "90%",
+        //   itemGap: 25,
+        //   bottom: "bottom",
+        //   textStyle: {
+        //     color: "#fff",
+        //     fontSize: 14,
+        //   },
+        // },
+        xAxis3D: {
+          min: -1,
+          max: 1,
+        },
+        yAxis3D: {
+          min: -1,
+          max: 1,
+        },
+        zAxis3D: {
+          min: -1,
+          max: 1,
+        },
+        grid3D: {
+          show: false, //是否显示三维笛卡尔坐标系。
+          boxHeight: 20, //三维笛卡尔坐标系在三维场景中的高度
+          top: "-12.5%",
+          // bottom: "80%",
+          // environment: "#021041", //背景
+          viewControl: {
+            //用于鼠标的旋转，缩放等视角控制
+            alpha: 50, //角度
+            distance: 250, //调整视角到主体的距离，类似调整zoom 重要
+            rotateSensitivity: 0, //设置为0无法旋转
+            zoomSensitivity: 0, //设置为0无法缩放
+            panSensitivity: 0, //设置为0无法平移
+            autoRotate: false, //自动旋转
+          },
+        },
+        series: series,
+      };
+      chartPanel.setOption(option);
+
+      //是否需要label指引线，如果要就添加一个透明的2d饼状图并调整角度使得labelLine和3d的饼状图对齐，并再次setOption
+      option.series.push({
+        name: "pie2d",
+        type: "pie",
+        label: {
+          color: "#fff",
+          fontSize: 16,
+          opacity: 1,
+          //  position: 'inner',
+          // formatter: "{b}\n\n",
+          // padding: [0, -40],
+          formatter: (item) => {
+            //  console.log(item)
+            return item.data.name + ":" + item.data.value + "家" + "";
+          },
+        },
+        labelLine: {
+          length: 20,
+          length2: 20,
+          lineStyle: {
+            color: "#ffffff",
+            width: 1.5,
+          },
+        },
+        startAngle: 321, //起始角度，支持范围[0, 360]。 //重要
+        clockwise: false, //饼图的扇区是否是顺时针排布。上述这两项配置主要是为了对齐3d的样式
+        radius: ["25%", "50%"],
+        center: ["50%", "50%"],
+        data: this.optionData,
+        itemStyle: {
+          opacity: 0,
+        },
+        top: "-20%",
+        avoidLabelOverlap: true, //防止标签重叠
+      });
+      chartPanel.setOption(option);
+    },
+  },
+  mounted() {
+    this.draw3d();
+    this.$nextTick(() => {
+      let parent = document.getElementById("chart-panel"); // 获取父元素
+      let canvas = parent.getElementsByTagName("canvas"); // 获取父元素下面的所有canvas元素
+      console.log(canvas);
+      canvas[1].style.transform = "rotateX(30deg)";
+    });
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.top {
+  background-image: url("../../../assets/images/title.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  height: 39px;
+}
+.content {
+  width: 456px;
+  height: 450px;
+  background: rgba(0, 188, 255, 0.1);
+  border: 1px solid #00bcff;
+  .imgDiv {
+    display: flex;
+    margin-top: 14px;
+    justify-content: space-around;
+    img {
+      width: 124px;
+      height: 133px;
+    }
+  }
+}
+.footer {
+  width: 450px;
+  height: 270px;
+  overflow: hidden;
+  float: right;
+  margin: 60px 0 0 60px;
+}
+</style>
