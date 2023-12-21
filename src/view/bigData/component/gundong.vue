@@ -21,8 +21,8 @@
             <th
               style="
                 padding: 10px 13px;
-                border-top-left-radius: 7px;
-                border-bottom-left-radius: 7px;
+                border-top-left-radius: 4px;
+                border-bottom-left-radius: 4px;
               "
             >
               进入时间
@@ -31,8 +31,8 @@
             <th style="padding: 10px 13px">体验人数</th>
             <th
               style="
-                border-top-right-radius: 7px;
-                border-bottom-right-radius: 7px;
+                border-top-right-radius: 4px;
+                border-bottom-right-radius: 4px;
                 padding: 10px 13px;
               "
             >
@@ -45,7 +45,11 @@
           :data="dataList"
           :class-option="defaultOption"
         >
-          <ul v-for="(item, index) in dataList" :key="index">
+          <ul
+            v-for="(item, index) in dataList"
+            :key="index"
+            :class="index % 2 != 0 ? 'bianse' : 'nobianse'"
+          >
             <li style="margin-left: -15px; width: 65px">{{ item.p1 }}</li>
             <li style="width: 150px">{{ item.p2 }}</li>
             <li style="width: 80px">{{ item.p3 }}</li>
@@ -135,6 +139,13 @@ export default {
   background-repeat: no-repeat;
   height: 39px;
 }
+.bianse {
+  background: rgba(8, 79, 140, 0.4);
+  border-radius: 4px;
+}
+.nobianse {
+  border-radius: 4px;
+}
 .content {
   width: 464px;
   height: 448px;
@@ -175,11 +186,12 @@ export default {
     }
     ul {
       display: flex;
-
       li {
         list-style-type: none;
         color: #fff;
+        padding: 7px;
         text-align: center;
+        // margin-top: -10px;
       }
     }
   }
