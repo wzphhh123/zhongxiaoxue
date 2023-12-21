@@ -26,16 +26,17 @@
           <a-row>
             <a-col :span="6"> <gundongVue /> </a-col>
             <a-col :span="12"> <contentP2Vue /></a-col>
-            <a-col :span="6"> 
-              <contentP3Vue /> 
-              </a-col>
+            <a-col :span="6">
+              <contentP3Vue />
+              <!-- <testVue /> -->
+            </a-col>
           </a-row>
         </div>
         <div class="footer">
           <a-row>
-            <a-col :span="6"> col-12 </a-col>
-            <a-col :span="12"> col-12 </a-col>
-            <a-col :span="6"> col-12 </a-col>
+            <a-col :span="6"><contentP4Vue /></a-col>
+            <a-col :span="12"> <contentP5Vue /></a-col>
+            <a-col :span="6"> <contentP6Vue /></a-col>
           </a-row>
         </div>
       </div>
@@ -44,11 +45,24 @@
 </template>
 
 <script>
-import contentP2Vue from "./component/contentP2.vue";
-import contentP3Vue from './component/contentP3.vue';
 import gundongVue from "./component/gundong.vue";
+import contentP2Vue from "./component/contentP2.vue";
+import contentP3Vue from "./component/contentP3.vue";
+import contentP4Vue from "./component/contentP4.vue";
+import contentP5Vue from "./component/contentP5.vue";
+import contentP6Vue from "./component/contentP6.vue";
+import testVue from "./component/test.vue";
+
 export default {
-  components: { gundongVue, contentP2Vue,contentP3Vue, },
+  components: {
+    gundongVue,
+    contentP2Vue,
+    contentP3Vue,
+    contentP4Vue,
+    contentP5Vue,
+    contentP6Vue,
+    testVue,
+  },
   data() {
     return {};
   },

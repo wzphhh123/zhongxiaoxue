@@ -104,7 +104,6 @@ export function getParametricEquation(
 ) {
     // 计算
     let midRatio = (startRatio + endRatio) / 2;
-
     let startRadian = startRatio * Math.PI * 2;
     let endRadian = endRatio * Math.PI * 2;
     let midRadian = midRatio * Math.PI * 2;

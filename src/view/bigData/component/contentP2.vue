@@ -2,15 +2,88 @@
   <div>
     <div class="bk">
       <div class="topContent">
-        <div class="top"></div>
+        <div class="top">
+          <span>区域管理</span>
+        </div>
         <div class="photo">
           <div class="imgdiv">
-            <img src="../../../assets/images/事故案例展示区.png" alt="" />
-            <img src="../../../assets/images/消防安全体验区.png" alt="" />
-            <img src="../../../assets/images/交通安全体验区.png" alt="" />
-            <img src="../../../assets/images/意外伤害体验区.png" alt="" />
-            <img src="../../../assets/images/应急救援体验区.png" alt="" />
-            <img src="../../../assets/images/公共安全体验区.png" alt="" />
+            <img
+              v-if="isShow1 == false"
+              src="../../../assets/images/shigu.png"
+              alt=""
+              @click="isShow1 = !isShow1"
+            />
+            <img
+              v-else
+              @click="isShow1 = !isShow1"
+              src="../../../assets/images/shigu2.png"
+              alt=""
+            />
+
+            <img
+              v-if="isShow2 == false"
+              src="../../../assets/images/xiaofang.png"
+              alt=""
+              @click="isShow2 = !isShow2"
+            />
+            <img
+              v-else
+              @click="isShow2 = !isShow2"
+              src="../../../assets/images/xiaofang2.png"
+              alt=""
+            />
+
+            <img
+              v-if="isShow3 == false"
+              src="../../../assets/images/jiaotong.png"
+              alt=""
+              @click="isShow3 = !isShow3"
+            />
+            <img
+              v-else
+              @click="isShow3 = !isShow3"
+              src="../../../assets/images/jiaotong2.png"
+              alt=""
+            />
+
+            <img
+              v-if="isShow4 == false"
+              src="../../../assets/images/yiwai.png"
+              alt=""
+              @click="isShow4 = !isShow4"
+            />
+            <img
+              v-else
+              @click="isShow4 = !isShow4"
+              src="../../../assets/images/yiwai2.png"
+              alt=""
+            />
+
+            <img
+              v-if="isShow5 == false"
+              src="../../../assets/images/yingji.png"
+              alt=""
+              @click="isShow5 = !isShow5"
+            />
+            <img
+              v-else
+              @click="isShow5 = !isShow5"
+              src="../../../assets/images/yingji2.png"
+              alt=""
+            />
+            
+            <img
+              v-if="isShow6 == false"
+              src="../../../assets/images/gonggong.png"
+              alt=""
+              @click="isShow6 = !isShow6"
+            />
+            <img
+              v-else
+              @click="isShow6 = !isShow6"
+              src="../../../assets/images/gonggong2.png"
+              alt=""
+            />
           </div>
           <div class="contentdi">
             <img src="../../../assets/images/contentP2di.png" alt="" />
@@ -19,7 +92,9 @@
       </div>
 
       <div class="footerContent">
-        <div class="top2"></div>
+        <div class="top2">
+          <span>交通安全体验区</span>
+        </div>
         <div
           style="
             display: flex;
@@ -47,12 +122,12 @@
                     font-size: 15px;
                     border-top-left-radius: 5px;
                     border-bottom-left-radius: 5px;
-                    width: 160px;
+                    width: 148px;
                   "
                 >
                   软件名称
                 </th>
-                <th style="padding: 5px 7px; font-size: 15px; width: 110px">
+                <th style="padding: 5px 7px; font-size: 15px; width: 100px">
                   使用时长
                 </th>
                 <th
@@ -60,7 +135,7 @@
                     border-top-right-radius: 5px;
                     font-size: 15px;
                     border-bottom-right-radius: 5px;
-                    padding: 5px 7px;
+                    padding: 7px 7px;
                     width: 110px;
                   "
                 >
@@ -73,10 +148,14 @@
               :data="dataList"
               :class-option="defaultOption"
             >
-              <ul v-for="(item, index) in dataList" :key="index">
-                <li style="width: 145px">{{ item.name }}</li>
-                <li style="width: 175px">{{ item.time }}</li>
-                <li style="width: 120px; margin-left: -2%">{{ item.lu }}</li>
+              <ul
+                v-for="(item, index) in dataList"
+                :key="index"
+                :class="index % 2 != 0 ? 'bianse' : 'nobianse'"
+              >
+                <li style="width: 25%">{{ item.name }}</li>
+                <li style="width: 50%">{{ item.time }}</li>
+                <li style="width: 16%">{{ item.lu }}</li>
               </ul>
             </vue-seamless-scroll>
           </div>
@@ -115,6 +194,12 @@ export default {
   },
   data() {
     return {
+      isShow1: false,
+      isShow2: false,
+      isShow3: false,
+      isShow4: false,
+      isShow5: false,
+      isShow6: false,
       dataList: [
         {
           name: "你好",
@@ -197,18 +282,32 @@ export default {
             },
           },
         },
+        // A code block
+        title: {
+          show: true,
+          text: `体验区`, //要显示的文本
+          left: "center",
+          top: "40%",
+          textStyle: {
+            color: "#fff",
+            fontWeight: "bold",
+            fontSize: "14",
+          },
+        },
+
         graphic: [
           {
             //环形图中间添加文字
             type: "text", //通过不同top值可以设置上下显示
             left: "center",
-            top: "center",
+            top: "54%",
             style: {
-              text: `体验区 软件使用率占比 `,
+              text: "软件使用率占比",
               textAlign: "center",
               fill: "#fff", //文字的颜色
-              fontSize: 16,
-              lineHeight: 20,
+              fontSize: 12,
+              // lineHeight: 20,
+              // font: '14px Microsoft YaHei'
             },
           },
         ],
@@ -250,12 +349,26 @@ export default {
 .bk {
   padding: 17px 7px 0 7px;
 }
+.bianse {
+  background: rgba(8, 79, 140, 0.4);
+  border-radius: 4px;
+}
+.nobianse {
+  border-radius: 4px;
+}
 .topContent {
   .top {
     background-image: url("../../../assets/images/title长图.png");
     background-size: 100%;
     background-repeat: no-repeat;
     height: 39px;
+    line-height: 39px;
+    padding-left: 42px;
+    letter-spacing: 1px;
+    span {
+      color: #fff;
+      font-size: 16px;
+    }
   }
   .photo {
     .imgdiv {
@@ -263,8 +376,9 @@ export default {
       z-index: 999;
       display: flex;
       justify-content: space-around;
-      margin-left: 10px;
+      // margin-left: 12px;
       margin-top: 33px;
+      padding: 0 8px 0 11px;
       img {
         width: 111px;
         height: 122px;
@@ -272,7 +386,7 @@ export default {
     }
     .contentdi {
       img {
-        width: 938px;
+        width: 99%;
         height: 90px;
         position: absolute;
         top: 34%;
@@ -288,18 +402,26 @@ export default {
     background-size: 100%;
     background-repeat: no-repeat;
     height: 39px;
+    line-height: 39px;
+    padding-left: 42px;
+    letter-spacing: 1px;
+    span {
+      color: #fff;
+      font-size: 16px;
+    }
   }
   .gundong {
-    width: 500px;
+    width: 53%;
     height: 197px;
 
     padding: 0 12px;
     .seamless-warp {
-      width: 100%;
+      width: 95%;
       height: 130px;
       overflow: hidden;
       position: relative;
       overflow-y: auto;
+      margin-left: 20px;
       &::-webkit-scrollbar {
         width: 0px;
         height: 0px;
@@ -312,6 +434,7 @@ export default {
         list-style-type: none;
         color: #fff;
         text-align: center;
+        padding: 6px 0;
       }
     }
   }

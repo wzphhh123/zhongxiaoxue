@@ -1,11 +1,50 @@
 <template>
   <div style="padding-left: 13px">
-    <div class="top"></div>
+    <div class="top">
+      <span>健康体验管理</span>
+    </div>
     <div class="content">
       <div class="imgDiv">
-        <img src="../../../assets/images/xiao2.png" alt="" />
-        <img src="../../../assets/images/xiao1.png" alt="" />
-        <img src="../../../assets/images/xiao3.png" alt="" />
+        <div class="img1">
+          <img src="../../../assets/images/xiao2.png" alt="" />
+          <div
+            style="position: absolute; top: 70%; left: 15%; text-align: center"
+          >
+            <p>
+              <span>{{ 368 }}</span>
+              <span>人</span>
+            </p>
+            <span class="imgFootTitle">总健康体验人数</span>
+          </div>
+        </div>
+        <div class="img2">
+          <img
+            style="margin-top: 2px"
+            src="../../../assets/images/xiao1.png"
+            alt=""
+          />
+          <div style="position: absolute; top: 70%; left: 14%">
+            <p>
+              <span>{{ 200 }}</span>
+              <span>人</span>
+            </p>
+            <span class="imgFootTitle">总健康人数</span>
+          </div>
+        </div>
+        <div class="img3">
+          <img
+            style="margin-top: -8px"
+            src="../../../assets/images/xiao3.png"
+            alt=""
+          />
+          <div style="position: absolute; top: 70%; left: 14%">
+            <p>
+              <span>{{ 168 }}</span>
+              <span>人</span>
+            </p>
+            <span class="imgFootTitle">总健康异常人数</span>
+          </div>
+        </div>
       </div>
       <div class="footer">
         <div
@@ -65,25 +104,9 @@ export default {
           value: 66,
           itemStyle: {
             opacity: 0.2,
-            color: "#3F14C9",
+            color: "#2FBBFF",
           },
         },
-        // {
-        //   name: "林地面积统计",
-        //   value: 10000,
-        //   itemStyle: {
-        //     opacity: 0.2,
-        //     color: "#22c4ff",
-        //   },
-        // },
-        // {
-        //   name: "草地面积统计",
-        //   value: 12116,
-        //   itemStyle: {
-        //     opacity: 0.2,
-        //     color: "#aaff00",
-        //   },
-        // },
       ],
     };
   },
@@ -110,16 +133,6 @@ export default {
             }
           },
         },
-        // legend: {
-        //   data: legendData,
-        //   width: "90%",
-        //   itemGap: 25,
-        //   bottom: "bottom",
-        //   textStyle: {
-        //     color: "#fff",
-        //     fontSize: 14,
-        //   },
-        // },
         xAxis3D: {
           min: -1,
           max: 1,
@@ -140,7 +153,7 @@ export default {
           // environment: "#021041", //背景
           viewControl: {
             //用于鼠标的旋转，缩放等视角控制
-            alpha: 50, //角度
+            alpha: 25, //角度
             distance: 250, //调整视角到主体的距离，类似调整zoom 重要
             rotateSensitivity: 0, //设置为0无法旋转
             zoomSensitivity: 0, //设置为0无法缩放
@@ -165,7 +178,7 @@ export default {
           // padding: [0, -40],
           formatter: (item) => {
             //  console.log(item)
-            return item.data.name + ":" + item.data.value + "家" + "";
+            return item.data.name + ":" + item.data.value + "（人）" + "";
           },
         },
         labelLine: {
@@ -208,9 +221,16 @@ export default {
   background-size: 100%;
   background-repeat: no-repeat;
   height: 39px;
+  line-height: 39px;
+  padding-left: 42px;
+  letter-spacing: 1px;
+  span {
+    color: #fff;
+    font-size: 16px;
+  }
 }
 .content {
-  width: 456px;
+  width: 100%;
   height: 450px;
   background: rgba(0, 188, 255, 0.1);
   border: 1px solid #00bcff;
@@ -221,6 +241,64 @@ export default {
     img {
       width: 124px;
       height: 133px;
+    }
+    .img1 {
+      position: relative;
+      p {
+        display: flex;
+        color: #7cf8fd;
+        font-size: 29px;
+        height: 10px;
+        margin-left: 16px;
+        span:nth-child(2) {
+          font-size: 16px;
+          margin-top: 12px;
+          margin-left: 5px;
+        }
+      }
+      .imgFootTitle {
+        font-size: 14px;
+        color: #bac3c4;
+      }
+    }
+    .img2 {
+      position: relative;
+      p {
+        display: flex;
+        color: #7cf8fd;
+        font-size: 29px;
+        height: 10px;
+        margin-left: 15px;
+        span:nth-child(2) {
+          font-size: 16px;
+          margin-top: 12px;
+          margin-left: 5px;
+        }
+      }
+      .imgFootTitle {
+        font-size: 14px;
+        color: #bac3c4;
+        margin-left: 12px;
+      }
+    }
+    .img3 {
+      position: relative;
+      p {
+        display: flex;
+        color: #7cf8fd;
+        font-size: 29px;
+        height: 10px;
+        margin-left: 15px;
+        span:nth-child(2) {
+          font-size: 16px;
+          margin-top: 12px;
+          margin-left: 5px;
+        }
+      }
+      .imgFootTitle {
+        font-size: 14px;
+        color: #bac3c4;
+      }
     }
   }
 }

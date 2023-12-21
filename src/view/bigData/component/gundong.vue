@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div class="top"></div>
+    <div class="top">
+      <span >人员进入统计</span>
+    </div>
     <div class="content">
       <div style="display: flex">
         <div class="tu1"></div>
@@ -50,10 +52,10 @@
             :key="index"
             :class="index % 2 != 0 ? 'bianse' : 'nobianse'"
           >
-            <li style="margin-left: -15px; width: 65px">{{ item.p1 }}</li>
-            <li style="width: 150px">{{ item.p2 }}</li>
-            <li style="width: 80px">{{ item.p3 }}</li>
-            <li style="width: 120px; margin-left: 10px">{{ item.p4 }}</li>
+            <li style="margin-left: -15px; width: 14%">{{ item.p1 }}</li>
+            <li style="width: 41%">{{ item.p2 }}</li>
+            <li style="width: 14%">{{ item.p3 }}</li>
+            <li style="width: 20%; margin-left: 10%">{{ item.p4 }}</li>
           </ul>
         </vue-seamless-scroll>
       </div>
@@ -138,6 +140,13 @@ export default {
   background-size: 100%;
   background-repeat: no-repeat;
   height: 39px;
+  line-height: 39px;
+  padding-left: 42px;
+  letter-spacing:1px;
+  span{
+    color: #fff;
+  font-size: 16px;
+  }
 }
 .bianse {
   background: rgba(8, 79, 140, 0.4);
@@ -147,7 +156,7 @@ export default {
   border-radius: 4px;
 }
 .content {
-  width: 464px;
+  width: 97%;
   height: 448px;
   background: rgba(0, 188, 255, 0.1);
   border: 1px solid #00bcff;
@@ -158,7 +167,7 @@ export default {
     width: 60px;
     background-repeat: no-repeat;
     height: 60px;
-    margin-left: 52px;
+    margin-left: 15%;
     margin-top: 45px;
   }
   .tu2 {
@@ -167,7 +176,7 @@ export default {
     width: 60px;
     background-repeat: no-repeat;
     height: 60px;
-    margin-left: 147px;
+    margin-left:27%;
     margin-top: 45px;
   }
   .gundong {
