@@ -1,5 +1,6 @@
 
 <template>
+<!-- 柱状图 -->
   <div class="container">
     <div class="xx-map" id="baseBar"></div>
   </div>

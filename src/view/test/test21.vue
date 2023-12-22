@@ -1,4 +1,5 @@
 <template>
+<!-- 中国地图 -->
   <div style="background:#fff;height:100vh;">
     <div
       ref="chinaMap"

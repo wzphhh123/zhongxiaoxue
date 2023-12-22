@@ -12,7 +12,7 @@
             <div class="liTupian">
               <img src="../../../assets/images/shandian.png" alt="" />
               <p>
-                <span>54</span>
+                <span>{{ this.shuzi }}</span>
                 <span>%</span>
               </p>
             </div>
@@ -21,7 +21,92 @@
           <div class="topRight">
             <span>总电量数</span>
             <div class="jindu">
-              <div class="xiaoK1"></div>
+              <!-- 0-10 -->
+              <div class="tongyi" v-if="shuzi > 0 && shuzi <= 10">
+                <div class="xiaoK5"></div>
+              </div>
+              <!-- 11-20 -->
+              <div class="tongyi" v-if="shuzi > 10 && shuzi <= 20">
+                <div class="xiaoK4"></div>
+                <div class="xiaoK6"></div>
+              </div>
+              <!-- 21-30 -->
+              <div class="tongyi" v-if="shuzi > 20 && shuzi <= 30">
+                <div class="xiaoK3"></div>
+                <div class="xiaoK5"></div>
+                <div class="xiaoK7"></div>
+              </div>
+              <!-- 31-40 -->
+              <div class="tongyi" v-if="shuzi > 30 && shuzi <= 40">
+                <div class="xiaoK2"></div>
+                <div class="xiaoK4"></div>
+                <div class="xiaoK6"></div>
+                <div class="xiaoK8"></div>
+              </div>
+              <!-- 41-50 -->
+              <div class="tongyi" v-if="shuzi > 40 && shuzi <= 50">
+                <div class="xiaoK1"></div>
+                <div class="xiaoK3"></div>
+                <div class="xiaoK5"></div>
+                <div class="xiaoK7"></div>
+                <div class="xiaoK8"></div>
+              </div>
+              <!-- 51-60 -->
+              <div class="tongyi" v-if="shuzi > 50 && shuzi <= 60">
+                <div class="xiaoK1"></div>
+                <div class="xiaoK2"></div>
+                <div class="xiaoK3"></div>
+                <div class="xiaoK5"></div>
+                <div class="xiaoK7"></div>
+                <div class="xiaoK8"></div>
+              </div>
+              <!-- 61-70 -->
+              <div class="tongyi" v-if="shuzi > 60 && shuzi <= 70">
+                <div class="xiaoK1"></div>
+                <div class="xiaoK2"></div>
+                <div class="xiaoK3"></div>
+                <div class="xiaoK4"></div>
+                <div class="xiaoK6"></div>
+                <div class="xiaoK7"></div>
+                <div class="xiaoK9"></div>
+              </div>
+              <!-- 71-80 -->
+              <div class="tongyi" v-if="shuzi > 70 && shuzi <= 80">
+                <div class="xiaoK1"></div>
+                <div class="xiaoK2"></div>
+                <div class="xiaoK3"></div>
+                <div class="xiaoK4"></div>
+                <div class="xiaoK5"></div>
+                <div class="xiaoK6"></div>
+                <div class="xiaoK7"></div>
+                <div class="xiaoK9"></div>
+              </div>
+              <!-- 81-90 -->
+              <div class="tongyi" v-if="shuzi > 80 && shuzi <= 90">
+                <div class="xiaoK1"></div>
+                <div class="xiaoK2"></div>
+                <div class="xiaoK3"></div>
+                <div class="xiaoK4"></div>
+                <div class="xiaoK5"></div>
+                <div class="xiaoK6"></div>
+                <div class="xiaoK7"></div>
+                <div class="xiaoK8"></div>
+                <div class="xiaoK9"></div>
+              </div>
+              <!-- 91-100-->
+              <div class="tongyi" v-if="shuzi > 90 && shuzi <= 100">
+                <div class="xiaoK1"></div>
+                <div class="xiaoK2"></div>
+                <div class="xiaoK3"></div>
+                <div class="xiaoK4"></div>
+                <div class="xiaoK5"></div>
+                <div class="xiaoK6"></div>
+                <div class="xiaoK7"></div>
+                <div class="xiaoK8"></div>
+                <div class="xiaoK9"></div>
+                <div class="xiaoK10"></div>
+              </div>
+              <!-- <div class="xiaoK1"></div>
               <div class="xiaoK2"></div>
               <div class="xiaoK3"></div>
               <div class="xiaoK4"></div>
@@ -30,7 +115,7 @@
               <div class="xiaoK7"></div>
               <div class="xiaoK8"></div>
               <div class="xiaoK9"></div>
-              <div class="xiaoK10"></div>
+              <div class="xiaoK10"></div> -->
             </div>
             <div class="shuzi">
               <span>{{ this.shuzi }}%</span>
@@ -51,7 +136,17 @@ import * as echarts from "echarts";
 export default {
   data() {
     return {
-      shuzi: 54,
+      shuzi: 77,
+      dataList: [
+        { value: 40, name: "rose1" },
+        { value: 38, name: "rose2" },
+        { value: 32, name: "rose3" },
+        { value: 30, name: "rose4" },
+        { value: 28, name: "rose5" },
+        { value: 26, name: "rose6" },
+        { value: 22, name: "rose7" },
+        { value: 18, name: "rose8" },
+      ],
     };
   },
   methods: {
@@ -72,16 +167,31 @@ export default {
             // itemStyle: {
             //   borderRadius: 8,
             // },
-            data: [
-              { value: 40, name: "rose 1" },
-              { value: 38, name: "rose 2" },
-              { value: 32, name: "rose 3" },
-              { value: 30, name: "rose 4" },
-              { value: 28, name: "rose 5" },
-              { value: 26, name: "rose 6" },
-              { value: 22, name: "rose 7" },
-              { value: 18, name: "rose 8" },
-            ],
+            data: this.dataList,
+            label: {
+              color: "#fff",
+              fontSize: 16,
+              opacity: 1,
+              //  position: 'inner',
+              // formatter: "{b}\n\n",
+              // padding: [0, -40],
+              formatter: (name) => {
+                var data = this.dataList;
+                var total = 0;
+                var tarValue;
+                for (var i = 0; i < data.length; i++) {
+                  total += data[i].value;
+                  if (data[i].name === name) {
+                    tarValue = data[i].value;
+                  }
+                }
+                var v = tarValue;
+                var b = Math.round((tarValue / total) * 100);
+                return b + "%";
+
+                // return item.data.name + ":" + item.data.value + "（人）" + "";
+              },
+            },
           },
         ],
       };
@@ -168,9 +278,12 @@ export default {
         // width: 97%;
         width: 290px;
         height: 22px;
-        padding: 2px 0;
-        display: flex;
-        justify-content: space-around;
+
+        .tongyi {
+          padding: 2px 0;
+          display: flex;
+          padding-left: 2px;
+        }
         .xiaoK1,
         .xiaoK2,
         .xiaoK3,
@@ -183,7 +296,38 @@ export default {
         .xiaoK10 {
           width: 26px;
           height: 16px;
-          background: linear-gradient(90deg, #03171f 0%, #46f7cb 100%);
+          margin-right: 3px;
+          // background: linear-gradient(90deg, #03171f 0%, #46f7cb 100%);
+        }
+        .xiaoK1 {
+          background: linear-gradient(90deg, #031927 0%, #0a2d2f 100%);
+        }
+        .xiaoK2 {
+          background: linear-gradient(90deg, #0a2d2f 0%, #0e3b3e 100%);
+        }
+        .xiaoK3 {
+          background: linear-gradient(90deg, #0e3b3e 0%, #15514b 100%);
+        }
+        .xiaoK4 {
+          background: linear-gradient(90deg, #15514b 0%, #1d6c61 100%);
+        }
+        .xiaoK5 {
+          background: linear-gradient(90deg, #1d6c61 0%, #217b6c 100%);
+        }
+        .xiaoK6 {
+          background: linear-gradient(90deg, #217b6c 0%, #2ea78f 100%);
+        }
+        .xiaoK7 {
+          background: linear-gradient(90deg, #2ea78f 0%, #35c0a1 100%);
+        }
+        .xiaoK8 {
+          background: linear-gradient(90deg, #35c0a1 0%, #3cd7b4 100%);
+        }
+        .xiaoK9 {
+          background: linear-gradient(90deg, #3cd7b4 0%, #41e6be 100%);
+        }
+        .xiaoK10 {
+          background: linear-gradient(90deg, #41e6be 0%, #45f5ca 100%);
         }
       }
       .shuzi {

@@ -1,5 +1,6 @@
 
 <template>
+<!-- 中国地图 -->
   <div class="container">
     <div class="xx-map" id="baseMap"></div>
   </div>

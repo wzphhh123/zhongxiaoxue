@@ -1,5 +1,6 @@
 
 <template>
+<!-- 3D饼状图 -->
   <div class="chart-container">
     <div class="chart" ref="chart"></div>
   </div>

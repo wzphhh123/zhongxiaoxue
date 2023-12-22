@@ -4,7 +4,7 @@
       <vue-particles
         style="position: fixed; width: 100%"
         color="#fff"
-        :particleOpacity="0.7"
+        :particleOpacity="0.3"
         :particlesNumber="60"
         shapeType="circle"
         :particleSize="4"
@@ -24,7 +24,7 @@
       <div class="main">
         <div class="content">
           <a-row>
-            <a-col :span="6"> <gundongVue /> </a-col>
+            <a-col :span="6"> <contentP1Vue /> </a-col>
             <a-col :span="12"> <contentP2Vue /></a-col>
             <a-col :span="6">
               <contentP3Vue />
@@ -35,7 +35,12 @@
         <div class="footer">
           <a-row>
             <a-col :span="6"><contentP4Vue /></a-col>
-            <a-col :span="12"> <contentP5Vue /></a-col>
+            <a-col :span="12">
+              <contentP5Vue />
+              <!-- <test2Vue /> -->
+              <!-- <test3Vue /> -->
+              <!-- <test21Vue /> -->
+            </a-col>
             <a-col :span="6"> <contentP6Vue /></a-col>
           </a-row>
         </div>
@@ -45,23 +50,26 @@
 </template>
 
 <script>
-import gundongVue from "./component/gundong.vue";
+import contentP1Vue from "./component/contentP1.vue";
 import contentP2Vue from "./component/contentP2.vue";
 import contentP3Vue from "./component/contentP3.vue";
 import contentP4Vue from "./component/contentP4.vue";
 import contentP5Vue from "./component/contentP5.vue";
 import contentP6Vue from "./component/contentP6.vue";
 import testVue from "./component/test.vue";
-
+import test2Vue from "../test/test2.vue";
+import test3Vue from "../test/test3.vue";
+import test21Vue from "../test/test21.vue";
 export default {
   components: {
-    gundongVue,
+    contentP1Vue,
     contentP2Vue,
     contentP3Vue,
     contentP4Vue,
     contentP5Vue,
     contentP6Vue,
     testVue,
+    test2Vue,test3Vue,test21Vue
   },
   data() {
     return {};

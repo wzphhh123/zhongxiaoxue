@@ -7,83 +7,161 @@
         </div>
         <div class="photo">
           <div class="imgdiv">
-            <img
-              v-if="isShow1 == false"
-              src="../../../assets/images/shigu.png"
-              alt=""
-              @click="isShow1 = !isShow1"
-            />
-            <img
-              v-else
-              @click="isShow1 = !isShow1"
-              src="../../../assets/images/shigu2.png"
-              alt=""
-            />
+            <div class="dingWei">
+              <div class="topTitle">
+                <span :class="isShow1 == true ? 'numberBian' : 'nonumberBian'"
+                  >03</span
+                >
+                <div class="title">软件数量</div>
+              </div>
+              <img
+                v-if="isShow1 == false"
+                src="../../../assets/images/shigu.png"
+                alt=""
+                @click="change(1)"
+              />
+              <img
+                v-else
+                @click="change(1)"
+                src="../../../assets/images/shigu2.png"
+                alt=""
+              />
+              <div class="footerTitle">
+                <span :class="isShow1 == true ? 'isTitle' : 'noTitle'"
+                  >事故案例展示区</span
+                >
+              </div>
+            </div>
 
-            <img
-              v-if="isShow2 == false"
-              src="../../../assets/images/xiaofang.png"
-              alt=""
-              @click="isShow2 = !isShow2"
-            />
-            <img
-              v-else
-              @click="isShow2 = !isShow2"
-              src="../../../assets/images/xiaofang2.png"
-              alt=""
-            />
+            <div class="dingWei">
+              <div class="topTitle">
+                <span :class="isShow2 == true ? 'numberBian' : 'nonumberBian'"
+                  >23</span
+                >
+                <div class="title">软件数量</div>
+              </div>
+              <img
+                v-if="isShow2 == false"
+                src="../../../assets/images/xiaofang.png"
+                alt=""
+                @click="change(2)"
+              />
+              <img
+                v-else
+                @click="change(2)"
+                src="../../../assets/images/xiaofang2.png"
+                alt=""
+              />
+              <div class="footerTitle">
+                <span :class="isShow2 == true ? 'isTitle' : 'noTitle'"
+                  >消防安全体验区</span
+                >
+              </div>
+            </div>
 
-            <img
-              v-if="isShow3 == false"
-              src="../../../assets/images/jiaotong.png"
-              alt=""
-              @click="isShow3 = !isShow3"
-            />
-            <img
-              v-else
-              @click="isShow3 = !isShow3"
-              src="../../../assets/images/jiaotong2.png"
-              alt=""
-            />
+            <div class="dingWei">
+              <div class="topTitle">
+                <span :class="isShow3 == true ? 'numberBian' : 'nonumberBian'"
+                  >23</span
+                >
+                <div class="title">软件数量</div>
+              </div>
+              <img
+                v-if="isShow3 == false"
+                src="../../../assets/images/jiaotong.png"
+                alt=""
+                @click="change(3)"
+              />
+              <img
+                v-else
+                @click="change(3)"
+                src="../../../assets/images/jiaotong2.png"
+                alt=""
+              />
+              <div class="footerTitle">
+                <span :class="isShow3 == true ? 'isTitle' : 'noTitle'"
+                  >交通安全体验区</span
+                >
+              </div>
+            </div>
 
-            <img
-              v-if="isShow4 == false"
-              src="../../../assets/images/yiwai.png"
-              alt=""
-              @click="isShow4 = !isShow4"
-            />
-            <img
-              v-else
-              @click="isShow4 = !isShow4"
-              src="../../../assets/images/yiwai2.png"
-              alt=""
-            />
+            <div class="dingWei">
+              <div class="topTitle">
+                <span :class="isShow4 == true ? 'numberBian' : 'nonumberBian'"
+                  >23</span
+                >
+                <div class="title">软件数量</div>
+              </div>
+              <img
+                v-if="isShow4 == false"
+                src="../../../assets/images/yiwai.png"
+                alt=""
+                @click="change(4)"
+              />
+              <img
+                v-else
+                @click="change(4)"
+                src="../../../assets/images/yiwai2.png"
+                alt=""
+              />
+              <div class="footerTitle">
+                <span :class="isShow4 == true ? 'isTitle' : 'noTitle'"
+                  >意外伤害体验区</span
+                >
+              </div>
+            </div>
 
-            <img
-              v-if="isShow5 == false"
-              src="../../../assets/images/yingji.png"
-              alt=""
-              @click="isShow5 = !isShow5"
-            />
-            <img
-              v-else
-              @click="isShow5 = !isShow5"
-              src="../../../assets/images/yingji2.png"
-              alt=""
-            />
-            
-            <img
-              v-if="isShow6 == false"
-              src="../../../assets/images/gonggong.png"
-              alt=""
-              @click="isShow6 = !isShow6"
-            />
-            <img
-              v-else
-              @click="isShow6 = !isShow6"
-              src="../../../assets/images/gonggong2.png"
-              alt=""
-            />
+            <div class="dingWei">
+              <div class="topTitle">
+                <span :class="isShow5 == true ? 'numberBian' : 'nonumberBian'"
+                  >23</span
+                >
+                <div class="title">软件数量</div>
+              </div>
+              <img
+                v-if="isShow5 == false"
+                src="../../../assets/images/yingji.png"
+                alt=""
+                @click="change(5)"
+              />
+              <img
+                v-else
+                @click="change(5)"
+                src="../../../assets/images/yingji2.png"
+                alt=""
+              />
+              <div class="footerTitle">
+                <span :class="isShow5 == true ? 'isTitle' : 'noTitle'"
+                  >应急救援体验区</span
+                >
+              </div>
+            </div>
+
+            <div class="dingWei">
+              <div class="topTitle">
+                <span :class="isShow6 == true ? 'numberBian' : 'nonumberBian'"
+                  >23</span
+                >
+                <div class="title">软件数量</div>
+              </div>
+              <img
+                v-if="isShow6 == false"
+                src="../../../assets/images/gonggong.png"
+                alt=""
+                @click="change(6)"
+              />
+              <img
+                v-else
+                @click="change(6)"
+                src="../../../assets/images/gonggong2.png"
+                alt=""
+              />
+              <div class="footerTitle">
+                <span :class="isShow6 == true ? 'isTitle' : 'noTitle'"
+                  >公共安全体验区</span
+                >
+              </div>
+            </div>
           </div>
           <div class="contentdi">
             <img src="../../../assets/images/contentP2di.png" alt="" />
@@ -194,7 +272,7 @@ export default {
   },
   data() {
     return {
-      isShow1: false,
+      isShow1: true,
       isShow2: false,
       isShow3: false,
       isShow4: false,
@@ -232,6 +310,63 @@ export default {
     };
   },
   methods: {
+    change(e) {
+      if (e == 1) {
+        if (this.isShow1 == false) {
+          this.isShow1 = !this.isShow1;
+        }
+        this.isShow2 = false;
+        this.isShow3 = false;
+        this.isShow4 = false;
+        this.isShow5 = false;
+        this.isShow6 = false;
+      } else if (e == 2) {
+        if (this.isShow2 == false) {
+          this.isShow2 = !this.isShow2;
+        }
+        this.isShow1 = false;
+        this.isShow3 = false;
+        this.isShow4 = false;
+        this.isShow5 = false;
+        this.isShow6 = false;
+      } else if (e == 3) {
+        if (this.isShow3 == false) {
+          this.isShow3 = !this.isShow3;
+        }
+        this.isShow1 = false;
+        this.isShow2 = false;
+        this.isShow4 = false;
+        this.isShow5 = false;
+        this.isShow6 = false;
+      } else if (e == 4) {
+        if (this.isShow4 == false) {
+          this.isShow4 = !this.isShow4;
+        }
+        this.isShow1 = false;
+        this.isShow2 = false;
+        this.isShow3 = false;
+        this.isShow5 = false;
+        this.isShow6 = false;
+      } else if (e == 5) {
+        if (this.isShow5 == false) {
+          this.isShow5 = !this.isShow5;
+        }
+        this.isShow1 = false;
+        this.isShow2 = false;
+        this.isShow3 = false;
+        this.isShow4 = false;
+        this.isShow6 = false;
+      } else {
+        if (this.isShow6 == false) {
+          this.isShow6 = !this.isShow6;
+        }
+        this.isShow1 = false;
+        this.isShow2 = false;
+        this.isShow3 = false;
+        this.isShow4 = false;
+        this.isShow5 = false;
+      }
+    },
     echarts() {
       var myChart = echarts.init(document.getElementById("main"));
       var option = {
@@ -270,12 +405,13 @@ export default {
               name: {
                 align: "left",
                 color: "rgba(255, 255, 255, 1)",
+                width: "20px",
               },
-              b: {
+              v: {
                 align: "left",
                 color: "#fff",
               },
-              v: {
+              b: {
                 align: "left",
                 color: "#37F0FC",
               },
@@ -322,13 +458,14 @@ export default {
               show: false,
               position: "center",
             },
-            emphasis: {
-              label: {
-                show: true,
-                fontSize: 40,
-                fontWeight: "bold",
-              },
-            },
+            // 滑动中间解释文字
+            // emphasis: {
+            //   label: {
+            //     show: true,
+            //     fontSize: 40,
+            //     fontWeight: "bold",
+            //   },
+            // },
             labelLine: {
               show: false,
             },
@@ -373,15 +510,55 @@ export default {
   .photo {
     .imgdiv {
       position: relative;
-      z-index: 999;
+      z-index: 99;
       display: flex;
       justify-content: space-around;
       // margin-left: 12px;
       margin-top: 33px;
       padding: 0 8px 0 11px;
+      cursor: pointer;
       img {
         width: 111px;
         height: 122px;
+      }
+
+      .dingWei {
+        position: relative;
+        .topTitle {
+          position: absolute;
+          text-align: center;
+          top: -20%;
+          left: 19%;
+          .numberBian {
+            font-size: 22px;
+            color: #ffda30;
+            font-weight: 500;
+          }
+          .nonumberBian {
+            font-size: 22px;
+            color: #30fdff;
+            font-weight: 500;
+          }
+          .title {
+            color: #fff;
+            font-size: 17px;
+          }
+        }
+        .footerTitle {
+          position: absolute;
+          font-size: 15px;
+          font-weight: 500;
+          top: 104%;
+          left: 3%;
+          text-align: center;
+          // letter-spacing:0.5px;
+          .isTitle {
+            color: #ffda30;
+          }
+          .noTitle {
+            color: #30fdff;
+          }
+        }
       }
     }
     .contentdi {
