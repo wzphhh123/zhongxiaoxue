@@ -273,7 +273,7 @@ export default {
         color: #bec4c5;
       }
       .jindu {
-        border: 1px solid #4d9496;
+        border: 1px solid #45f5ca;
         margin-top: 5px;
         // width: 97%;
         width: 290px;
@@ -336,10 +336,12 @@ export default {
         top: 30%;
         left: 88%;
         span {
-          color: #bdefff;
-          font-size: 16px;
+          color: #fff;
+          text-shadow: 0px 0px 5px #41e6be;
+          font-size: 14px;
           font-family: Source Han Sans CN;
           font-weight: 400;
+          line-height: 25px;
         }
       }
     }

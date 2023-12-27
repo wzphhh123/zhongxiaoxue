@@ -24,7 +24,7 @@ Vue.use(VueParticles);
 import *as echarts from 'echarts'
 import 'echarts-gl';
 Vue.prototype.$echarts = echarts
- 
+
 new Vue({
   render: h => h(App),
   router,
