@@ -18,7 +18,10 @@
 import * as echarts from "echarts";
 export default {
   data() {
-    return {};
+    return {
+      seriesData: [],
+      xData:[],
+    };
   },
   methods: {
     charts() {
@@ -40,7 +43,7 @@ export default {
         xAxis: [
           {
             type: "category",
-            data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+            data: this.xData,
             axisTick: {
               // 删除刻度
               show: false,
@@ -70,7 +73,7 @@ export default {
             name: "Direct",
             type: "bar",
             barWidth: "40%",
-            data: [10, 52, 200, 334, 390, 330, 220],
+            data: this.seriesData,
             // 阴影
             itemStyle: {
               color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
@@ -100,16 +103,16 @@ export default {
             //数据圆片(蓝色柱子的顶部圆片)
             name: "",
             type: "pictorialBar",
-            symbolSize: [20, 10],
+            symbolSize: [23, 10],
             symbolOffset: [0, -5],
-            z: 3,
+            z: 12,
             itemStyle: {
               opacity: 1,
               color: "rgba(33,243,255,0.7)",
             },
 
             symbolPosition: "end",
-            data: [10, 52, 200, 334, 390, 330, 220],
+            data: this.seriesData,
             // 柱子顶部显示值
             // label: {
             //     show: true,
@@ -122,25 +125,38 @@ export default {
             //最底部圆片
             name: "",
             type: "pictorialBar",
-            symbolSize: [20, 10], //圆片的形状大小
+            symbolSize: [23, 10], //圆片的形状大小
             symbolOffset: [0, -5], //圆片的偏移量
-            z: 3,
+            z: 12,
             itemStyle: {
               opacity: 1,
               color: "rgba(31,97,234,0.8)",
               //color: '#000'
             },
             symbolPosition: "end",
-            data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            data: [1, 1, 1, 1, 1, 1, ],
           },
         ],
       };
 
       myChart.setOption(option);
     },
+    async SoftwareFindAll() {
+      var data = {
+        type: 0,
+      };
+      const res = await this.$api.SoftwareFindAll(data);
+      if (res.success) {
+        res.data.map(item => {
+          this.xData.push(item.name)
+          this.seriesData.push(item.count)
+        })
+        this.charts();
+      }
+    },
   },
   mounted() {
-    this.charts();
+    this.SoftwareFindAll();
   },
 };
 </script>

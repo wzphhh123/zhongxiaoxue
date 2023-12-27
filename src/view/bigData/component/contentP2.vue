@@ -7,158 +7,26 @@
         </div>
         <div class="photo">
           <div class="imgdiv">
-            <div class="dingWei">
+            <div class="dingWei" v-for="(item, index) in quyuData" :key="index">
               <div class="topTitle">
-                <span :class="isShow1 == true ? 'numberBian' : 'nonumberBian'"
-                  >03</span
+                <span
+                  :class="
+                    item.id == showNowQuyuId ? 'numberBian' : 'nonumberBian'
+                  "
+                  >{{ item.count }}</span
                 >
                 <div class="title">软件数量</div>
               </div>
               <img
-                v-if="isShow1 == false"
-                src="../../../assets/images/shigu.png"
+                :src="item.clickUrl"
                 alt=""
-                @click="change(1)"
+                v-if="item.id == showNowQuyuId"
               />
-              <img
-                v-else
-                @click="change(1)"
-                src="../../../assets/images/shigu2.png"
-                alt=""
-              />
+              <img :src="item.normalUrl" alt="" v-else />
               <div class="footerTitle">
-                <span :class="isShow1 == true ? 'isTitle' : 'noTitle'"
-                  >事故案例展示区</span
-                >
-              </div>
-            </div>
-
-            <div class="dingWei">
-              <div class="topTitle">
-                <span :class="isShow2 == true ? 'numberBian' : 'nonumberBian'"
-                  >23</span
-                >
-                <div class="title">软件数量</div>
-              </div>
-              <img
-                v-if="isShow2 == false"
-                src="../../../assets/images/xiaofang.png"
-                alt=""
-                @click="change(2)"
-              />
-              <img
-                v-else
-                @click="change(2)"
-                src="../../../assets/images/xiaofang2.png"
-                alt=""
-              />
-              <div class="footerTitle">
-                <span :class="isShow2 == true ? 'isTitle' : 'noTitle'"
-                  >消防安全体验区</span
-                >
-              </div>
-            </div>
-
-            <div class="dingWei">
-              <div class="topTitle">
-                <span :class="isShow3 == true ? 'numberBian' : 'nonumberBian'"
-                  >23</span
-                >
-                <div class="title">软件数量</div>
-              </div>
-              <img
-                v-if="isShow3 == false"
-                src="../../../assets/images/jiaotong.png"
-                alt=""
-                @click="change(3)"
-              />
-              <img
-                v-else
-                @click="change(3)"
-                src="../../../assets/images/jiaotong2.png"
-                alt=""
-              />
-              <div class="footerTitle">
-                <span :class="isShow3 == true ? 'isTitle' : 'noTitle'"
-                  >交通安全体验区</span
-                >
-              </div>
-            </div>
-
-            <div class="dingWei">
-              <div class="topTitle">
-                <span :class="isShow4 == true ? 'numberBian' : 'nonumberBian'"
-                  >23</span
-                >
-                <div class="title">软件数量</div>
-              </div>
-              <img
-                v-if="isShow4 == false"
-                src="../../../assets/images/yiwai.png"
-                alt=""
-                @click="change(4)"
-              />
-              <img
-                v-else
-                @click="change(4)"
-                src="../../../assets/images/yiwai2.png"
-                alt=""
-              />
-              <div class="footerTitle">
-                <span :class="isShow4 == true ? 'isTitle' : 'noTitle'"
-                  >意外伤害体验区</span
-                >
-              </div>
-            </div>
-
-            <div class="dingWei">
-              <div class="topTitle">
-                <span :class="isShow5 == true ? 'numberBian' : 'nonumberBian'"
-                  >23</span
-                >
-                <div class="title">软件数量</div>
-              </div>
-              <img
-                v-if="isShow5 == false"
-                src="../../../assets/images/yingji.png"
-                alt=""
-                @click="change(5)"
-              />
-              <img
-                v-else
-                @click="change(5)"
-                src="../../../assets/images/yingji2.png"
-                alt=""
-              />
-              <div class="footerTitle">
-                <span :class="isShow5 == true ? 'isTitle' : 'noTitle'"
-                  >应急救援体验区</span
-                >
-              </div>
-            </div>
-
-            <div class="dingWei">
-              <div class="topTitle">
-                <span :class="isShow6 == true ? 'numberBian' : 'nonumberBian'"
-                  >23</span
-                >
-                <div class="title">软件数量</div>
-              </div>
-              <img
-                v-if="isShow6 == false"
-                src="../../../assets/images/gonggong.png"
-                alt=""
-                @click="change(6)"
-              />
-              <img
-                v-else
-                @click="change(6)"
-                src="../../../assets/images/gonggong2.png"
-                alt=""
-              />
-              <div class="footerTitle">
-                <span :class="isShow6 == true ? 'isTitle' : 'noTitle'"
-                  >公共安全体验区</span
+                <span
+                  :class="item.id == showNowQuyuId ? 'isTitle' : 'noTitle'"
+                  >{{ item.name }}</span
                 >
               </div>
             </div>
@@ -171,7 +39,7 @@
 
       <div class="footerContent">
         <div class="top2">
-          <span>交通安全体验区</span>
+          <span>{{ this.top2Name }}</span>
         </div>
         <div
           style="
@@ -232,15 +100,15 @@
                 :class="index % 2 != 0 ? 'bianse' : 'nobianse'"
               >
                 <li style="width: 25%">{{ item.name }}</li>
-                <li style="width: 50%">{{ item.time }}</li>
-                <li style="width: 16%">{{ item.lu }}</li>
+                <li style="width: 50%">{{ item.softwareTime }}</li>
+                <li style="width: 16%">{{ item.usageRate }}</li>
               </ul>
             </vue-seamless-scroll>
           </div>
           <div class="echart">
             <div
-              id="main"
-              style="height: 200px; width: 410px; margin-left: -70px"
+              id="main2"
+              style="height: 200px; width: 550px; margin-left: -140px"
             ></div>
           </div>
         </div>
@@ -272,43 +140,16 @@ export default {
   },
   data() {
     return {
-      isShow1: true,
-      isShow2: false,
-      isShow3: false,
-      isShow4: false,
-      isShow5: false,
-      isShow6: false,
-      dataList: [
-        {
-          name: "你好",
-          time: 5000,
-          lu: "64%",
-        },
-        {
-          name: "你好23432434",
-          time: 5000,
-          lu: "64%",
-        },
-        {
-          name: "你好4434",
-          time: 50005454554,
-          lu: "64%",
-        },
-        {
-          name: "你好44",
-          time: 5000,
-          lu: "64%",
-        },
-      ],
-      echartList: [
-        { value: 1048, name: "111" },
-        { value: 735, name: "22" },
-        { value: 580, name: "33" },
-        { value: 484, name: "444" },
-        { value: 300, name: "55" },
-      ],
+      showNowQuyuId: "",
+      quyuIdList: [],
+      quyuData: [], //区域管理
+      top2Name: "",
+      dataList: [], //展示
     };
   },
+  // watch() {
+  //   this.findAllSoftware();
+  // },
   methods: {
     change(e) {
       if (e == 1) {
@@ -368,7 +209,7 @@ export default {
       }
     },
     echarts() {
-      var myChart = echarts.init(document.getElementById("main"));
+      var myChart = echarts.init(document.getElementById("main2"));
       var option = {
         tooltip: {
           trigger: "item",
@@ -378,21 +219,23 @@ export default {
           itemWidth: 10,
           orient: "horizontal", //设置图例排列纵向显示
           align: "left", //设置图例中文字位置在icon标识符的右侧
-          left: "75%",
+          left: "68%",
           top: "20%",
           color: "red",
           itemGap: 10, //设置图例之间的间距
           padding: [0, 0, 8, 0], //设置图例与圆环图之间的间距
           formatter: (name) => {
-            var data = this.echartList;
+            var data = this.dataList;
             var total = 0;
             var tarValue;
             for (var i = 0; i < data.length; i++) {
-              total += data[i].value;
+              data[i].softwareTime  = Number(data[i].softwareTime)
+              total += data[i].softwareTime;
               if (data[i].name === name) {
-                tarValue = data[i].value;
+                tarValue = data[i].softwareTime;
               }
             }
+
             var v = tarValue;
             var b = Math.round((tarValue / total) * 100);
             return (
@@ -450,7 +293,6 @@ export default {
 
         series: [
           {
-            name: "Access From",
             type: "pie",
             radius: ["55%", "70%"],
             avoidLabelOverlap: false,
@@ -469,15 +311,51 @@ export default {
             labelLine: {
               show: false,
             },
-            data: this.echartList,
+            data: this.dataList,
           },
         ],
       };
       myChart.setOption(option);
     },
+    // 区域管理
+    async AreaFindAll() {
+      const res = await this.$api.AreaFindAll({ id: 2 });
+      if (res.success) {
+        this.quyuData = res.data;
+        this.showNowQuyuId = res.data[0].id;
+        res.data.map((item, index) => {
+          this.quyuIdList.push(item.id);
+        });
+      }
+    },
+    // 区域管理展示
+    async findAllSoftware(e) {
+      const res = await this.$api.findAllSoftware({ id: e });
+      if (res.success) {   
+        res.data.map.map((item) => {
+          item.value = Number(item.softwareTime) 
+        })
+        this.dataList = res.data.map;
+        this.top2Name = res.data.name;
+        this.echarts();
+      }
+    },
+    lunbo() {
+      let index = 1;
+      setInterval(() => {
+        this.showNowQuyuId = this.quyuIdList[index];
+        index++;
+        this.findAllSoftware(this.showNowQuyuId);
+        if (index >= this.quyuIdList.length) {
+          index = 0;
+        }
+      }, 500);
+    },
   },
   mounted() {
-    this.echarts();
+    this.AreaFindAll();
+    this.findAllSoftware(3);
+    // this.lunbo();
   },
 };
 </script>
@@ -527,7 +405,7 @@ export default {
         .topTitle {
           position: absolute;
           text-align: center;
-          top: -20%;
+          top: -10%;
           left: 19%;
           .numberBian {
             font-size: 22px;

@@ -16,6 +16,14 @@ import Antd from "ant-design-vue";
 import "ant-design-vue/dist/antd.css";
 Vue.use(Antd);
 
+// 全局配置及工具函数
+import * as utils from "./assets/js/utils";
+Vue.prototype.$utils = utils;
+import config from "./assets/js/config";
+Vue.prototype.$config = config;
+import api from "./common/api"; //引入请求函数
+Vue.prototype.$api = api;
+
 // 星座图
 import VueParticles from "vue-particles";
 Vue.use(VueParticles);
@@ -24,7 +32,7 @@ Vue.use(VueParticles);
 import *as echarts from 'echarts'
 import 'echarts-gl';
 Vue.prototype.$echarts = echarts
-
+ 
 new Vue({
   render: h => h(App),
   router,

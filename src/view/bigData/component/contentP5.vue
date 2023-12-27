@@ -55,53 +55,55 @@ export default {
   props: {},
   data() {
     return {
-      mapData: [{ area: "北京", count: 20 }],
+      // mapData: [{ area: "北京", count: 20 }],
       map: China, // 加载地图
-      chinaData: [
-        { name: "北京", value: [116.405289, 39.904987] },
-        { name: "天津", value: [117.190186, 39.125595] },
-        { name: "河北", value: [114.502464, 38.045475] },
-        { name: "黑龙江", value: [126.642464, 45.756966] },
-        { name: "吉林", value: [125.324501, 43.886841] },
-        { name: "辽宁", value: [123.429092, 41.796768] },
-        { name: "内蒙古", value: [111.75199, 40.84149] },
-        { name: "山西", value: [112.549248, 37.857014] },
-        { name: "山东", value: [117.000923, 36.675808] },
-        { name: "河南", value: [113.665413, 34.757977] },
-        { name: "陕西", value: [108.948021, 34.263161] },
-        { name: "湖北", value: [114.298569, 30.584354] },
-        { name: "江苏", value: [118.76741, 32.041546] },
-        { name: "安徽", value: [117.283043, 31.861191] },
-        { name: "上海", value: [121.472641, 31.231707] },
-        { name: "湖南", value: [112.982277, 28.19409] },
-        { name: "江西", value: [115.892151, 28.676493] },
-        { name: "浙江", value: [120.15358, 30.287458] },
-        { name: "福建", value: [119.306236, 26.075302] },
-        { name: "广东", value: [113.28064, 23.125177] },
-        { name: "台湾", value: [121.520076, 25.030724] },
-        { name: "海南", value: [110.19989, 20.04422] },
-        { name: "广西", value: [108.320007, 22.82402] },
-        { name: "重庆", value: [106.504959, 29.533155] },
-        { name: "云南", value: [102.71225, 25.040609] },
-        { name: "贵州", value: [106.713478, 26.578342] },
-        { name: "四川", value: [104.065735, 30.659462] },
-        { name: "宁夏", value: [106.23248, 38.48644] },
-        { name: "甘肃", value: [103.83417, 36.06138] },
-        { name: "青海", value: [101.77782, 36.61729] },
-        { name: "西藏", value: [91.1145, 29.64415] },
-        { name: "新疆", value: [87.61688, 43.82663] },
-        { name: "香港", value: [114.16546, 22.27534] },
-        { name: "澳门", value: [113.54913, 22.19875] },
-      ],
+      // chinaData: [
+      //   { name: "北京", value: [116.405289, 39.904987] },
+      //   { name: "天津", value: [117.190186, 39.125595] },
+      //   { name: "河北", value: [114.502464, 38.045475] },
+      //   { name: "黑龙江", value: [126.642464, 45.756966] },
+      //   { name: "吉林", value: [125.324501, 43.886841] },
+      //   { name: "辽宁", value: [123.429092, 41.796768] },
+      //   { name: "内蒙古", value: [111.75199, 40.84149] },
+      //   { name: "山西", value: [112.549248, 37.857014] },
+      //   { name: "山东", value: [117.000923, 36.675808] },
+      //   { name: "河南", value: [113.665413, 34.757977] },
+      //   { name: "陕西", value: [108.948021, 34.263161] },
+      //   { name: "湖北", value: [114.298569, 30.584354] },
+      //   { name: "江苏", value: [118.76741, 32.041546] },
+      //   { name: "安徽", value: [117.283043, 31.861191] },
+      //   { name: "上海", value: [121.472641, 31.231707] },
+      //   { name: "湖南", value: [112.982277, 28.19409] },
+      //   { name: "江西", value: [115.892151, 28.676493] },
+      //   { name: "浙江", value: [120.15358, 30.287458] },
+      //   { name: "福建", value: [119.306236, 26.075302] },
+      //   { name: "广东", value: [113.28064, 23.125177] },
+      //   { name: "台湾", value: [121.520076, 25.030724] },
+      //   { name: "海南", value: [110.19989, 20.04422] },
+      //   { name: "广西", value: [108.320007, 22.82402] },
+      //   { name: "重庆", value: [106.504959, 29.533155] },
+      //   { name: "云南", value: [102.71225, 25.040609] },
+      //   { name: "贵州", value: [106.713478, 26.578342] },
+      //   { name: "四川", value: [104.065735, 30.659462] },
+      //   { name: "宁夏", value: [106.23248, 38.48644] },
+      //   { name: "甘肃", value: [103.83417, 36.06138] },
+      //   { name: "青海", value: [101.77782, 36.61729] },
+      //   { name: "西藏", value: [91.1145, 29.64415] },
+      //   { name: "新疆", value: [87.61688, 43.82663] },
+      //   { name: "香港", value: [114.16546, 22.27534] },
+      //   { name: "澳门", value: [113.54913, 22.19875] },
+      // ],
+      // 地图中心位置
       scatterData: [
         {
           name: "北京",
-          value: [116.46, 39.92, 100],
-          count: 20,
+          value: [116.46, 39.92],
           symbol:
             "image://data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAwCAYAAACfbhNRAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFHGlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDUgNzkuMTYzNDk5LCAyMDE4LzA4LzEzLTE2OjQwOjIyICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOSAoV2luZG93cykiIHhtcDpDcmVhdGVEYXRlPSIyMDIyLTA2LTEzVDE3OjEzOjM2KzA4OjAwIiB4bXA6TW9kaWZ5RGF0ZT0iMjAyMi0wNi0xM1QxNzoxOTo1NSswODowMCIgeG1wOk1ldGFkYXRhRGF0ZT0iMjAyMi0wNi0xM1QxNzoxOTo1NSswODowMCIgZGM6Zm9ybWF0PSJpbWFnZS9wbmciIHBob3Rvc2hvcDpDb2xvck1vZGU9IjMiIHBob3Rvc2hvcDpJQ0NQcm9maWxlPSJzUkdCIElFQzYxOTY2LTIuMSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo3MWRkOTZkNi1hZDMx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",
         },
       ],
+      symbol:
+        "image://data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAwCAYAAACfbhNRAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFHGlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDUgNzkuMTYzNDk5LCAyMDE4LzA4LzEzLTE2OjQwOjIyICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOSAoV2luZG93cykiIHhtcDpDcmVhdGVEYXRlPSIyMDIyLTA2LTEzVDE3OjEzOjM2KzA4OjAwIiB4bXA6TW9kaWZ5RGF0ZT0iMjAyMi0wNi0xM1QxNzoxOTo1NSswODowMCIgeG1wOk1ldGFkYXRhRGF0ZT0iMjAyMi0wNi0xM1QxNzoxOTo1NSswODowMCIgZGM6Zm9ybWF0PSJpbWFnZS9wbmciIHBob3Rvc2hvcDpDb2xvck1vZGU9IjMiIHBob3Rvc2hvcDpJQ0NQcm9maWxlPSJzUkdCIElFQzYxOTY2LTIuMSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo3MWRkOTZkNi1hZDMx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",
       option: {
         // backgroundColor: '#001f4833',
         tooltip: {
@@ -157,11 +159,11 @@ export default {
             data: this.scatterData,
             // geoIndex: 0, // 共享 geo 样式
             itemStyle: {
-              areaColor: "rgba(23,58,103,0)",
+              areaColor: "rgba(23,58,103,0)", // 默认地图颜色
               // areaColor: '#173a67',
+              borderColor: "#84e0f6", // 边框
               shadowColor: "rgba(132,224,246,1)", // 省份边框阴影
               shadowBlur: 6, // 省份边框聚焦
-              borderColor: "#84e0f6",
               borderWidth: 2,
             },
           },
@@ -192,17 +194,14 @@ export default {
     };
   },
   computed: {},
-  watch: {
-    mapData: {
-      handler(newName, oldName) {
-        this.initMap();
-      },
-      deep: true,
-    },
-  },
-  mounted() {
-    this.initMap();
-  },
+  // watch: {
+  //   mapData: {
+  //     handler(newName, oldName) {
+  //       this.initMap();
+  //     },
+  //     deep: true,
+  //   },
+  // },
   methods: {
     // 销毁图表实例, 防止内存泄漏
     destroyChart() {
@@ -249,6 +248,15 @@ export default {
       this.$set(this.option.series[0], "data", this.scatterData);
       myChart.setOption(this.option, true);
     },
+    async findAllShow() {
+      const res = await this.$api.findAllShow();
+      if (res.success) {
+        // res.data.value.map((item) => {
+
+        // })
+        this.initMap();
+      }
+    },
     change(e) {
       if (e == 1) {
         if (this.isShow1 == false) {
@@ -270,6 +278,9 @@ export default {
         }
       }
     },
+  },
+  mounted() {
+    this.findAllShow();
   },
 };
 </script>

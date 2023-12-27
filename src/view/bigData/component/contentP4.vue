@@ -106,16 +106,6 @@
                 <div class="xiaoK9"></div>
                 <div class="xiaoK10"></div>
               </div>
-              <!-- <div class="xiaoK1"></div>
-              <div class="xiaoK2"></div>
-              <div class="xiaoK3"></div>
-              <div class="xiaoK4"></div>
-              <div class="xiaoK5"></div>
-              <div class="xiaoK6"></div>
-              <div class="xiaoK7"></div>
-              <div class="xiaoK8"></div>
-              <div class="xiaoK9"></div>
-              <div class="xiaoK10"></div> -->
             </div>
             <div class="shuzi">
               <span>{{ this.shuzi }}%</span>
@@ -124,7 +114,7 @@
         </div>
         <div class="contentMain">
           <div class="mainTitle">各区域耗电量占比:</div>
-          <div id="main4" style="width: 300px; height: 300px"></div>
+          <div id="main4" style="height: 300px"></div>
         </div>
       </div>
     </div>
@@ -136,16 +126,8 @@ import * as echarts from "echarts";
 export default {
   data() {
     return {
-      shuzi: 77,
+      shuzi: "",
       dataList: [
-        { value: 40, name: "rose1" },
-        { value: 38, name: "rose2" },
-        { value: 32, name: "rose3" },
-        { value: 30, name: "rose4" },
-        { value: 28, name: "rose5" },
-        { value: 26, name: "rose6" },
-        { value: 22, name: "rose7" },
-        { value: 18, name: "rose8" },
       ],
     };
   },
@@ -156,40 +138,85 @@ export default {
         toolbox: {
           show: true,
         },
+        color: [
+          "#7351E3",
+          "#EA5401",
+          "#209A90",
+          "#FC4873",
+          "#FDD100",
+          "#42EAFB",
+        ],
         series: [
           {
             name: "Nightingale Chart",
             type: "pie",
-            radius: [25, 120],
-            center: ["50%", "50%"],
+            radius: [25, 90],
+            center: ["40%", "45%"],
             roseType: "area",
             // 弧度
             // itemStyle: {
             //   borderRadius: 8,
             // },
             data: this.dataList,
+            labelLine: {
+              //设置延长线的长度
+              normal: {
+                length: 10, //设置延长线的长度
+                // length2: 10,//设置第二段延长线的长度
+              },
+            },
             label: {
               color: "#fff",
               fontSize: 16,
               opacity: 1,
-              //  position: 'inner',
-              // formatter: "{b}\n\n",
-              // padding: [0, -40],
-              formatter: (name) => {
-                var data = this.dataList;
-                var total = 0;
-                var tarValue;
-                for (var i = 0; i < data.length; i++) {
-                  total += data[i].value;
-                  if (data[i].name === name) {
-                    tarValue = data[i].value;
-                  }
-                }
-                var v = tarValue;
-                var b = Math.round((tarValue / total) * 100);
-                return b + "%";
+              position: "outside",
+              formatter: "{name|{b}}\n{per|{d}%}",
+              padding: [0, -10],
 
-                // return item.data.name + ":" + item.data.value + "（人）" + "";
+              // formatter: (name) => {
+              //   var data = this.dataList;
+              //   var total = 0;
+              //   var tarValue;
+              //   for (var i = 0; i < data.length; i++) {
+              //     total += data[i].value;
+              //     // console.log("i",i);
+              //     // console.log("total",total);
+              //     if (data[i].name === name) {
+              //       tarValue = data[i].value;
+              //       console.log("tarValue",tarValue);
+              //     }
+              //   }
+              //   var v = tarValue;
+              //   var b = Math.round((tarValue / total) * 100);
+              //   return b + "%";
+
+              //   // return item.data.name + ":" + item.data.value + "（人）" + "";
+              // },
+              rich: {
+                fangkuai: {
+                  width: "5px",
+                  height: "5px",
+                  color: "#fff",
+                },
+                name: {
+                  color: "#fff",
+                  lineHeight: 20, //设置最后一行空数据高度，为了能让延长线与hr线对接起来
+                  align: "center",
+                },
+                // hr: {
+                //   //设置hr是为了让中间线能够自适应长度
+                //   borderColor: "auto", //hr的颜色为auto时候会主动显示颜色的
+                //   width: "75%",
+                //   borderWidth: 0.5,
+                //   height: 0.5,
+                // },
+                per: {
+                  //用百分比数据来调整下数字位置，显的好看些。如果不设置，formatter最后一行的空数据就不需要
+                  padding: [4, 0],
+                  fontSize: "16px",
+                  color: "#488CF7",
+                  fontFamily: "AlibabaSans",
+                },
               },
             },
           },
@@ -197,9 +224,18 @@ export default {
       };
       myChart.setOption(option);
     },
+    // 获取电量
+    async findAllElectricity() {
+      const res = await this.$api.findAllElectricity();
+      if (res.success) {
+        this.shuzi = res.data.sumElec;
+        this.dataList = res.data.map;
+        this.charts();
+      }
+    },
   },
   mounted() {
-    this.charts();
+    this.findAllElectricity();
   },
 };
 </script>
@@ -273,7 +309,7 @@ export default {
         color: #bec4c5;
       }
       .jindu {
-        border: 1px solid #45f5ca;
+        border: 1px solid #4d9496;
         margin-top: 5px;
         // width: 97%;
         width: 290px;
@@ -336,12 +372,10 @@ export default {
         top: 30%;
         left: 88%;
         span {
-          color: #fff;
-          text-shadow: 0px 0px 5px #41e6be;
-          font-size: 14px;
+          color: #bdefff;
+          font-size: 16px;
           font-family: Source Han Sans CN;
           font-weight: 400;
-          line-height: 25px;
         }
       }
     }

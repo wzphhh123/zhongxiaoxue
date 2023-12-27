@@ -1,15 +1,27 @@
 <template>
   <div>
     <div class="top">
-      <span >人员进入统计</span>
+      <span>人员进入统计</span>
     </div>
     <div class="content">
       <div style="display: flex">
         <div class="tu1"></div>
+        <div class="tu1Show">
+          <div style="color: #30fdff; font-size: 22px; text-align: center">
+            {{ this.sumCount }}
+          </div>
+          <div style="color: #fff">总体检人数</div>
+        </div>
         <div class="tu2"></div>
+        <div class="tu1Show">
+          <div style="color: #30fdff; font-size: 22px; text-align: center">
+            {{ this.sumTime }}
+          </div>
+          <div style="color: #fff">总参观时长</div>
+        </div>
       </div>
       <div class="gundong">
-        <table
+        <!-- <table
           style="
             width: 100%;
             color: #fff;
@@ -41,7 +53,33 @@
               参观时长
             </th>
           </tr>
-        </table>
+        </table> -->
+        <div>
+          <ul
+            style="
+              color: #fff;
+              width: 100%;
+              display: flex;
+              list-style-type: none;
+              background-color: #084f8c;
+              border-radius: 5px;
+              text-align: center;
+            "
+          >
+            <li style="width: 25%; margin-left: -9%; padding: 10px 0">
+              进入时间
+            </li>
+            <li style="width: 25%; margin-left: 2%; padding: 10px 0">
+              体验区域
+            </li>
+            <li style="width: 25%; margin-left: 3%; padding: 10px 0">
+              体验人数
+            </li>
+            <li style="width: 25%; margin-left: 3%; padding: 10px 0">
+              参观时长
+            </li>
+          </ul>
+        </div>
         <vue-seamless-scroll
           class="seamless-warp"
           :data="dataList"
@@ -52,10 +90,12 @@
             :key="index"
             :class="index % 2 != 0 ? 'bianse' : 'nobianse'"
           >
-            <li style="margin-left: -15px; width: 14%">{{ item.p1 }}</li>
-            <li style="width: 41%">{{ item.p2 }}</li>
-            <li style="width: 14%">{{ item.p3 }}</li>
-            <li style="width: 20%; margin-left: 10%">{{ item.p4 }}</li>
+            <li style="margin-left: -15px; width: 14%">{{ item.startTime }}</li>
+            <li style="width: 41%">{{ item.name }}</li>
+            <li style="width: 14%">{{ item.count }}</li>
+            <li style="width: 20%; margin-left: 10%">
+              {{ item.visitingTime }}
+            </li>
           </ul>
         </vue-seamless-scroll>
       </div>
@@ -85,27 +125,26 @@ export default {
   },
   data() {
     return {
-      dataList: [
-        {
-          p1: "111",
-          p2: "事故战术",
-          p3: "5555",
-          p4: "1:30",
-        },
-        {
-          p1: "2222",
-          p2: "事故战术区域",
-          p3: "5555",
-          p4: "1:30",
-        },
-        {
-          p1: "333",
-          p2: "事区域",
-          p3: "5555",
-          p4: "1:30",
-        },
-      ],
+      dataList: [],
+      sumCount: "",
+      sumTime: "",
     };
+  },
+  methods: {
+    async showfindAllUser() {
+      const res = await this.$api.showfindAllUser();
+      if (res.success) {
+        this.dataList = res.data.map;
+        this.sumCount = res.data.sumCount;
+        // 先转化成Nuber类型在取整
+        res.data.sumTime = Number(res.data.sumTime);
+        res.data.sumTime = res.data.sumTime.toFixed(0);
+        this.sumTime = res.data.sumTime;
+      }
+    },
+  },
+  mounted() {
+    this.showfindAllUser();
   },
 };
 </script>
@@ -118,10 +157,10 @@ export default {
   height: 39px;
   line-height: 39px;
   padding-left: 42px;
-  letter-spacing:1px;
-  span{
+  letter-spacing: 1px;
+  span {
     color: #fff;
-  font-size: 16px;
+    font-size: 16px;
   }
 }
 .bianse {
@@ -143,8 +182,12 @@ export default {
     width: 60px;
     background-repeat: no-repeat;
     height: 60px;
-    margin-left: 15%;
+    margin-left: 12%;
     margin-top: 45px;
+  }
+  .tu1Show {
+    margin-left: 3%;
+    margin-top: 10%;
   }
   .tu2 {
     background-image: url("../../../assets/images/总参观时长.png");
@@ -152,7 +195,7 @@ export default {
     width: 60px;
     background-repeat: no-repeat;
     height: 60px;
-    margin-left:27%;
+    margin-left: 12%;
     margin-top: 45px;
   }
   .gundong {
@@ -164,19 +207,20 @@ export default {
       overflow: hidden;
       position: relative;
       overflow-y: auto;
+      margin-top: -3%;
       &::-webkit-scrollbar {
         width: 0px;
         height: 0px;
       }
-    }
-    ul {
-      display: flex;
-      li {
-        list-style-type: none;
-        color: #fff;
-        padding: 7px;
-        text-align: center;
-        // margin-top: -10px;
+      ul {
+        display: flex;
+        li {
+          list-style-type: none;
+          color: #fff;
+          padding: 7px;
+          text-align: center;
+          // margin-top: -10px;
+        }
       }
     }
   }

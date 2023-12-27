@@ -7,11 +7,9 @@
       <div class="imgDiv">
         <div class="img1">
           <img src="../../../assets/images/xiao2.png" alt="" />
-          <div
-            style="position: absolute; top: 70%; left: 15%; text-align: center"
-          >
+          <div style="position: absolute; top: 70%; left: 14%">
             <p>
-              <span>{{ 368 }}</span>
+              <span>{{ this.dataList.sumCount }}</span>
               <span>人</span>
             </p>
             <span class="imgFootTitle">总健康体验人数</span>
@@ -25,7 +23,7 @@
           />
           <div style="position: absolute; top: 70%; left: 14%">
             <p>
-              <span>{{ 200 }}</span>
+              <span>{{ this.dataList.healthCount }}</span>
               <span>人</span>
             </p>
             <span class="imgFootTitle">总健康人数</span>
@@ -37,9 +35,9 @@
             src="../../../assets/images/xiao3.png"
             alt=""
           />
-          <div style="position: absolute; top: 70%; left: 14%">
+          <div style="position: absolute; top: 70%; left: 12%">
             <p>
-              <span>{{ 168 }}</span>
+              <span>{{ this.dataList.notHealthCount }}</span>
               <span>人</span>
             </p>
             <span class="imgFootTitle">总健康异常人数</span>
@@ -68,46 +66,31 @@ export default {
     return {
       optionData: [
         {
-          name: "医药研发",
-          value: 12,
+          name: "总健康体验人数",
+          value: "",
           itemStyle: {
             opacity: 0.2,
-            color: "#D6476C",
+            color: "#18B2FE",
           },
         },
         {
-          name: "生物科技",
-          value: 16,
+          name: "总健康人数",
+          value: "",
           itemStyle: {
             opacity: 0.2,
-            color: "#017DC1",
+            color: "#80D9FE",
           },
         },
         {
-          name: "房地产",
-          value: 14,
+          name: "总健康异常人数",
+          value: "",
           itemStyle: {
             opacity: 0.2,
-            color: "#804BC6",
-          },
-        },
-        {
-          name: "互联网科技",
-          value: 81,
-          itemStyle: {
-            opacity: 0.2,
-            color: "#44BA9C",
-          },
-        },
-        {
-          name: "软件外包",
-          value: 66,
-          itemStyle: {
-            opacity: 0.2,
-            color: "#2FBBFF",
+            color: "#00D7E9",
           },
         },
       ],
+      dataList: {},
     };
   },
   methods: {
@@ -202,14 +185,36 @@ export default {
       });
       chartPanel.setOption(option);
     },
+    // 健康体验管理
+    async showHealthy() {
+      const res = await this.$api.showHealthy();
+      if (res.success) {
+        this.dataList = res.data;
+        // 对象转化为数组
+        let a = Object.values(this.dataList);
+        var one = "";
+        var two = "";
+        var three = "";
+        a.map((item) => {
+          console.log(item);
+          one = a[0];
+          two = a[1];
+          three = a[2];
+        });
+        this.optionData[0].value = one;
+        this.optionData[1].value = three;
+        this.optionData[2].value = two;
+        this.draw3d();
+      }
+    },
   },
   mounted() {
-    this.draw3d();
+    this.showHealthy();
     this.$nextTick(() => {
       let parent = document.getElementById("chart-panel"); // 获取父元素
       let canvas = parent.getElementsByTagName("canvas"); // 获取父元素下面的所有canvas元素
       console.log(canvas);
-      canvas[1].style.transform = "rotateX(30deg)";
+      // canvas[1].style.transform = "rotateX(30deg)";
     });
   },
 };
@@ -249,7 +254,8 @@ export default {
         color: #7cf8fd;
         font-size: 29px;
         height: 10px;
-        margin-left: 16px;
+        // margin-left: 16px;
+        justify-content: center;
         span:nth-child(2) {
           font-size: 16px;
           margin-top: 12px;
@@ -268,7 +274,7 @@ export default {
         color: #7cf8fd;
         font-size: 29px;
         height: 10px;
-        margin-left: 15px;
+        justify-content: center;
         span:nth-child(2) {
           font-size: 16px;
           margin-top: 12px;
@@ -288,7 +294,7 @@ export default {
         color: #7cf8fd;
         font-size: 29px;
         height: 10px;
-        margin-left: 15px;
+        justify-content: center;
         span:nth-child(2) {
           font-size: 16px;
           margin-top: 12px;
