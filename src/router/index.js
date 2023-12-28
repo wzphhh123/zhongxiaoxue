@@ -31,13 +31,13 @@ const routes = [
 		path: "/index",
 		name: "index",
 		component: () => import("@/view/home/index.vue"),
-		redirect: "/people",
+		redirect: "/locateManage",
 		children: [
 			// 人员统计管理
 			{
-				path: "/people",
-				name: "people",
-				component: () => import("@/view/content/people.vue"),
+				path: "/locateManage",
+				name: "locateManage",
+				component: () => import("@/view/content/locateManage.vue"),
 			},
 			// 区域管理
 			{

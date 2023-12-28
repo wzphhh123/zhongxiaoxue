@@ -9,15 +9,15 @@
           :wrapper-col="wrapperCol"
           layout="inline"
         >
-          <a-form-model-item label="姓名">
+          <a-form-model-item label="名称">
             <a-input
               v-model="searchForm.name"
               style="width: 250px"
-              placeholder="请输入姓名"
+              placeholder="请输入名称"
             />
           </a-form-model-item>
         </a-form-model>
-        <a-button type="primary" @click="personnelPage()">查询</a-button>
+        <a-button type="primary" @click="placepage()">查询</a-button>
         <a-button type="primary" @click="reset()">重置</a-button>
         <a-button type="primary" @click="addVisible = true">新增</a-button>
       </div>
@@ -36,7 +36,7 @@
               title="确定删除?"
               ok-text="是"
               cancel-text="否"
-              @confirm="personnelDelete(record.id)"
+              @confirm="placeDelete(record.id)"
             >
               <span>删除</span>
             </a-popconfirm>
@@ -58,14 +58,14 @@
         :label-col="labelCol2"
         :wrapper-col="wrapperCol2"
       >
-        <a-form-model-item label="人员姓名" prop="name">
+        <a-form-model-item label="地域名称" prop="name">
           <a-input v-model="addForm.name" />
         </a-form-model-item>
-        <a-form-model-item label="岗位" prop="department">
-          <a-input v-model="addForm.department" />
+        <a-form-model-item label="长" prop="grow">
+          <a-input v-model="addForm.grow" />
         </a-form-model-item>
-        <a-form-model-item label="所属部门/组" prop="station">
-          <a-input v-model="addForm.station" />
+        <a-form-model-item label="宽" prop="wide">
+          <a-input v-model="addForm.wide" />
         </a-form-model-item>
       </a-form-model>
     </a-modal>
@@ -82,16 +82,16 @@ export default {
       wrapperCol2: { span: 12 },
       columns: [
         {
-          title: "人员姓名",
+          title: "地域名称",
           dataIndex: "name",
           align: "center",
         },
         {
-          title: "岗位",
-          dataIndex: "department",
+          title: "长",
+          dataIndex: "grow",
           align: "center",
         },
-        { title: "所属部门/组", dataIndex: "station", align: "center" },
+        { title: "宽", dataIndex: "wide", align: "center" },
         {
           title: "操作",
           dataIndex: "operation",
@@ -107,17 +107,17 @@ export default {
             trigger: "blur",
           },
         ],
-        department: [
+        grow: [
           {
             required: true,
             message: "请填写岗位",
             trigger: "blur",
           },
         ],
-        station: [
+        wide: [
           {
             required: true,
-            message: "所属部门/组",
+            message: "宽",
             trigger: "blur",
           },
         ],
@@ -135,32 +135,33 @@ export default {
   },
   methods: {
     //开发者管理列表
-    async personnelPage() {
+    async placepage() {
       var data = {
         pageNum: this.pagination.current,
         pageSize: this.pagination.pageSize,
         name: this.searchForm.name,
       };
-      const res = await this.$api.personnelPage(data);
+      const res = await this.$api.placepage(data);
       if (res.success) {
         this.dataLists = res.data.records;
         this.pagination.total = res.data.total;
       }
     },
-    async addEditpersonnel() {
-      const res = await this.$api.addEditpersonnel(this.addForm);
+    // 新增编辑
+    async addEditPlace() {
+      const res = await this.$api.addEditPlace(this.addForm);
       if (res.success) {
         this.$message.success(res.msg);
-        this.personnelPage();
+        this.placepage();
       } else {
         this.$message.warn(res.msg);
       }
     },
     // 删除开发者项目
-    async personnelDelete(e) {
-      const res = await this.$api.personnelDelete({ id: e });
+    async placeDelete(e) {
+      const res = await this.$api.placeDelete({ id: e });
       if (res.success) {
-        this.personnelPage();
+        this.placepage();
         this.$message.success(res.msg);
       }
     },
@@ -170,11 +171,11 @@ export default {
       console.log("00", pageSize);
       this.pagination.current = current;
       this.pagination.pageSize = pageSize;
-      this.personnelPage();
+      this.placepage();
     },
     reset() {
       this.searchForm = {};
-      this.personnelPage();
+      this.placepage();
     },
     handleOk(e) {
       this.$refs.ruleForm.validate((valid) => {
@@ -183,7 +184,7 @@ export default {
           if (e) {
             this.addForm.id = e;
           }
-          this.addEditpersonnel();
+          this.addEditPlace();
           this.addForm = {};
         }
       });
@@ -195,7 +196,7 @@ export default {
     },
   },
   mounted() {
-    this.personnelPage();
+    this.placepage();
   },
 };
 </script>

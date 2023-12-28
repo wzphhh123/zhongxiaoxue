@@ -17,10 +17,10 @@
           >
             <a-sub-menu key="sub1">
               <span slot="title"
-                ><a-icon type="mail" /><span>人员统计管理</span></span
+                ><a-icon type="mail" /><span>位置管理</span></span
               >
               <a-menu-item key="1" @click="goContent(0)">
-                人员统计管理
+                位置管理
               </a-menu-item>
             </a-sub-menu>
             <a-sub-menu key="sub2">
@@ -30,7 +30,11 @@
               <a-menu-item key="2" @click="goContent(1)">
                 区域管理
               </a-menu-item>
+              <!-- <a-menu-item key="7" @click="goContent(6)">
+                门禁管理
+              </a-menu-item> -->
             </a-sub-menu>
+
             <a-sub-menu key="sub3">
               <span slot="title"
                 ><a-icon type="appstore" /><span>用户健康管理</span></span
@@ -49,10 +53,10 @@
             </a-sub-menu>
             <a-sub-menu key="sub6">
               <span slot="title"
-                ><a-icon type="appstore" /><span>软件使用占比管理</span></span
+                ><a-icon type="appstore" /><span>软件管理</span></span
               >
               <a-menu-item key="6" @click="goContent(5)">
-                软件使用占比管理
+                软件管理
               </a-menu-item>
             </a-sub-menu>
           </a-menu>
@@ -84,7 +88,7 @@ export default {
       //   this.$router.push({ path: "/builder" });
       // }
       if (e == 0) {
-        this.$router.push({ path: "/people" });
+        this.$router.push({ path: "/locateManage" });
       } else if (e == 1) {
         this.$router.push({ path: "/regionManage" });
       }else if (e == 2) {

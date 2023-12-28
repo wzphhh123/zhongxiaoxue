@@ -326,6 +326,7 @@ export default {
         res.data.map((item, index) => {
           this.quyuIdList.push(item.id);
         });
+        this.findAllSoftware(this.showNowQuyuId);
       }
     },
     // 区域管理展示
@@ -349,13 +350,13 @@ export default {
         if (index >= this.quyuIdList.length) {
           index = 0;
         }
-      }, 500);
+      }, 2000);
     },
   },
   mounted() {
     this.AreaFindAll();
-    this.findAllSoftware(3);
-    // this.lunbo();
+    
+    this.lunbo();
   },
 };
 </script>

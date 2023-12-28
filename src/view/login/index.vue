@@ -141,7 +141,7 @@ export default {
     // background-size: 100% 100%;
     // margin-bottom: 67px;
     p {
-      .topName {       
+      .topName {
         width: 1000px;
         font-size: 80px;
         color: #fff;

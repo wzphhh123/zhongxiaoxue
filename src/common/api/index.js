@@ -8,7 +8,10 @@ import {
     findAllElectricity,
     findAllShow,
 
-    electricity,
+    electricity, 
+    addEditelectricity,
+    electricityDelete,
+
     softwarepage,
     softwareAdd,
     softwareDelete,
@@ -17,7 +20,12 @@ import {
     regionAddEdit,
     regionDelete,
 
-    userhealth
+    userhealth,
+    addEditHealth, 
+    userhealthDelete,
+    
+    placepage,addEditPlace,
+    placeDelete,
 } from './admin'
 
 export default {
@@ -29,13 +37,20 @@ export default {
     showHealthy,
     findAllElectricity,
     findAllShow,
-    
+
     electricity,
+    addEditelectricity,
+    electricityDelete,
     softwarepage,
-    softwareAdd, 
-    softwareDelete, 
+    softwareAdd,
+    softwareDelete,
     getregion,
     regionAddEdit,
     regionDelete,
     userhealth,
+    addEditHealth, 
+    userhealthDelete,
+    placepage,
+    addEditPlace,
+placeDelete,
 }

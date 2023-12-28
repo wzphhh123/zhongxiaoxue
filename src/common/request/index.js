@@ -18,9 +18,9 @@ const baseUrlInstanc = config.http.baseUrlInstanc;
 axios.interceptors.request.use(
  (config) => {
    // config.headers["Content-Type"] = "application/x-www-form-urlencoded";
-   let Authorization = "Bearer " + sessionStorage.getItem("userToken");
+   let Authorization =  sessionStorage.getItem("userToken");
    if (!config.headers.hasOwnProperty("Authorization") && Authorization) {
-     config.headers.Authorization = Authorization;
+     config.headers.token = Authorization;
    }
    return config;
  },
@@ -74,7 +74,7 @@ axios.interceptors.response.use(
           // sessionStorage.removeItem("userToken")
           if (response.data.status == 200) {
             sessionStorage.setItem("userToken",response.data.response.token)
-            err.config.headers.Authorization = "Bearer " +  response.data.response.token
+            err.config.headers.token =  response.data.response.token
             window.isRefreshing = false
             refreshSubscribers.forEach(cb => cb())
             refreshSubscribers = []

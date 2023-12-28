@@ -40,15 +40,19 @@ export function findAllShow(params) {
     return http.get(url.findAllShow, params)
 }
 
-// 健康检测
-export function healthrecordQuery(data) {
-    return http.post(url.healthrecordQuery, data)
-}
+//      后台管理    //////
 // 电量管理
 export function electricity(params) {
     return http.get(url.electricity, params);
 }
-
+// 添加编辑电量
+export function addEditelectricity(data) {
+    return http.post(url.addEditelectricity, data);
+}
+// 删除电量
+export function electricityDelete(params) {
+    return http.delete(url.electricityDelete, params);
+}
 // 获取软件列表
 export function softwarepage(params) {
     return http.get(url.softwarepage, params);
@@ -80,4 +84,24 @@ export function regionDelete(params) {
 // 获取用户健康列表
 export function userhealth(params) {
     return http.get(url.userhealth, params);
+}
+// 添加编辑健康
+export function addEditHealth(data) {
+    return http.post(url.addEditHealth, data);
+}
+// 删除健康
+export function userhealthDelete(params) {
+    return http.delete(url.userhealthDelete, params);
+}
+// 获取位置列表
+export function placepage(params) {
+    return http.get(url.placepage, params);
+}
+// 添加编辑地域
+export function addEditPlace(data) {
+    return http.post(url.addEditPlace, data);
+}
+// 删除地域
+export function placeDelete(params) {
+    return http.delete(url.placeDelete, params);
 }

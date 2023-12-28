@@ -22,30 +22,12 @@
         <a-button type="primary" @click="addVisible = true">新增</a-button>
       </div>
       <div class="main">
-        <!-- <a-table
-          :columns="columns"
-          :data-source="dataLists"
-          :pagination="pagination"
-          @change="tablePageChange"
-          bordered
-        >
-          <p slot="operation" slot-scope="text, record">
-            <span @click="(addVisible = true), (addForm = record)"> 编辑 </span>
-            <a-divider type="vertical" />
-            <a-popconfirm
-              title="确定删除?"
-              ok-text="是"
-              cancel-text="否"
-              @confirm="regionDelete(record.id)"
-            >
-              <span>删除</span>
-            </a-popconfirm>
-          </p>
-        </a-table> -->
         <a-table
           bordered
           :columns="columns"
           :data-source="dataLists"
+          :pagination="pagination"
+          @change="tablePageChange"
           :rowKey="(record) => record.id"
         >
           <template slot="normalUrl" slot-scope="text">
@@ -107,10 +89,10 @@
         <a-form-model-item label="人员姓名" prop="name">
           <a-input v-model="addForm.name" />
         </a-form-model-item>
-        <a-form-model-item label="grow" prop="name">
+        <a-form-model-item label="长" prop="grow">
           <a-input v-model="addForm.grow" />
         </a-form-model-item>
-        <a-form-model-item label="wide" prop="name">
+        <a-form-model-item label="宽" prop="wide">
           <a-input v-model="addForm.wide" />
         </a-form-model-item>
         <a-form-model-item label="正常照片" prop="name">
@@ -139,12 +121,12 @@ export default {
           align: "center",
         },
         {
-          title: "grow",
+          title: "长",
           dataIndex: "grow",
           align: "center",
         },
         {
-          title: "wide",
+          title: "宽",
           dataIndex: "wide",
           align: "center",
         },
@@ -196,7 +178,10 @@ export default {
         total: 0,
       },
       dataLists: [],
-      searchForm: {},
+      searchForm: {
+        PageIndex: 1,
+        PageSize: 10,
+      },
       addForm: {},
       addVisible: false,
       addActive: true,
@@ -206,18 +191,19 @@ export default {
     //开发者管理列表
     async getregion() {
       var data = {
-        // pageNum: this.pagination.current,
-        // pageSize: this.pagination.pageSize,
+        pageNum: this.pagination.current,
+        pageSize: this.pagination.pageSize,
+        // pageNum: this.searchForm.PageIndex,
+        // pageSize: this.searchForm.PageSize,
         name: this.searchForm.name,
       };
       const res = await this.$api.getregion(data);
       if (res.success) {
-        this.dataLists = res.data;
-        // this.pagination.total = res.data.total;
+        this.dataLists = res.data.records;
+        this.pagination.total = res.data.total;
       }
     },
     edit(e) {
-      console.log("e", e);
       // this.addForm.name = e.name;
       // this.addForm.heatNetworkName = e.label;
       // this.addForm.heatNetworkId = e.Id;
@@ -251,10 +237,10 @@ export default {
     },
     tablePageChange(pagination) {
       let { current, pageSize } = pagination;
-      console.log("0", current);
-      console.log("00", pageSize);
       this.pagination.current = current;
       this.pagination.pageSize = pageSize;
+      this.searchForm.PageIndex = current;
+      this.searchForm.PageSize = pageSize;
       this.getregion();
     },
     reset() {

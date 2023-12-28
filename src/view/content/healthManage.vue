@@ -11,7 +11,7 @@
         >
           <a-form-model-item label="姓名">
             <a-input
-              v-model="searchForm.name"
+              v-model="searchForm.identity"
               style="width: 250px"
               placeholder="请输入姓名"
             />
@@ -29,6 +29,10 @@
           @change="tablePageChange"
           bordered
         >
+          <template slot="state" slot-scope="text">
+            <span v-if="text == 0">不健康</span>
+            <span v-if="text == 1">健康</span>
+          </template>
           <p slot="operation" slot-scope="text, record">
             <span @click="(addVisible = true), (addForm = record)"> 编辑 </span>
             <a-divider type="vertical" />
@@ -36,7 +40,7 @@
               title="确定删除?"
               ok-text="是"
               cancel-text="否"
-              @confirm="personnelDelete(record.id)"
+              @confirm="userhealthDelete(record.id)"
             >
               <span>删除</span>
             </a-popconfirm>
@@ -58,14 +62,30 @@
         :label-col="labelCol2"
         :wrapper-col="wrapperCol2"
       >
-        <a-form-model-item label="人员姓名" prop="name">
-          <a-input v-model="addForm.name" />
+        <a-form-model-item label="身份" prop="identity">
+          <a-input v-model="addForm.identity" />
         </a-form-model-item>
-        <a-form-model-item label="岗位" prop="department">
-          <a-input v-model="addForm.department" />
+        <a-form-model-item label="心率" prop="heartRate">
+          <a-input v-model="addForm.heartRate" />
         </a-form-model-item>
-        <a-form-model-item label="所属部门/组" prop="station">
-          <a-input v-model="addForm.station" />
+        <a-form-model-item label="血氧" prop="bloodOxygen">
+          <a-input v-model="addForm.bloodOxygen" />
+        </a-form-model-item>
+        <a-form-model-item label="体重" prop="weight">
+          <a-input v-model="addForm.weight" />
+        </a-form-model-item>
+        <a-form-model-item label="身材" prop="stature">
+          <a-input v-model="addForm.stature" />
+        </a-form-model-item>
+        <a-form-model-item label="选择模式" prop="state">
+          <a-select
+            v-model="addForm.state"
+            style="width: 250px"
+            placeholder="请选择模式"
+          >
+            <a-select-option :value="0"> 不健康 </a-select-option>
+            <a-select-option :value="1"> 健康 </a-select-option>
+          </a-select>
         </a-form-model-item>
       </a-form-model>
     </a-modal>
@@ -82,16 +102,24 @@ export default {
       wrapperCol2: { span: 12 },
       columns: [
         {
-          title: "人员姓名",
-          dataIndex: "name",
+          title: "身份",
+          dataIndex: "identity",
           align: "center",
         },
         {
-          title: "岗位",
-          dataIndex: "department",
+          title: "心率",
+          dataIndex: "heartRate",
           align: "center",
         },
-        { title: "所属部门/组", dataIndex: "station", align: "center" },
+        { title: "血氧", dataIndex: "bloodOxygen", align: "center" },
+        { title: "体重", dataIndex: "weight", align: "center" },
+        { title: "身材", dataIndex: "stature", align: "center" },
+        {
+          title: "状态",
+          dataIndex: "state",
+          align: "center",
+          scopedSlots: { customRender: "state" },
+        },
         {
           title: "操作",
           dataIndex: "operation",
@@ -100,31 +128,52 @@ export default {
         },
       ],
       rules: {
-        name: [
+        identity: [
           {
             required: true,
-            message: "请填写人员姓名",
+            message: "请填写身份",
             trigger: "blur",
           },
         ],
-        department: [
+        heartRate: [
           {
             required: true,
-            message: "请填写岗位",
+            message: "请填写心率",
             trigger: "blur",
           },
         ],
-        station: [
+        bloodOxygen: [
           {
             required: true,
-            message: "所属部门/组",
+            message: "请填写血氧",
+            trigger: "blur",
+          },
+        ],
+        weight: [
+          {
+            required: true,
+            message: "请填写体重",
+            trigger: "blur",
+          },
+        ],
+        stature: [
+          {
+            required: true,
+            message: "请填写身材",
+            trigger: "blur",
+          },
+        ],
+        state: [
+          {
+            required: true,
+            message: "请填写状态",
             trigger: "blur",
           },
         ],
       },
       pagination: {
         current: 1,
-        pageSize: 10,
+        pageSize: 2,
         total: 0,
       },
       dataLists: [],
@@ -139,7 +188,7 @@ export default {
       var data = {
         pageNum: this.pagination.current,
         pageSize: this.pagination.pageSize,
-        name: this.searchForm.name,
+        identity: this.searchForm.identity,
       };
       const res = await this.$api.userhealth(data);
       if (res.success) {
@@ -147,8 +196,9 @@ export default {
         this.pagination.total = res.data.total;
       }
     },
-    async addEditpersonnel() {
-      const res = await this.$api.addEditpersonnel(this.addForm);
+    // 增加修改
+    async addEditHealth() {
+      const res = await this.$api.addEditHealth(this.addForm);
       if (res.success) {
         this.$message.success(res.msg);
         this.userhealth();
@@ -157,8 +207,8 @@ export default {
       }
     },
     // 删除开发者项目
-    async personnelDelete(e) {
-      const res = await this.$api.personnelDelete({ id: e });
+    async userhealthDelete(e) {
+      const res = await this.$api.userhealthDelete({ id: e });
       if (res.success) {
         this.userhealth();
         this.$message.success(res.msg);
@@ -183,13 +233,12 @@ export default {
           if (e) {
             this.addForm.id = e;
           }
-          this.addEditpersonnel();
+          this.addEditHealth();
           this.addForm = {};
         }
       });
     },
     handleCancel(e) {
-      console.log("Clicked cancel button");
       this.addVisible = false;
       this.addForm = {};
     },

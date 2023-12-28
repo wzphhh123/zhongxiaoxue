@@ -16,6 +16,16 @@
               placeholder="请输入姓名"
             />
           </a-form-model-item>
+          <a-form-model-item label="选择类型" style="margin-left: 20px">
+            <a-select
+              v-model="searchForm.type"
+              style="width: 250px"
+              placeholder="请选择类型"
+            >
+              <a-select-option :value="0"> 门禁 </a-select-option>
+              <a-select-option :value="1"> 软件 </a-select-option>
+            </a-select>
+          </a-form-model-item>
         </a-form-model>
         <a-button type="primary" @click="softwarepage()">查询</a-button>
         <a-button type="primary" @click="reset()">重置</a-button>
@@ -29,6 +39,10 @@
           @change="tablePageChange"
           bordered
         >
+        <template slot="type" slot-scope="text">
+          <span v-if="text == 0">门禁</span>
+          <span v-if="text == 1">软件</span>
+        </template>
           <p slot="operation" slot-scope="text, record">
             <span @click="(addVisible = true), (addForm = record)"> 编辑 </span>
             <a-divider type="vertical" />
@@ -58,14 +72,24 @@
         :label-col="labelCol2"
         :wrapper-col="wrapperCol2"
       >
-        <a-form-model-item label="人员姓名" prop="name">
+        <a-form-model-item label="软件名" prop="name">
           <a-input v-model="addForm.name" />
         </a-form-model-item>
-        <a-form-model-item label="岗位" prop="department">
-          <a-input v-model="addForm.department" />
+        <a-form-model-item label="软件编号" prop="softwareNumber">
+          <a-input v-model="addForm.softwareNumber" />
         </a-form-model-item>
-        <a-form-model-item label="所属部门/组" prop="station">
-          <a-input v-model="addForm.station" />
+        <a-form-model-item label="序列号" prop="number">
+          <a-input v-model="addForm.number" />
+        </a-form-model-item>
+        <a-form-model-item label="选择类型">
+          <a-select
+            v-model="addForm.type"
+            style="width: 250px"
+            placeholder="请选择类型"
+          >
+            <a-select-option :value="0"> 门禁 </a-select-option>
+            <a-select-option :value="1"> 软件 </a-select-option>
+          </a-select>
         </a-form-model-item>
       </a-form-model>
     </a-modal>
@@ -76,22 +100,28 @@
 export default {
   data() {
     return {
-      labelCol: { span: 4 },
+      labelCol: { span: 5 },
       wrapperCol: { span: 14 },
       labelCol2: { span: 6 },
       wrapperCol2: { span: 12 },
       columns: [
         {
-          title: "人员姓名",
+          title: "软件名",
           dataIndex: "name",
           align: "center",
         },
         {
-          title: "岗位",
-          dataIndex: "department",
+          title: "软件编号",
+          dataIndex: "softwareNumber",
           align: "center",
         },
-        { title: "所属部门/组", dataIndex: "station", align: "center" },
+        { title: "序列号", dataIndex: "number", align: "center" },
+        {
+          title: "类型",
+          dataIndex: "type",
+          align: "center",
+          scopedSlots: { customRender: "type" },
+        },
         {
           title: "操作",
           dataIndex: "operation",
@@ -107,17 +137,24 @@ export default {
             trigger: "blur",
           },
         ],
-        department: [
+        softwareNumber: [
           {
             required: true,
-            message: "请填写岗位",
+            message: "请填写软件数量",
             trigger: "blur",
           },
         ],
-        station: [
+        number: [
           {
             required: true,
-            message: "所属部门/组",
+            message: "请填写数量",
+            trigger: "blur",
+          },
+        ],
+        type: [
+          {
+            required: true,
+            message: "请填写类型",
             trigger: "blur",
           },
         ],
@@ -140,6 +177,7 @@ export default {
         pageNum: this.pagination.current,
         pageSize: this.pagination.pageSize,
         name: this.searchForm.name,
+        type: this.searchForm.type,
       };
       const res = await this.$api.softwarepage(data);
       if (res.success) {
@@ -147,7 +185,7 @@ export default {
         this.pagination.total = res.data.total;
       }
     },
-    // 添加
+    // 添加编辑
     async softwareAdd() {
       const res = await this.$api.softwareAdd(this.addForm);
       if (res.success) {

@@ -9,17 +9,17 @@
           :wrapper-col="wrapperCol"
           layout="inline"
         >
-          <a-form-model-item label="姓名">
+          <a-form-model-item label="地域Id">
             <a-input
-              v-model="searchForm.name"
+              v-model="searchForm.areaId"
               style="width: 250px"
-              placeholder="请输入姓名"
+              placeholder="请输入地域Id"
             />
           </a-form-model-item>
         </a-form-model>
         <a-button type="primary" @click="electricity()">查询</a-button>
         <a-button type="primary" @click="reset()">重置</a-button>
-        <a-button type="primary" @click="addVisible = true">新增</a-button>
+        <!-- <a-button type="primary" @click="addVisible = true">新增</a-button> -->
       </div>
       <div class="main">
         <a-table
@@ -30,13 +30,13 @@
           bordered
         >
           <p slot="operation" slot-scope="text, record">
-            <span @click="(addVisible = true), (addForm = record)"> 编辑 </span>
-            <a-divider type="vertical" />
+            <!-- <span @click="(addVisible = true), (addForm = record)"> 编辑 </span>
+            <a-divider type="vertical" /> -->
             <a-popconfirm
               title="确定删除?"
               ok-text="是"
               cancel-text="否"
-              @confirm="personnelDelete(record.id)"
+              @confirm="electricityDelete(record.id)"
             >
               <span>删除</span>
             </a-popconfirm>
@@ -44,7 +44,7 @@
         </a-table>
       </div>
     </div>
-    <a-modal
+    <!-- <a-modal
       :title="addForm.id ? '修改' : '新增'"
       :visible="addVisible"
       @ok="handleOk(addForm.id)"
@@ -68,7 +68,7 @@
           <a-input v-model="addForm.station" />
         </a-form-model-item>
       </a-form-model>
-    </a-modal>
+    </a-modal> -->
   </div>
 </template>
 
@@ -82,16 +82,17 @@ export default {
       wrapperCol2: { span: 12 },
       columns: [
         {
-          title: "人员姓名",
-          dataIndex: "name",
+          title: "地域Id",
+          dataIndex: "areaId",
           align: "center",
         },
         {
-          title: "岗位",
-          dataIndex: "department",
+          title: "总功率",
+          dataIndex: "totalPower",
           align: "center",
         },
-        { title: "所属部门/组", dataIndex: "station", align: "center" },
+        { title: "转储能量", dataIndex: "dumpEnergy", align: "center" },
+        { title: "创建时间", dataIndex: "createTime", align: "center" },
         {
           title: "操作",
           dataIndex: "operation",
@@ -134,7 +135,7 @@ export default {
     };
   },
   methods: {
-    //开发者管理列表
+    //开发者管理列表  
     async electricity() {
       var data = {
         pageNum: this.pagination.current,
@@ -147,8 +148,9 @@ export default {
         this.pagination.total = res.data.total;
       }
     },
-    async addEditpersonnel() {
-      const res = await this.$api.addEditpersonnel(this.addForm);
+    // 添加编辑电量
+    async addEditelectricity() {
+      const res = await this.$api.addEditelectricity(this.addForm);
       if (res.success) {
         this.$message.success(res.msg);
         this.electricity();
@@ -156,9 +158,9 @@ export default {
         this.$message.warn(res.msg);
       }
     },
-    // 删除开发者项目
-    async personnelDelete(e) {
-      const res = await this.$api.personnelDelete({ id: e });
+    // 删除电量
+    async electricityDelete(e) {
+      const res = await this.$api.electricityDelete({ id: e });
       if (res.success) {
         this.electricity();
         this.$message.success(res.msg);
@@ -183,7 +185,7 @@ export default {
           if (e) {
             this.addForm.id = e;
           }
-          this.addEditpersonnel();
+          this.addEditelectricity();
           this.addForm = {};
         }
       });
