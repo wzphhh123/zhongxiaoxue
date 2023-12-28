@@ -33,52 +33,36 @@ const routes = [
 		component: () => import("@/view/home/index.vue"),
 		redirect: "/people",
 		children: [
-				// 人员统计管理
-				{
-						path: "/people",
-						name: "people",
-						component: () => import("@/view/content/people.vue"),
-				},
-				// 区域管理
-				{
-						path: "/regionManage",
-						name: "regionManage",
-						component: () => import("@/view/content/regionManage.vue"),
-				},
-				// 健康体验管理
-				{
-						path: "/healthExperienceManage",
-						name: "healthExperienceManage",
-						component: () => import("@/view/content/healthExperienceManage.vue"),
-				},
-				// 电量管理
-				{
-						path: "/electManage",
-						name: "electManage",
-						component: () => import("@/view/content/electManage.vue"),
-				},
-				// 体验中心管理
-				{
-						path: "/experienceCenterManage",
-						name: "experienceCenterManage",
-						component: () => import("@/view/content/experienceCenterManage.vue"),
-				},
-				// 软件使用占比管理
-				{
-						path: "/softwareManage",
-						name: "softwareManage",
-						component: () => import("@/view/content/softwareManage.vue"),
-				},
-				// {
-				//     path: "/project",
-				//     name: "project",
-				//     component: () => import("@/view/content/project.vue"),
-				// },
-				// {
-				//     path: "/builder",
-				//     name: "builder",
-				//     component: () => import("@/view/content/builder.vue"),
-				// }
+			// 人员统计管理
+			{
+				path: "/people",
+				name: "people",
+				component: () => import("@/view/content/people.vue"),
+			},
+			// 区域管理
+			{
+				path: "/regionManage",
+				name: "regionManage",
+				component: () => import("@/view/content/regionManage.vue"),
+			},
+			// 健康体验管理
+			{
+				path: "/healthManage",
+				name: "healthManage",
+				component: () => import("@/view/content/healthManage.vue"),
+			},
+			// 电量管理
+			{
+				path: "/electManage",
+				name: "electManage",
+				component: () => import("@/view/content/electManage.vue"),
+			},
+			// 软件使用占比管理
+			{
+				path: "/softwareManage",
+				name: "softwareManage",
+				component: () => import("@/view/content/softwareManage.vue"),
+			},
 		]
 	},
 	{

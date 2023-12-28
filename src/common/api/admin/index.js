@@ -1,9 +1,9 @@
-import http from "@/common/request";
-const url = require("../url");
+import http from "@/common/request"
+const url = require('../url')
 
-//登录
-export function JWTToken(params) {
-    return http.get(url.JWTToken, params)
+// 登录
+export function JWTToken(data) {
+    return http.post(url.JWTToken, data);
 }
 //人员统计
 export function showfindAllUser(params) {
@@ -40,8 +40,44 @@ export function findAllShow(params) {
     return http.get(url.findAllShow, params)
 }
 
-
 // 健康检测
 export function healthrecordQuery(data) {
     return http.post(url.healthrecordQuery, data)
+}
+// 电量管理
+export function electricity(params) {
+    return http.get(url.electricity, params);
+}
+
+// 获取软件列表
+export function softwarepage(params) {
+    return http.get(url.softwarepage, params);
+}
+
+// 添加软件
+export function softwareAdd(data) {
+    return http.post(url.softwareAdd, data);
+}
+// 删除软件
+export function softwareDelete(params) {
+    return http.delete(url.softwareDelete, params);
+}
+
+// 获取区域列表
+export function getregion(params) {
+    return http.get(url.getregion, params);
+}
+// 添加编辑区域
+export function regionAddEdit(data) {
+    return http.post(url.regionAddEdit, data);
+}
+
+// 删除区域
+export function regionDelete(params) {
+    return http.delete(url.regionDelete, params);
+}
+
+// 获取用户健康列表
+export function userhealth(params) {
+    return http.get(url.userhealth, params);
 }

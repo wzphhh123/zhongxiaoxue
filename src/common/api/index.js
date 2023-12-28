@@ -8,6 +8,16 @@ import {
     findAllElectricity,
     findAllShow,
 
+    electricity,
+    softwarepage,
+    softwareAdd,
+    softwareDelete,
+
+    getregion,
+    regionAddEdit,
+    regionDelete,
+
+    userhealth
 } from './admin'
 
 export default {
@@ -19,4 +29,13 @@ export default {
     showHealthy,
     findAllElectricity,
     findAllShow,
+    
+    electricity,
+    softwarepage,
+    softwareAdd, 
+    softwareDelete, 
+    getregion,
+    regionAddEdit,
+    regionDelete,
+    userhealth,
 }

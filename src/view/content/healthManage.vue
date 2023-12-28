@@ -17,7 +17,7 @@
             />
           </a-form-model-item>
         </a-form-model>
-        <a-button type="primary" @click="personnelPage()">查询</a-button>
+        <a-button type="primary" @click="userhealth()">查询</a-button>
         <a-button type="primary" @click="reset()">重置</a-button>
         <a-button type="primary" @click="addVisible = true">新增</a-button>
       </div>
@@ -135,13 +135,13 @@ export default {
   },
   methods: {
     //开发者管理列表
-    async personnelPage() {
+    async userhealth() {
       var data = {
         pageNum: this.pagination.current,
         pageSize: this.pagination.pageSize,
         name: this.searchForm.name,
       };
-      const res = await this.$api.personnelPage(data);
+      const res = await this.$api.userhealth(data);
       if (res.success) {
         this.dataLists = res.data.records;
         this.pagination.total = res.data.total;
@@ -151,7 +151,7 @@ export default {
       const res = await this.$api.addEditpersonnel(this.addForm);
       if (res.success) {
         this.$message.success(res.msg);
-        this.personnelPage();
+        this.userhealth();
       } else {
         this.$message.warn(res.msg);
       }
@@ -160,7 +160,7 @@ export default {
     async personnelDelete(e) {
       const res = await this.$api.personnelDelete({ id: e });
       if (res.success) {
-        this.personnelPage();
+        this.userhealth();
         this.$message.success(res.msg);
       }
     },
@@ -170,11 +170,11 @@ export default {
       console.log("00", pageSize);
       this.pagination.current = current;
       this.pagination.pageSize = pageSize;
-      this.personnelPage();
+      this.userhealth();
     },
     reset() {
       this.searchForm = {};
-      this.personnelPage();
+      this.userhealth();
     },
     handleOk(e) {
       this.$refs.ruleForm.validate((valid) => {
@@ -195,7 +195,7 @@ export default {
     },
   },
   mounted() {
-    this.personnelPage();
+    this.userhealth();
   },
 };
 </script>

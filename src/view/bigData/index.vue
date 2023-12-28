@@ -85,7 +85,7 @@ export default {
   height: 100vh;
 }
 .bk2 {
-  background-image: url("../../assets/images/bk.png");
+  background-image: url("../../assets/images/bk2.png");
   background-repeat: no-repeat;
   background-size: 100%;
   height: 100vh;
