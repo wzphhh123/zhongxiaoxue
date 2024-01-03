@@ -10,53 +10,29 @@
           >
         </p>
       </div>
-      <!-- <div class="topTitle">
-        <p>
-          <span
-            >智慧供热集“全网监测、诊断分析、治调节、节能提升”于一体，将供热系统从信息获取、分析处理、决策执行三方面行成完整、安全、高效、可的“生产运行服务管理链”</span
-          >
-          <span
-            >保证集中供热安全生产、经济运行是汇中智慧供热平台的目标，智慧供热平台从生产运行、维护管理、经营服务、辅助决策四方面出发，将生产监控与运行管理有机的结合起来，使热力公司实现运行调度实时科学化、运维管理规范高效化、经营服务优质人性化、增强供热企业辅助决策雕力，</span
-          >
-          <span>切实做到按无供热。节能降再提高企业的经济和社会效普。</span>
-        </p>
-      </div> -->
       <div class="content">
         <div class="contentP1"></div>
         <div class="contentP2"></div>
         <div class="contentP3">
-          <div class="title">登录</div>
+          <div class="title">注册</div>
           <div class="contentP3Main">
             <a-input
               ref="userNameInput"
               v-model="loginForm.account"
-              placeholder="请输入用户名"
+              placeholder="请输入手机号"
               style="margin-bottom: 45px"
             >
-              <a-icon slot="prefix" type="user" style="font-size: 20px" />
+              <a-icon slot="prefix" type="phone" style="font-size: 20px" />
             </a-input>
             <a-input
               ref="userNameInput"
               v-model="loginForm.password"
-              placeholder="请输入密码"
+              placeholder="请输入姓名"
               type="password"
               style="margin-bottom: 45px"
             >
-              <a-icon slot="prefix" type="lock" style="font-size: 20px" />
+              <a-icon slot="prefix" type="user" style="font-size: 20px" />
             </a-input>
-            <!-- <div style="display: flex">
-              <a-input
-                ref="userNameInput"
-                v-model="loginForm.code"
-                placeholder="请输入右侧验证码"
-                style="width: 64%; margin-bottom: 45px"
-              >
-              </a-input>
-              <span class="photoCode" @click="refreshCode">
-                <s-identify :identifyCode="identifyCode"></s-identify>
-              </span>
-            </div> -->
-
             <div style="text-align: center">
               <a-button
                 @click="JWTToken"
@@ -68,6 +44,7 @@
           </div>
         </div>
       </div>
+      <div class="zhuce"></div>
       <div class="footer"></div>
     </div>
   </div>

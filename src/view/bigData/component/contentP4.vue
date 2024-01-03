@@ -114,7 +114,7 @@
         </div>
         <div class="contentMain">
           <div class="mainTitle">各区域耗电量占比:</div>
-          <div id="main4" style="height: 300px"></div>
+          <div id="main4" style="width:400px;height: 300px;margin-left:-10%"></div>
         </div>
       </div>
     </div>
@@ -151,7 +151,7 @@ export default {
             name: "Nightingale Chart",
             type: "pie",
             radius: [25, 90],
-            center: ["40%", "45%"],
+            center: ["50%", "45%"],
             roseType: "area",
             // 弧度
             // itemStyle: {
@@ -161,8 +161,8 @@ export default {
             labelLine: {
               //设置延长线的长度
               normal: {
-                length: 10, //设置延长线的长度
-                // length2: 10,//设置第二段延长线的长度
+                length: 0, //设置延长线的长度
+                length2: 20,//设置第二段延长线的长度
               },
             },
             label: {

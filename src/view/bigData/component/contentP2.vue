@@ -7,7 +7,12 @@
         </div>
         <div class="photo">
           <div class="imgdiv">
-            <div class="dingWei" v-for="(item, index) in quyuData" :key="index">
+            <div
+              class="dingWei"
+              v-for="(item, index) in quyuData"
+              :key="index"
+              @click="change(index)"
+            >
               <div class="topTitle">
                 <span
                   :class="
@@ -147,67 +152,7 @@ export default {
       dataList: [], //展示
     };
   },
-  // watch() {
-  //   this.findAllSoftware();
-  // },
   methods: {
-    change(e) {
-      if (e == 1) {
-        if (this.isShow1 == false) {
-          this.isShow1 = !this.isShow1;
-        }
-        this.isShow2 = false;
-        this.isShow3 = false;
-        this.isShow4 = false;
-        this.isShow5 = false;
-        this.isShow6 = false;
-      } else if (e == 2) {
-        if (this.isShow2 == false) {
-          this.isShow2 = !this.isShow2;
-        }
-        this.isShow1 = false;
-        this.isShow3 = false;
-        this.isShow4 = false;
-        this.isShow5 = false;
-        this.isShow6 = false;
-      } else if (e == 3) {
-        if (this.isShow3 == false) {
-          this.isShow3 = !this.isShow3;
-        }
-        this.isShow1 = false;
-        this.isShow2 = false;
-        this.isShow4 = false;
-        this.isShow5 = false;
-        this.isShow6 = false;
-      } else if (e == 4) {
-        if (this.isShow4 == false) {
-          this.isShow4 = !this.isShow4;
-        }
-        this.isShow1 = false;
-        this.isShow2 = false;
-        this.isShow3 = false;
-        this.isShow5 = false;
-        this.isShow6 = false;
-      } else if (e == 5) {
-        if (this.isShow5 == false) {
-          this.isShow5 = !this.isShow5;
-        }
-        this.isShow1 = false;
-        this.isShow2 = false;
-        this.isShow3 = false;
-        this.isShow4 = false;
-        this.isShow6 = false;
-      } else {
-        if (this.isShow6 == false) {
-          this.isShow6 = !this.isShow6;
-        }
-        this.isShow1 = false;
-        this.isShow2 = false;
-        this.isShow3 = false;
-        this.isShow4 = false;
-        this.isShow5 = false;
-      }
-    },
     echarts() {
       var myChart = echarts.init(document.getElementById("main2"));
       var option = {
@@ -229,7 +174,7 @@ export default {
             var total = 0;
             var tarValue;
             for (var i = 0; i < data.length; i++) {
-              data[i].softwareTime  = Number(data[i].softwareTime)
+              data[i].softwareTime = Number(data[i].softwareTime);
               total += data[i].softwareTime;
               if (data[i].name === name) {
                 tarValue = data[i].softwareTime;
@@ -264,9 +209,9 @@ export default {
         // A code block
         title: {
           show: true,
-          text: `体验区`, //要显示的文本
+          text: this.top2Name, //要显示的文本
           left: "center",
-          top: "40%",
+          top: "42%",
           textStyle: {
             color: "#fff",
             fontWeight: "bold",
@@ -279,12 +224,13 @@ export default {
             //环形图中间添加文字
             type: "text", //通过不同top值可以设置上下显示
             left: "center",
-            top: "54%",
+            top: "55%",
             style: {
               text: "软件使用率占比",
               textAlign: "center",
               fill: "#fff", //文字的颜色
-              fontSize: 12,
+              fontSize: 11,
+              fontWeight: "bold",
               // lineHeight: 20,
               // font: '14px Microsoft YaHei'
             },
@@ -332,16 +278,16 @@ export default {
     // 区域管理展示
     async findAllSoftware(e) {
       const res = await this.$api.findAllSoftware({ id: e });
-      if (res.success) {   
+      if (res.success) {
         res.data.map.map((item) => {
-          item.value = Number(item.softwareTime) 
-        })
+          item.value = Number(item.softwareTime);
+        });
         this.dataList = res.data.map;
         this.top2Name = res.data.name;
         this.echarts();
       }
     },
-    lunbo() {
+    lunbo(e) {
       let index = 1;
       setInterval(() => {
         this.showNowQuyuId = this.quyuIdList[index];
@@ -350,13 +296,18 @@ export default {
         if (index >= this.quyuIdList.length) {
           index = 0;
         }
-      }, 2000);
+      }, 1000);
+    },
+    change(e) {
+      this.showNowQuyuId = this.quyuIdList[e];
+      this.findAllSoftware(this.showNowQuyuId);
+      // this.lunbo(e);
     },
   },
   mounted() {
     this.AreaFindAll();
-    
-    this.lunbo();
+
+    // this.lunbo();
   },
 };
 </script>
@@ -473,7 +424,7 @@ export default {
     padding: 0 12px;
     .seamless-warp {
       width: 95%;
-      height: 130px;
+      height: 65%;
       overflow: hidden;
       position: relative;
       overflow-y: auto;

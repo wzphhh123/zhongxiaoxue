@@ -21,7 +21,7 @@
             src="../../../assets/images/xiao1.png"
             alt=""
           />
-          <div style="position: absolute; top: 70%; left: 14%">
+          <div style="position: absolute; top: 70%; left: 16%">
             <p>
               <span>{{ this.dataList.healthCount }}</span>
               <span>人</span>
@@ -154,19 +154,19 @@ export default {
         type: "pie",
         label: {
           color: "#fff",
-          fontSize: 16,
+          fontSize: 14,
           opacity: 1,
           //  position: 'inner',
           // formatter: "{b}\n\n",
           // padding: [0, -40],
           formatter: (item) => {
             //  console.log(item)
-            return item.data.name + ":" + item.data.value + "（人）" + "";
+            return item.data.name + ":" + item.data.value + "人" ;
           },
         },
         labelLine: {
-          length: 20,
-          length2: 20,
+          length: 12,
+          length2: 10,
           lineStyle: {
             color: "#ffffff",
             width: 1.5,

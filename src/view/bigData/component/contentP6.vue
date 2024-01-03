@@ -2,156 +2,81 @@
   <div>
     <div class="bk">
       <div class="top">
-        <span>软件使用占比</span>
+        <span>健康综合指数</span>
       </div>
       <div class="content">
-        <div id="main6" style="height: 400px"></div>
-        <div class="ditu">
-          <img src="../../../assets/images/P6ditu.png" alt="" />
+        <div>
+          <ul
+            style="
+              color: #fff;
+              width: 100%;
+              display: flex;
+              list-style-type: none;
+              background-color: #084f8c;
+              border-radius: 5px;
+              text-align: center;
+            "
+          >
+            <li style="width: 30%; margin-left: -9%; padding: 10px 0">编号</li>
+            <li style="width: 30%; margin-left: 2%; padding: 10px 0">姓名</li>
+            <li style="width: 40%; margin-left: 3%; padding: 10px 0">
+              健康综合指数
+            </li>
+          </ul>
         </div>
+        <vue-seamless-scroll
+          class="seamless-warp"
+          :data="dataList"
+          :class-option="defaultOption"
+        >
+          <ul
+            v-for="(item, index) in dataList"
+            :key="index"
+            :class="index % 2 != 0 ? 'bianse' : 'nobianse'"
+          >
+            <li style="margin-left: -15px; width: 20%">{{ item.id }}11</li>
+            <li style="width: 43%">{{ item.name }}</li>
+            <li style="width: 34%">{{ item.count }}</li>
+          </ul>
+        </vue-seamless-scroll>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import * as echarts from "echarts";
+import vueSeamlessScroll from "vue-seamless-scroll";
 export default {
+  computed: {
+    defaultOption() {
+      return {
+        step: 0.2, // 数值越大速度滚动越快
+        limitMoveNum: this.dataList.length, // 开始无缝滚动的数据量 this.dataList.length
+        hoverStop: true, // 是否开启鼠标悬停stop
+        direction: 1, // 0向下 1向上 2向左 3向右
+        openWatch: true, // 开启数据实时监控刷新dom
+        singleHeight: 0, // 单步运动停止的高度(默认值0是无缝不停止的滚动) direction => 0/1
+        singleWidth: 0, // 单步运动停止的宽度(默认值0是无缝不停止的滚动) direction => 2/3
+        waitTime: 3000, // 单步运动停止的时间(默认值1000ms)
+      };
+    },
+  },
+  components: {
+    vueSeamlessScroll,
+  },
   data() {
     return {
-      seriesData: [],
-      xData:[],
+      dataList: [],
     };
   },
   methods: {
-    charts() {
-      var myChart = echarts.init(document.getElementById("main6"));
-
-      var option = {
-        tooltip: {
-          trigger: "axis",
-          axisPointer: {
-            type: "shadow",
-          },
-        },
-        grid: {
-          left: "3%",
-          right: "4%",
-          bottom: "3%",
-          containLabel: true,
-        },
-        xAxis: [
-          {
-            type: "category",
-            data: this.xData,
-            axisTick: {
-              // 删除刻度
-              show: false,
-            },
-            axisLine: {
-              // 轴线
-              show: false,
-            },
-          },
-        ],
-        yAxis: [
-          {
-            name: "单位:（人数）",
-            type: "value",
-            splitLine: {
-              // 删除横线
-              show: false,
-            },
-            axisLine: {
-              // 轴线
-              show: true,
-            },
-          },
-        ],
-        series: [
-          {
-            name: "Direct",
-            type: "bar",
-            barWidth: "40%",
-            data: this.seriesData,
-            // 阴影
-            itemStyle: {
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                { offset: 0, color: "#00B7FF" },
-                // { offset: 0.5, color: "#0C5199" },
-                { offset: 1, color: "rgba(34,68,172,0.3)" },
-              ]),
-            },
-            label: {
-              show: true, // 开启显示
-              position: "top", // 在上方显示
-              distance: 10, // 距离图形元素的距离。当 position 为字符描述值（如 'top'、'insideRight'）时候有效。
-              verticalAlign: "middle",
-              textStyle: {
-                // 数值样式
-                color: "rgba(216,236,244,1)",
-                fontSize: 12,
-              },
-              // backgroundColor: "rgba(51, 167, 240, 1)",
-              // width: 20,
-              // height: 8,
-              // // shadowBlur: 6, //阴影
-              // borderRadius: 100,
-            },
-          },
-          {
-            //数据圆片(蓝色柱子的顶部圆片)
-            name: "",
-            type: "pictorialBar",
-            symbolSize: [23, 10],
-            symbolOffset: [0, -5],
-            z: 12,
-            itemStyle: {
-              opacity: 1,
-              color: "rgba(33,243,255,0.7)",
-            },
-
-            symbolPosition: "end",
-            data: this.seriesData,
-            // 柱子顶部显示值
-            // label: {
-            //     show: true,
-            //     position: 'top',
-            //     distance: 0,
-            //     formatter: '{c}'
-            // },
-          },
-          {
-            //最底部圆片
-            name: "",
-            type: "pictorialBar",
-            symbolSize: [23, 10], //圆片的形状大小
-            symbolOffset: [0, -5], //圆片的偏移量
-            z: 12,
-            itemStyle: {
-              opacity: 1,
-              color: "rgba(31,97,234,0.8)",
-              //color: '#000'
-            },
-            symbolPosition: "end",
-            data: [1, 1, 1, 1, 1, 1, ],
-          },
-        ],
-      };
-
-      myChart.setOption(option);
-    },
     async SoftwareFindAll() {
       var data = {
         type: 0,
       };
       const res = await this.$api.SoftwareFindAll(data);
       if (res.success) {
-        res.data.map(item => {
-          this.xData.push(item.name)
-          this.seriesData.push(item.count)
-        })
-        this.charts();
+        this.dataList = res.data;
       }
     },
   },
@@ -186,14 +111,34 @@ export default {
   border: 1px solid #00bcff;
   padding: 15px;
   position: relative;
-  .ditu {
-    position: absolute;
-    bottom: 11%;
-    left: 57px;
-    img {
-      width: 390px;
-      height: 40px;
+  .seamless-warp {
+    width: 100%;
+    height: 350px;
+    overflow: hidden;
+    position: relative;
+    overflow-y: auto;
+    margin-top: -3%;
+    &::-webkit-scrollbar {
+      width: 0px;
+      height: 0px;
     }
+    ul {
+      display: flex;
+      li {
+        list-style-type: none;
+        color: #fff;
+        padding: 7px;
+        text-align: center;
+        // margin-top: -10px;
+      }
+    }
+  }
+  .bianse {
+    background: rgba(8, 79, 140, 0.4);
+    border-radius: 4px;
+  }
+  .nobianse {
+    border-radius: 4px;
   }
 }
 </style>

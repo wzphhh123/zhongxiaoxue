@@ -69,10 +69,37 @@ export default {
     contentP5Vue,
     contentP6Vue,
     testVue,
-    test2Vue,test3Vue,test21Vue
+    test2Vue,
+    test3Vue,
+    test21Vue,
   },
   data() {
     return {};
+  },
+  methods: {
+    // 打开全屏
+    f11open() {
+      var docElm = document.documentElement;
+      //W3C
+      if (docElm.requestFullscreen) {
+        docElm.requestFullscreen();
+      }
+      //FireFox
+      else if (docElm.mozRequestFullScreen) {
+        docElm.mozRequestFullScreen();
+      }
+      //Chrome等
+      else if (docElm.webkitRequestFullScreen) {
+        docElm.webkitRequestFullScreen();
+      }
+      //IE11
+      else if (docElm.msRequestFullscreen) {
+        docElm.msRequestFullscreen();
+      }
+    },
+  },
+  mounted() {
+    // this.f11open();
   },
 };
 </script>
