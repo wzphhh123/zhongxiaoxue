@@ -33,6 +33,9 @@ import *as echarts from 'echarts'
 import 'echarts-gl';
 Vue.prototype.$echarts = echarts
 
+import VueScroll from '@david-j/vue-j-scroll';
+Vue.use(VueScroll);
+
 new Vue({
   render: h => h(App),
   router,

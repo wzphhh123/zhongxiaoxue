@@ -113,7 +113,7 @@ export default {
   position: relative;
   .seamless-warp {
     width: 100%;
-    height: 350px;
+    height: 85%;
     overflow: hidden;
     position: relative;
     overflow-y: auto;

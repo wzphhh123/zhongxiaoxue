@@ -318,6 +318,7 @@ export default {
         .tongyi {
           padding: 2px 0;
           display: flex;
+          // justify-content: space-between;
           padding-left: 2px;
         }
         .xiaoK1,
@@ -330,7 +331,10 @@ export default {
         .xiaoK8,
         .xiaoK9,
         .xiaoK10 {
-          width: 26px;
+          // width: 26px;
+          width:9%;
+          
+
           height: 16px;
           margin-right: 3px;
           // background: linear-gradient(90deg, #03171f 0%, #46f7cb 100%);

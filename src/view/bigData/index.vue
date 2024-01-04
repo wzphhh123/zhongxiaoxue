@@ -1,5 +1,6 @@
 <template>
-  <div class="bk">
+  <div class="bk" id="bk">
+    <!-- <div class="bk2" @click="f11open()"> -->
     <div class="bk2">
       <vue-particles
         style="position: fixed; width: 100%"
@@ -78,29 +79,54 @@ export default {
   },
   methods: {
     // 打开全屏
-    f11open() {
+    f11open(){
       var docElm = document.documentElement;
-      //W3C
+      //W3C 
       if (docElm.requestFullscreen) {
-        docElm.requestFullscreen();
+          docElm.requestFullscreen();
       }
-      //FireFox
+          //FireFox 
       else if (docElm.mozRequestFullScreen) {
-        docElm.mozRequestFullScreen();
+          docElm.mozRequestFullScreen();
       }
-      //Chrome等
+          //Chrome等 
       else if (docElm.webkitRequestFullScreen) {
-        docElm.webkitRequestFullScreen();
+          docElm.webkitRequestFullScreen();
       }
-      //IE11
+          //IE11 
       else if (docElm.msRequestFullscreen) {
-        docElm.msRequestFullscreen();
+          docElm.msRequestFullscreen();
       }
     },
   },
   mounted() {
+    // this.fullScreen()
+    // this.test()
     // this.f11open();
+    // this.enterFullscreen();
+    // document.addEventListener("fullscreenchange", this.toggleFullscreenBtn);
+    // document.addEventListener("mozfullscreenchange", this.toggleFullscreenBtn);
+    // document.addEventListener(
+    //   "webkitfullscreenchange",
+    //   this.toggleFullscreenBtn
+    // );
+    // document.addEventListener("MSFullscreenChange", this.toggleFullscreenBtn);
   },
+  // beforeDestroy() {
+  //   document.removeEventListener("fullscreenchange", this.toggleFullscreenBtn);
+  //   document.removeEventListener(
+  //     "mozfullscreenchange",
+  //     this.toggleFullscreenBtn
+  //   );
+  //   document.removeEventListener(
+  //     "webkitfullscreenchange",
+  //     this.toggleFullscreenBtn
+  //   );
+  //   document.removeEventListener(
+  //     "MSFullscreenChange",
+  //     this.toggleFullscreenBtn
+  //   );
+  // },
 };
 </script>
 

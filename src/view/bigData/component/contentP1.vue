@@ -54,7 +54,7 @@
             </th>
           </tr>
         </table> -->
-        <div class="aa">
+        <div>
           <ul
             style="
               color: #fff;
@@ -98,6 +98,28 @@
             </li>
           </ul>
         </vue-seamless-scroll>
+        <!-- <vue-j-scroll
+          class="list-style"
+          :data="dataList"
+          :steep="0.5"
+          scrollDirection="top"
+          :isRoller="true"
+          :rollerScrollDistance="30"
+          style="height: 200px; display: inline-block"
+        >
+          <div
+            v-for="(item, index) in dataList"
+            :key="index"
+            :class="index % 2 != 0 ? 'bianse' : 'nobianse'"
+          >
+            <p style="margin-left: -15px; width: 14%">{{ item.startTime }}</p>
+            <p style="width: 41%">{{ item.name }}</p>
+            <p style="width: 14%">{{ item.count }}</p>
+            <p style="width: 20%; margin-left: 10%">
+              {{ item.visitingTime }}
+            </p>
+          </div>
+        </vue-j-scroll> -->
       </div>
     </div>
   </div>
@@ -108,16 +130,16 @@ import vueSeamlessScroll from "vue-seamless-scroll";
 export default {
   computed: {
     defaultOption() {
-        return {
-          step: 0.2, // 数值越大速度滚动越快
-          limitMoveNum: this.dataList.length, // 开始无缝滚动的数据量 this.dataList.length
-          hoverStop: true, // 是否开启鼠标悬停stop
-          direction: 1, // 0向下 1向上 2向左 3向右
-          openWatch: true, // 开启数据实时监控刷新dom
-          singleHeight: 0, // 单步运动停止的高度(默认值0是无缝不停止的滚动) direction => 0/1
-          singleWidth: 0, // 单步运动停止的宽度(默认值0是无缝不停止的滚动) direction => 2/3
-          waitTime: 3000, // 单步运动停止的时间(默认值1000ms)
-        };
+      return {
+        step: 0.2, // 数值越大速度滚动越快
+        limitMoveNum: this.dataList.length, // 开始无缝滚动的数据量 this.dataList.length
+        hoverStop: true, // 是否开启鼠标悬停stop
+        direction: 1, // 0向下 1向上 2向左 3向右
+        openWatch: true, // 开启数据实时监控刷新dom
+        singleHeight: 0, // 单步运动停止的高度(默认值0是无缝不停止的滚动) direction => 0/1
+        singleWidth: 0, // 单步运动停止的宽度(默认值0是无缝不停止的滚动) direction => 2/3
+        waitTime: 100, // 单步运动停止的时间(默认值1000ms)
+      };
     },
   },
   components: {
@@ -201,13 +223,16 @@ export default {
   .gundong {
     padding: 0 12px;
     margin-top: 36px;
+    width: 100%;
+    height: 280px;
     .seamless-warp {
       width: 100%;
-      height: 200px;
+      height: 85%;
       overflow: hidden;
       position: relative;
       overflow-y: auto;
       margin-top: -3%;
+      // 是否显示滚动条
       &::-webkit-scrollbar {
         width: 0px;
         height: 0px;
@@ -221,6 +246,26 @@ export default {
           text-align: center;
           // margin-top: -10px;
         }
+      }
+    }
+    .list-style {
+      width: 100%;
+      height: 85%;
+      overflow: hidden;
+      position: relative;
+      overflow-y: auto;
+      margin-top: -3%;
+      // 是否显示滚动条
+      &::-webkit-scrollbar {
+        width: 0px;
+        height: 0px;
+      }
+      p {
+        list-style-type: none;
+        color: #fff;
+        padding: 7px;
+        text-align: center;
+        // margin-top: -10px;
       }
     }
   }

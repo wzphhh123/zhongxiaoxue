@@ -150,6 +150,7 @@ export default {
       quyuData: [], //区域管理
       top2Name: "",
       dataList: [], //展示
+      timer: null, // 定時器
     };
   },
   methods: {
@@ -288,26 +289,32 @@ export default {
       }
     },
     lunbo(e) {
-      let index = 1;
-      setInterval(() => {
+      var index = 0;
+      if (e >= 0) {
+        console.log("if裏", e);
+        index = e;
+      }
+      this.timer = window.setInterval(() => {
         this.showNowQuyuId = this.quyuIdList[index];
         index++;
         this.findAllSoftware(this.showNowQuyuId);
         if (index >= this.quyuIdList.length) {
           index = 0;
         }
-      }, 1000);
+      }, 5000);
     },
     change(e) {
+      console.log("清楚");
+      window.clearInterval(this.timer);
       this.showNowQuyuId = this.quyuIdList[e];
       this.findAllSoftware(this.showNowQuyuId);
-      // this.lunbo(e);
+      this.lunbo(e);
     },
   },
-  mounted() {
+  mounted() {},
+  created() {
     this.AreaFindAll();
-
-    // this.lunbo();
+    this.lunbo();
   },
 };
 </script>
@@ -436,7 +443,6 @@ export default {
     }
     ul {
       display: flex;
-
       li {
         list-style-type: none;
         color: #fff;
