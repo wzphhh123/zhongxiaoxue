@@ -151,6 +151,7 @@ export default {
       top2Name: "",
       dataList: [], //展示
       timer: null, // 定時器
+      selectIndex: 0,
     };
   },
   methods: {
@@ -288,30 +289,51 @@ export default {
         this.echarts();
       }
     },
+    //   lunbo(e) {
+    //     if (e >= 0) {
+    //       this.selectIndex = e;
+    //     }
+    //     this.timer = window.setInterval(() => {
+    //       this.showNowQuyuId = this.quyuIdList[this.selectIndex];
+    //       this.selectIndex++;
+    //       this.findAllSoftware(this.showNowQuyuId);
+    //       if (this.selectIndex >= this.quyuIdList.length) {
+    //         this.selectIndex = 0;
+    //       }
+    //     }, 1500);
+    //   },
+    //   change(e) {
+    //     this.selectIndex = e
+    //     window.clearInterval(this.timer);
+    //     this.showNowQuyuId = this.quyuIdList[this.selectIndex];
+    //     this.findAllSoftware(this.showNowQuyuId);
+    //     this.lunbo(this.selectIndex);
+    //   },
+    // },
     lunbo(e) {
-      var index = 0;
-      if (e >= 0) {
-        console.log("if裏", e);
-        index = e;
+      if(e >=0 ){
+        this.selectIndex = e
       }
-      this.timer = window.setInterval(() => {
-        this.showNowQuyuId = this.quyuIdList[index];
-        index++;
-        this.findAllSoftware(this.showNowQuyuId);
-        if (index >= this.quyuIdList.length) {
-          index = 0;
+      this.timer= window.setInterval(() => {
+        this.showNowQuyuId = this.quyuIdList[this.selectIndex]
+        this.selectIndex ++
+        this.findAllSoftware(this.showNowQuyuId)
+        if(this.selectIndex >= this.quyuIdList.length){
+          this.selectIndex = 0
         }
-      }, 5000);
+      },3000)   
     },
     change(e) {
-      console.log("清楚");
-      window.clearInterval(this.timer);
-      this.showNowQuyuId = this.quyuIdList[e];
-      this.findAllSoftware(this.showNowQuyuId);
-      this.lunbo(e);
+      window.clearInterval(this.timer)
+      this.showNowQuyuId = this.quyuIdList[e]
+      this.findAllSoftware(this.showNowQuyuId)
+      this.lunbo(e)
     },
   },
-  mounted() {},
+  // 销毁前
+  beforeDestroy() {
+    window.clearInterval(this.timer);
+  },
   created() {
     this.AreaFindAll();
     this.lunbo();
