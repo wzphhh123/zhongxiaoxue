@@ -8,24 +8,37 @@ import {
     findAllElectricity,
     findAllShow,
 
-    electricity, 
+    electricity,
     addEditelectricity,
     electricityDelete,
 
+    softwareAll,
     softwarepage,
     softwareAdd,
     softwareDelete,
 
-    getregion,
-    regionAddEdit,
+    districtpage,
+    districtsave,
+    districtfindAll,
     regionDelete,
 
     userhealth,
-    addEditHealth, 
+    addEditHealth,
     userhealthDelete,
-    
-    placepage,addEditPlace,
+
+    placepage, addEditPlace,
     placeDelete,
+
+    areapage,
+    areaAdd,
+    areaDelete,
+    areaAll,
+
+    deploydistrictfindAll,
+    deploydistrictAdd,
+    deploydistrictDelete,
+
+    bearuserpage,
 } from './admin'
 
 export default {
@@ -41,16 +54,26 @@ export default {
     electricity,
     addEditelectricity,
     electricityDelete,
+    softwareAll,
     softwarepage,
     softwareAdd,
     softwareDelete,
-    getregion,
-    regionAddEdit,
+    districtpage,
+    districtsave,
+    districtfindAll,
     regionDelete,
     userhealth,
-    addEditHealth, 
+    addEditHealth,
     userhealthDelete,
     placepage,
     addEditPlace,
-placeDelete,
+    placeDelete,
+    areapage,
+    areaAdd,
+    areaDelete,
+    areaAll,
+    deploydistrictfindAll,
+    deploydistrictAdd,
+    deploydistrictDelete,
+    bearuserpage,
 }

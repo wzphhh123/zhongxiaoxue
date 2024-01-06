@@ -13,12 +13,14 @@ module.exports ={
     addEditelectricity:'/electricity', //电量新增修改
     electricityDelete:'/electricity/delete', //电量删除
 
+    softwareAll:'/software' , //获取软件全部
     softwarepage:'/software/page', //获取软件列表
     softwareAdd:'/software/save', //添加软件
     softwareDelete:'/software/delete', //删除软件
 
-    getregion:'/region/page', //获取区域列表
-    regionAddEdit:'/region', //添加、编辑区域
+    districtpage:'/district/page', //获取区域列表
+    districtsave:'/district/save', //添加、编辑区域
+    districtfindAll:'/district/findAll', //查询区域列表
     regionDelete:'/region/delete', //删除区域
 
     userhealth:'/userhealth/page', //获取用户健康
@@ -28,4 +30,15 @@ module.exports ={
     placepage:'/place/page', //位置管理
     addEditPlace:'/place' , //新增编辑地域
     placeDelete:'/place/delete',//删除地域
+
+    areapage:'/area/page', // 获取展馆分页
+    areaAdd:'/area/save', // 添加展馆
+    areaDelete:'/area/delete',//删除展馆
+    areaAll:'/area' ,//获取展馆所以
+
+    deploydistrictfindAll:'/deploydistrict/findAll' ,// 获取省市区三连
+    deploydistrictAdd:'/deploydistrict', // 添加
+    deploydistrictDelete:'/deploydistrict/delete', //删除
+
+    bearuserpage:'/bearuser/page', //门禁管理
 }

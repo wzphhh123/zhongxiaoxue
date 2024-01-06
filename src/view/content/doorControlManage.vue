@@ -26,7 +26,7 @@
             </a-select>
           </a-form-model-item> -->
         </a-form-model>
-        <a-button type="primary" @click="softwarepage()">查询</a-button>
+        <a-button type="primary" @click="bearuserpage()">查询</a-button>
         <a-button type="primary" @click="reset()">重置</a-button>
         <a-button type="primary" @click="addVisible = true">新增</a-button>
       </div>
@@ -171,14 +171,14 @@ export default {
   },
   methods: {
     //开发者管理列表
-    async softwarepage() {
+    async bearuserpage() {
       var data = {
         pageNum: this.pagination.current,
         pageSize: this.pagination.pageSize,
         name: this.searchForm.name,
         type: this.searchForm.type,
       };
-      const res = await this.$api.softwarepage(data);
+      const res = await this.$api.bearuserpage(data);
       if (res.success) {
         this.dataLists = res.data.records;
         this.pagination.total = res.data.total;
@@ -189,7 +189,7 @@ export default {
       const res = await this.$api.softwareAdd(this.addForm);
       if (res.success) {
         this.$message.success(res.msg);
-        this.softwarepage();
+        this.bearuserpage();
       } else {
         this.$message.warn(res.msg);
       }
@@ -198,7 +198,7 @@ export default {
     async softwareDelete(e) {
       const res = await this.$api.softwareDelete({ id: e });
       if (res.success) {
-        this.softwarepage();
+        this.bearuserpage();
         this.$message.success(res.msg);
       }
     },
@@ -208,11 +208,11 @@ export default {
       console.log("00", pageSize);
       this.pagination.current = current;
       this.pagination.pageSize = pageSize;
-      this.softwarepage();
+      this.bearuserpage();
     },
     reset() {
       this.searchForm = {};
-      this.softwarepage();
+      this.bearuserpage();
     },
     handleOk(e) {
       this.$refs.ruleForm.validate((valid) => {
@@ -233,7 +233,7 @@ export default {
     },
   },
   mounted() {
-    this.softwarepage();
+    this.bearuserpage();
   },
 };
 </script>

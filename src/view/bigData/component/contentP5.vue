@@ -7,26 +7,30 @@
         <span>体验中心管理</span>
       </div>
       <div class="content">
-        <div class="leftTitle">
-          <div :class="isShow1 ? 'titleP1' : 'nobianse'" @click="change(1)">
-            <div class="shangXian"></div>
-            <span>全国所有体验中心统计</span>
-            <div class="xiaXian"></div>
-          </div>
-          <div :class="isShow2 ? 'titleP1' : 'nobianse'" @click="change(2)">
-            <div class="shangXian"></div>
-            <span>体验中心分布情况展示</span>
-            <div class="xiaXian"></div>
-          </div>
-          <div :class="isShow3 ? 'titleP1' : 'nobianse'" @click="change(3)">
-            <div class="shangXian"></div>
-            <span>各体验中心使用率排名</span>
-            <div class="xiaXian"></div>
-          </div>
-        </div>
-        <div class="container">
-          <div class="xx-map" id="baseMap"></div>
-        </div>
+        <a-row>
+          <a-col :span="6"
+            ><div class="leftTitle">
+              <div :class="isShow1 ? 'titleP1' : 'nobianse'" @click="change(1)">
+                <div class="shangXian"></div>
+                <span>全国所有体验中心统计</span>
+                <div class="xiaXian"></div>
+              </div>
+              <div :class="isShow2 ? 'titleP1' : 'nobianse'" @click="change(2)">
+                <div class="shangXian"></div>
+                <span>体验中心分布情况展示</span>
+                <div class="xiaXian"></div>
+              </div>
+              <div :class="isShow3 ? 'titleP1' : 'nobianse'" @click="change(3)">
+                <div class="shangXian"></div>
+                <span>各体验中心使用率排名</span>
+                <div class="xiaXian"></div>
+              </div></div
+          ></a-col>
+          <a-col :span="18">
+            <div class="container">
+              <div class="xx-map" id="baseMap"></div></div
+          ></a-col>
+        </a-row>
       </div>
     </div>
   </div>
@@ -149,8 +153,7 @@ export default {
           type: "downplay",
         });
       });
-      
-      
+
       this.$set(this.option.series[1], "data", this.scatterData);
       this.$set(this.option.series[0], "data", this.scatterData);
       myChart.setOption(this.option, true);
@@ -218,7 +221,7 @@ export default {
   height: 418px;
   background: rgba(0, 188, 255, 0.1);
   border: 1px solid #00bcff;
-  display: flex;
+  // display: flex;
   .leftTitle {
     margin-top: 80px;
     margin-left: 30px;

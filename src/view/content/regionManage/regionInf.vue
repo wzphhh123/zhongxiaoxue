@@ -2,71 +2,47 @@
   <div>
     <div class="content">
       <div class="top">
-        <!-- <a-button type="primary">添加</a-button> -->
         <a-form-model
           :model="searchForm"
           :label-col="labelCol"
           :wrapper-col="wrapperCol"
           layout="inline"
         >
-          <a-form-model-item label="姓名">
+          <a-form-model-item label="软件名称">
             <a-input
               v-model="searchForm.name"
               style="width: 250px"
-              placeholder="请输入姓名"
+              placeholder="请输入软件名称"
             />
           </a-form-model-item>
         </a-form-model>
-        <a-button type="primary" @click="getregion()">查询</a-button>
+        <a-button type="primary" @click="softwarepage()">查询</a-button>
         <a-button type="primary" @click="reset()">重置</a-button>
         <a-button type="primary" @click="addVisible = true">新增</a-button>
+        <a-button type="primary" @click="goback">返回</a-button>
       </div>
       <div class="main">
         <a-table
-          bordered
           :columns="columns"
           :data-source="dataLists"
           :pagination="pagination"
           @change="tablePageChange"
-          :rowKey="(record) => record.id"
+          bordered
         >
-          <template slot="normalUrl" slot-scope="text">
-            <img :src="text" height="50" alt="" />
-          </template>
-
-          <template slot="clickUrl" slot-scope="text">
-            <img :src="text" height="50" alt="" />
+          <template slot="type" slot-scope="text">
+            <span v-if="text == 0">门禁</span>
+            <span v-if="text == 1">软件</span>
           </template>
           <template slot="operation" slot-scope="text, record">
-            <a-tooltip>
-              <template slot="title"> 添加子级专题 </template>
-              <a-icon
-                type="plus-circle"
-                theme="twoTone"
-                @click="(addForm.fatherId = record.id), (addVisible = true)"
-              />
-              <a-divider type="vertical" />
-            </a-tooltip>
-            <a-tooltip>
-              <template slot="title"> 编辑</template>
-              <a-icon
-                type="edit"
-                theme="twoTone"
-                @click="(addForm = record), edit(record)"
-              />
-              <a-divider type="vertical" />
-            </a-tooltip>
-
+            <span @click="(addVisible = true), (addForm = record)"> 编辑 </span>
+            <a-divider type="vertical" />
             <a-popconfirm
-              title="确定删除？"
+              title="确定删除?"
               ok-text="是"
               cancel-text="否"
-              @confirm="regionDelete(record.id)"
+              @confirm="softwareDelete(record.id)"
             >
-              <a-tooltip>
-                <template slot="title"> 删除 </template>
-                <a-icon type="delete" theme="twoTone" />
-              </a-tooltip>
+              <span>删除</span>
             </a-popconfirm>
           </template>
         </a-table>
@@ -86,21 +62,25 @@
         :label-col="labelCol2"
         :wrapper-col="wrapperCol2"
       >
-        <a-form-model-item label="人员姓名" prop="name">
+        <a-form-model-item label="软件名称" prop="name">
           <a-input v-model="addForm.name" />
         </a-form-model-item>
-        <a-form-model-item label="长" prop="grow">
-          <a-input v-model="addForm.grow" />
+        <a-form-model-item label="软件编号" prop="softwareNumber">
+          <a-input v-model="addForm.softwareNumber" />
         </a-form-model-item>
-        <a-form-model-item label="宽" prop="wide">
-          <a-input v-model="addForm.wide" />
+        <a-form-model-item label="序列号" prop="number">
+          <a-input v-model="addForm.number" />
         </a-form-model-item>
-        <a-form-model-item label="正常照片" prop="name">
-          <a-input v-model="addForm.normalUrl" />
-        </a-form-model-item>
-        <a-form-model-item label="变色照片" prop="name">
-          <a-input v-model="addForm.clickUrl" />
-        </a-form-model-item>
+        <!-- <a-form-model-item label="选择类型">
+          <a-select
+            v-model="addForm.type"
+            style="width: 250px"
+            placeholder="请选择类型"
+          >
+            <a-select-option :value="0"> 门禁 </a-select-option>
+            <a-select-option :value="1"> 软件 </a-select-option>
+          </a-select>
+        </a-form-model-item> -->
       </a-form-model>
     </a-modal>
   </div>
@@ -110,37 +90,32 @@
 export default {
   data() {
     return {
-      labelCol: { span: 4 },
+      labelCol: { span: 5 },
       wrapperCol: { span: 14 },
       labelCol2: { span: 6 },
       wrapperCol2: { span: 12 },
       columns: [
         {
-          title: "名称",
+          title: "区域名称",
+          dataIndex: "areaName",
+          align: "center",
+        },
+        {
+          title: "软件名称",
           dataIndex: "name",
           align: "center",
         },
         {
-          title: "长",
-          dataIndex: "grow",
+          title: "软件编号",
+          dataIndex: "softwareNumber",
           align: "center",
         },
+        { title: "数量", dataIndex: "number", align: "center" },
         {
-          title: "宽",
-          dataIndex: "wide",
+          title: "类型",
+          dataIndex: "type",
           align: "center",
-        },
-        {
-          title: "正常照片",
-          dataIndex: "normalUrl",
-          align: "center",
-          scopedSlots: { customRender: "normalUrl" },
-        },
-        {
-          title: "变色照片",
-          dataIndex: "clickUrl",
-          align: "center",
-          scopedSlots: { customRender: "clickUrl" },
+          scopedSlots: { customRender: "type" },
         },
         {
           title: "操作",
@@ -153,21 +128,28 @@ export default {
         name: [
           {
             required: true,
-            message: "请填写人员姓名",
+            message: "请填写人员软件名称",
             trigger: "blur",
           },
         ],
-        department: [
+        softwareNumber: [
           {
             required: true,
-            message: "请填写岗位",
+            message: "请填写软件数量",
             trigger: "blur",
           },
         ],
-        station: [
+        number: [
           {
             required: true,
-            message: "所属部门/组",
+            message: "请填写数量",
+            trigger: "blur",
+          },
+        ],
+        type: [
+          {
+            required: true,
+            message: "请填写类型",
             trigger: "blur",
           },
         ],
@@ -178,84 +160,73 @@ export default {
         total: 0,
       },
       dataLists: [],
-      searchForm: {
-        PageIndex: 1,
-        PageSize: 10,
-      },
+      searchForm: {},
       addForm: {},
       addVisible: false,
-      addActive: true,
     };
   },
   methods: {
     //开发者管理列表
-    async getregion() {
+    async softwarepage() {
       var data = {
         pageNum: this.pagination.current,
         pageSize: this.pagination.pageSize,
-        // pageNum: this.searchForm.PageIndex,
-        // pageSize: this.searchForm.PageSize,
-        name: this.searchForm.name,
+        type: this.$route.params.id,
       };
-      const res = await this.$api.getregion(data);
+      const res = await this.$api.softwarepage(data);
       if (res.success) {
         this.dataLists = res.data.records;
         this.pagination.total = res.data.total;
       }
     },
-    edit(e) {
-      // this.addForm.name = e.name;
-      // this.addForm.heatNetworkName = e.label;
-      // this.addForm.heatNetworkId = e.Id;
-      // this.addForm.type = e.type;
-      this.addVisible = true;
-      this.addActive = false;
-      // 第一层，没有父节点
-      if (e.fatherId == 0) {
-        this.addForm.fatherId = 0;
-      } else {
-        this.addForm.fatherId = e.fatherId;
-      }
-    },
     // 添加编辑
-    async regionAddEdit() {
-      const res = await this.$api.regionAddEdit(this.addForm);
+    async softwareAdd() {
+      var data = {
+        areaId: this.$route.params.id,
+        areaName:this.$route.params.name,
+        name: this.addForm.name,
+        number: this.addForm.number,
+        softwareNumber: this.addForm.softwareNumber,
+      };
+      const res = await this.$api.softwareAdd(data);
       if (res.success) {
         this.$message.success(res.msg);
-        this.getregion();
+        this.softwarepage();
       } else {
         this.$message.warn(res.msg);
       }
     },
     // 删除开发者项目
-    async regionDelete(e) {
-      const res = await this.$api.regionDelete({ id: e });
+    async softwareDelete(e) {
+      const res = await this.$api.softwareDelete({ id: e });
       if (res.success) {
-        this.getregion();
+        this.softwarepage();
         this.$message.success(res.msg);
       }
     },
+    goback() {
+      this.$router.go(-1);
+    },
     tablePageChange(pagination) {
       let { current, pageSize } = pagination;
+      console.log("0", current);
+      console.log("00", pageSize);
       this.pagination.current = current;
       this.pagination.pageSize = pageSize;
-      this.searchForm.PageIndex = current;
-      this.searchForm.PageSize = pageSize;
-      this.getregion();
+      this.softwarepage();
     },
     reset() {
       this.searchForm = {};
-      this.getregion();
+      this.softwarepage();
     },
     handleOk(e) {
-      console.log("EE",e);
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
           this.addVisible = false;
           if (e) {
             this.addForm.id = e;
           }
-          this.regionAddEdit();
+          this.softwareAdd();
           this.addForm = {};
         }
       });
@@ -267,7 +238,8 @@ export default {
     },
   },
   mounted() {
-    this.getregion();
+    this.softwarepage();
+    console.log(this.$route.params);
   },
 };
 </script>
@@ -285,15 +257,14 @@ export default {
   }
   .main {
     // text-align: center;
+    margin-top: 20px;
   }
   .ant-table-wrapper {
     width: 1500px;
   }
-  p {
-    span {
-      color: rgb(10, 66, 187);
-      cursor: pointer;
-    }
+  span {
+    color: rgb(10, 66, 187);
+    cursor: pointer;
   }
 }
 </style>

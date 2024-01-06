@@ -1,0 +1,343 @@
+<template>
+  <div>
+    <div class="content">
+      <div class="top">
+        <!-- <a-button type="primary">添加</a-button> -->
+        <a-form-model
+          :model="searchForm"
+          :label-col="labelCol"
+          :wrapper-col="wrapperCol"
+          layout="inline"
+        >
+          <a-form-model-item label="名称">
+            <a-input
+              v-model="searchForm.name"
+              style="width: 250px"
+              placeholder="请输入名称"
+            />
+          </a-form-model-item>
+        </a-form-model>
+        <a-button type="primary" @click="areapage()">查询</a-button>
+        <a-button type="primary" @click="reset()">重置</a-button>
+        <a-button type="primary" @click="addVisible = true">新增</a-button>
+      </div>
+      <div class="main">
+        <a-table
+          :columns="columns"
+          :data-source="dataLists"
+          :pagination="pagination"
+          @change="tablePageChange"
+          bordered
+        >
+          <template slot="operation" slot-scope="text, record">
+            <!-- <span @click="(addVisible = true), (addForm = record)"> 编辑 </span>
+            <a-divider type="vertical" /> -->
+            <a-popconfirm
+              title="确定删除?"
+              ok-text="是"
+              cancel-text="否"
+              @confirm="areaDelete(record.id)"
+            >
+              <span>删除</span>
+            </a-popconfirm>
+          </template>
+        </a-table>
+      </div>
+    </div>
+    <a-modal
+      :title="addForm.id ? '修改' : '新增'"
+      :visible="addVisible"
+      @ok="handleOk(addForm.id)"
+      @cancel="handleCancel"
+      okText="确定"
+      cancelText="取消"
+      ><a-form-model
+        ref="ruleForm"
+        :rules="rules"
+        :model="addForm"
+        :label-col="labelCol2"
+        :wrapper-col="wrapperCol2"
+      >
+        <a-form-model-item label="展馆名称" prop="name">
+          <a-input v-model="addForm.name" style="width: 80%" />
+        </a-form-model-item>
+        <a-form-model-item label="展馆地址" prop="county">
+          <a-select
+            v-model="addForm.province"
+            placeholder="省份"
+            style="width: 100px"
+            @change="getCity(addForm.province)"
+          >
+            <a-select-option
+              :value="item.code"
+              v-for="item in shengList"
+              :key="item.code"
+              >{{ item.name }}</a-select-option
+            >
+          </a-select>
+          <a-select
+            v-model="addForm.city"
+            placeholder="市级"
+            style="width: 100px"
+            @change="getQuyu(addForm.city)"
+          >
+            <a-select-option
+              :value="item.code"
+              v-for="item in cityList"
+              :key="item.code"
+              >{{ item.name }}</a-select-option
+            >
+          </a-select>
+          <a-select
+            v-model="addForm.county"
+            placeholder="区/县"
+            style="width: 100px"
+            @change="getQu(addForm.county)"
+          >
+            <a-select-option
+              :value="item.code"
+              v-for="item in quList"
+              :key="item.code"
+              >{{ item.name }}</a-select-option
+            >
+          </a-select>
+        </a-form-model-item>
+        <a-form-model-item label="经度">
+          <a-input v-model="addForm.longitude" style="width: 80%" />
+        </a-form-model-item>
+        <a-form-model-item label="纬度">
+          <a-input v-model="addForm.latitude" style="width: 80%" />
+        </a-form-model-item>
+      </a-form-model>
+    </a-modal>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      labelCol: { span: 4 },
+      wrapperCol: { span: 14 },
+      labelCol2: { span: 6 },
+      wrapperCol2: { span: 16 },
+      columns: [
+        {
+          title: "展馆名称",
+          dataIndex: "name",
+          align: "center",
+        },
+        {
+          title: "省",
+          dataIndex: "province",
+          align: "center",
+        },
+        { title: "市", dataIndex: "city", align: "center" },
+        { title: "区", dataIndex: "county", align: "center" },
+        { title: "经纬度", dataIndex: "jwd", align: "center" },
+        {
+          title: "操作",
+          dataIndex: "operation",
+          align: "center",
+          scopedSlots: { customRender: "operation" },
+        },
+      ],
+      rules: {
+        name: [
+          {
+            required: true,
+            message: "请填写名称",
+            trigger: "blur",
+          },
+        ],
+        county: [
+          {
+            required: true,
+            message: "请填写地址",
+            trigger: "blur",
+          },
+        ],
+      },
+      pagination: {
+        current: 1,
+        pageSize: 10,
+        total: 0,
+      },
+      dataLists: [],
+      searchForm: {},
+      addForm: {
+        longitude: "",
+        latitude: "",
+      },
+      addVisible: false,
+      code: "",
+      shengList: [], //省
+      cityList: [], //市
+      quList: [], //区
+      province: "",
+      city: "",
+      county: "",
+    };
+  },
+  methods: {
+    //开发者管理列表
+    async areapage() {
+      var data = {
+        pageNum: this.pagination.current,
+        pageSize: this.pagination.pageSize,
+        name: this.searchForm.name,
+      };
+      const res = await this.$api.areapage(data);
+      if (res.success) {
+        this.dataLists = res.data.records;
+        res.data.records.forEach((item) => {
+          item.jwd = "(" + item.longitude + "，" + item.latitude + ")";
+        });
+        this.pagination.total = res.data.total;
+      }
+    },
+    //获取省
+    async getShengfen(e) {
+      if (e >= 0) {
+        this.code = e;
+      }
+      var data = {
+        parentCode: this.code,
+      };
+      const res = await this.$api.deploydistrictfindAll(data);
+      if (res.success) {
+        this.shengList = res.data;
+      }
+    },
+    //获取市
+    async getCity(e) {
+      console.log("城市", e);
+      this.shengList.forEach((val) => {
+        if (val.code == e) {
+          this.province = val.name;
+        }
+      });
+      var data = {
+        parentCode: e,
+      };
+      const res = await this.$api.deploydistrictfindAll(data);
+      if (res.success) {
+        this.cityList = res.data;
+      }
+    },
+    //获取区
+    async getQuyu(e) {
+      console.log("区域", e);
+      this.cityList.forEach((val) => {
+        if (val.code == e) {
+          console.log(val);
+          this.city = val.name;
+        }
+      });
+      var data = {
+        parentCode: e,
+      };
+      const res = await this.$api.deploydistrictfindAll(data);
+      if (res.success) {
+        this.quList = res.data;
+        res.data.forEach((item) => {
+          this.addForm.longitude = item.longitude;
+          this.addForm.latitude = item.latitude;
+        });
+      }
+    },
+    async getQu(e) {
+      console.log("000", e);
+      this.quList.forEach((val) => {
+        if (val.code == e) {
+          console.log(val);
+          this.county = val.name;
+        }
+      });
+    },
+    // 新增编辑
+    async areaAdd() {
+      var data = {
+        name: this.addForm.name,
+        province: this.province,
+        city: this.city,
+        county: this.county,
+        longitude: this.addForm.longitude,
+        latitude: this.addForm.latitude,
+      };
+      const res = await this.$api.areaAdd(data);
+      if (res.success) {
+        this.$message.success(res.msg);
+        this.areapage();
+      } else {
+        this.$message.warn(res.msg);
+      }
+    },
+    // 删除开发者项目
+    async areaDelete(e) {
+      const res = await this.$api.areaDelete({ id: e });
+      if (res.success) {
+        this.areapage();
+        this.$message.success(res.msg);
+      }
+    },
+    tablePageChange(pagination) {
+      let { current, pageSize } = pagination;
+      console.log("0", current);
+      console.log("00", pageSize);
+      this.pagination.current = current;
+      this.pagination.pageSize = pageSize;
+      this.areapage();
+    },
+    reset() {
+      this.searchForm = {};
+      this.areapage();
+    },
+    handleOk(e) {
+      this.$refs.ruleForm.validate((valid) => {
+        if (valid) {
+          this.addVisible = false;
+          if (e) {
+            this.addForm.id = e;
+          }
+          this.areaAdd();
+          this.addForm = {};
+        }
+      });
+    },
+    handleCancel(e) {
+      console.log("Clicked cancel button");
+      this.addVisible = false;
+      this.addForm = {};
+    },
+  },
+  mounted() {
+    this.areapage();
+    this.getShengfen(0);
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.content {
+  padding: 15px;
+  .top {
+    display: flex;
+    margin-bottom: 20px;
+    .ant-btn {
+      margin-top: 4px;
+      margin-left: 10px;
+    }
+  }
+  .main {
+    // text-align: center;
+  }
+  .ant-table-wrapper {
+    width: 1500px;
+  }
+  span {
+    color: rgb(10, 66, 187);
+    cursor: pointer;
+  }
+}
+</style>

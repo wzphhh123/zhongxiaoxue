@@ -15,6 +15,8 @@
               background-color: #084f8c;
               border-radius: 5px;
               text-align: center;
+              font-size: 15px;
+              font-weight:550;
             "
           >
             <li style="width: 30%; margin-left: -9%; padding: 10px 0">编号</li>
@@ -124,10 +126,11 @@ export default {
     }
     ul {
       display: flex;
+      margin-bottom: 6px;
       li {
         list-style-type: none;
         color: #fff;
-        padding: 7px;
+        padding: 8px;
         text-align: center;
         // margin-top: -10px;
       }

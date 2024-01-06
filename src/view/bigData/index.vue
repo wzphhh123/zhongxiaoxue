@@ -100,33 +100,7 @@ export default {
     },
   },
   mounted() {
-    // this.fullScreen()
-    // this.test()
-    // this.f11open();
-    // this.enterFullscreen();
-    // document.addEventListener("fullscreenchange", this.toggleFullscreenBtn);
-    // document.addEventListener("mozfullscreenchange", this.toggleFullscreenBtn);
-    // document.addEventListener(
-    //   "webkitfullscreenchange",
-    //   this.toggleFullscreenBtn
-    // );
-    // document.addEventListener("MSFullscreenChange", this.toggleFullscreenBtn);
   },
-  // beforeDestroy() {
-  //   document.removeEventListener("fullscreenchange", this.toggleFullscreenBtn);
-  //   document.removeEventListener(
-  //     "mozfullscreenchange",
-  //     this.toggleFullscreenBtn
-  //   );
-  //   document.removeEventListener(
-  //     "webkitfullscreenchange",
-  //     this.toggleFullscreenBtn
-  //   );
-  //   document.removeEventListener(
-  //     "MSFullscreenChange",
-  //     this.toggleFullscreenBtn
-  //   );
-  // },
 };
 </script>
 

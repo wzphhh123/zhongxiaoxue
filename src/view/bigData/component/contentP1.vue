@@ -64,6 +64,8 @@
               background-color: #084f8c;
               border-radius: 5px;
               text-align: center;
+              font-size: 15px;
+              font-weight: 550;
             "
           >
             <li style="width: 25%; margin-left: -9%; padding: 10px 0">
@@ -154,7 +156,7 @@ export default {
   },
   methods: {
     async showfindAllUser() {
-      const res = await this.$api.showfindAllUser();
+      const res = await this.$api.showfindAllUser({id:2});
       if (res.success) {
         this.dataList = res.data.map;
         this.sumCount = res.data.sumCount;
@@ -176,7 +178,7 @@ export default {
   background-image: url("../../../assets/images/title.png");
   background-size: 100%;
   background-repeat: no-repeat;
-  height: 39px;
+  // height: 39px;
   line-height: 39px;
   padding-left: 42px;
   letter-spacing: 1px;
@@ -194,7 +196,8 @@ export default {
 }
 .content {
   width: 97%;
-  height: 448px;
+  // height: 448px;
+  height: 41vh;
   background: rgba(0, 188, 255, 0.1);
   border: 1px solid #00bcff;
   margin-bottom: 36px;
@@ -227,7 +230,8 @@ export default {
     height: 280px;
     .seamless-warp {
       width: 100%;
-      height: 85%;
+      // height: 85%;
+      height: 22vh;
       overflow: hidden;
       position: relative;
       overflow-y: auto;
@@ -239,12 +243,12 @@ export default {
       }
       ul {
         display: flex;
+        margin-bottom: 5px;
         li {
           list-style-type: none;
           color: #fff;
           padding: 7px;
           text-align: center;
-          // margin-top: -10px;
         }
       }
     }

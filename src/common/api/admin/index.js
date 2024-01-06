@@ -53,6 +53,10 @@ export function addEditelectricity(data) {
 export function electricityDelete(params) {
     return http.delete(url.electricityDelete, params);
 }
+// 获取全部软件列表
+export function softwareAll(params) {
+    return http.get(url.softwareAll, params);
+}
 // 获取软件列表
 export function softwarepage(params) {
     return http.get(url.softwarepage, params);
@@ -68,14 +72,17 @@ export function softwareDelete(params) {
 }
 
 // 获取区域列表
-export function getregion(params) {
-    return http.get(url.getregion, params);
+export function districtpage(params) {
+    return http.get(url.districtpage, params);
 }
 // 添加编辑区域
-export function regionAddEdit(data) {
-    return http.post(url.regionAddEdit, data);
+export function districtsave(data) {
+    return http.post(url.districtsave, data);
 }
-
+// 查询区域列表
+export function districtfindAll(params) {
+    return http.get(url.districtfindAll, params);
+}
 // 删除区域
 export function regionDelete(params) {
     return http.delete(url.regionDelete, params);
@@ -105,3 +112,38 @@ export function addEditPlace(data) {
 export function placeDelete(params) {
     return http.delete(url.placeDelete, params);
 }
+// 获取展馆列表
+export function areapage(params) {
+    return http.get(url.areapage, params);
+}
+// 添加展馆
+export function areaAdd(data) {
+    return http.post(url.areaAdd, data);
+}
+// 删除展馆
+export function areaDelete(params) {
+    return http.delete(url.areaDelete, params);
+}
+// 获取展馆所有
+export function areaAll(params) {
+    return http.get(url.areaAll, params);
+}
+// 获取省市区
+export function deploydistrictfindAll(params) {
+    return http.get(url.deploydistrictfindAll, params);
+}
+// 添加
+export function deploydistrictAdd(data) {
+    return http.post(url.deploydistrictAdd, data);
+}
+// 删除
+export function deploydistrictDelete(params) {
+    return http.delete(url.deploydistrictDelete, params);
+}
+// 获取门禁列表
+export function bearuserpage(params) {
+    return http.get(url.bearuserpage, params);
+}
+
+
+  

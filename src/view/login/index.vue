@@ -14,7 +14,7 @@
         <div class="contentP1"></div>
         <div class="contentP2"></div>
         <div class="contentP3">
-          <div class="title">注册</div>
+          <div class="title">登录</div>
           <div class="contentP3Main">
             <a-input
               ref="userNameInput"
