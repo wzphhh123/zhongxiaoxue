@@ -20,6 +20,7 @@
         <a-button type="primary" @click="electricity()">查询</a-button>
         <a-button type="primary" @click="reset()">重置</a-button>
         <!-- <a-button type="primary" @click="addVisible = true">新增</a-button> -->
+        
       </div>
       <div class="main">
         <a-table
@@ -29,7 +30,7 @@
           @change="tablePageChange"
           bordered
         >
-          <p slot="operation" slot-scope="text, record">
+          <template slot="operation" slot-scope="text, record">
             <!-- <span @click="(addVisible = true), (addForm = record)"> 编辑 </span>
             <a-divider type="vertical" /> -->
             <a-popconfirm
@@ -40,7 +41,7 @@
             >
               <span>删除</span>
             </a-popconfirm>
-          </p>
+          </template>
         </a-table>
       </div>
     </div>
@@ -135,7 +136,7 @@ export default {
     };
   },
   methods: {
-    //开发者管理列表  
+    //开发者管理列表
     async electricity() {
       var data = {
         pageNum: this.pagination.current,
@@ -195,9 +196,26 @@ export default {
       this.addVisible = false;
       this.addForm = {};
     },
+    test() {
+      var data = {
+        name: "你好",
+        sex: "男",
+      };
+      var fuzhi = "12";
+      Object.defineProperty(data, "age", {
+        get: function () {
+          console.log("你获取到了");
+          return fuzhi;
+        },
+        set(value) {
+          fuzhi = value;
+        },
+      });
+    },  
   },
   mounted() {
     this.electricity();
+    this.test();
   },
 };
 </script>
@@ -213,11 +231,23 @@ export default {
       margin-left: 10px;
     }
   }
+<<<<<<< HEAD
   p {
     span {
       color: rgb(10, 66, 187);
       cursor: pointer;
     }
+=======
+  .main {
+    // text-align: center;
+  }
+  .ant-table-wrapper {
+    width: 1500px;
+  }
+  span {
+    color: rgb(10, 66, 187);
+    cursor: pointer;
+>>>>>>> 4861ea72a5980d229ea9a40795fdaaa02dfb87a1
   }
 }
 </style>

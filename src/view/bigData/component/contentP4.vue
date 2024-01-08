@@ -9,6 +9,7 @@
           <!-- 电量百分比 -->
           <div class="topLeft">
             <img src="../../../assets/images/dlh.png" alt="" />
+
             <div class="liTupian">
               <img src="../../../assets/images/shandian.png" alt="" />
               <p>
@@ -16,6 +17,15 @@
                 <span>%</span>
               </p>
             </div>
+            <a-progress
+              class="xiaoGuo"
+              type="circle"
+              :format="() => ''"
+              :width="78"
+              :percent="this.shuzi"
+              
+               stroke-color="#45f5ca"
+            />
           </div>
           <!-- 具体 -->
           <div class="topRight">
@@ -114,7 +124,10 @@
         </div>
         <div class="contentMain">
           <div class="mainTitle">各区域耗电量占比:</div>
-          <div id="main4" style="width:400px;height: 300px;margin-left:-10%"></div>
+          <div
+            id="main4"
+            style="width: 400px; height: 300px; margin-left: -10%"
+          ></div>
         </div>
       </div>
     </div>
@@ -127,8 +140,7 @@ export default {
   data() {
     return {
       shuzi: "",
-      dataList: [
-      ],
+      dataList: [],
     };
   },
   methods: {
@@ -162,7 +174,7 @@ export default {
               //设置延长线的长度
               normal: {
                 length: 0, //设置延长线的长度
-                length2: 20,//设置第二段延长线的长度
+                length2: 20, //设置第二段延长线的长度
               },
             },
             label: {
@@ -241,6 +253,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.ant-progress-circle-wrap,
+.ant-progress-line-wrap {
+  margin-right: 8px;
+  margin-bottom: 5px;
+}
 .bk {
   margin-top: -17px;
   width: 97%;
@@ -297,6 +314,11 @@ export default {
           }
         }
       }
+      .xiaoGuo {
+        position: absolute;
+        left: 1%;
+        top: 1%;
+      }
     }
     .topRight {
       margin-left: 20px;
@@ -318,6 +340,7 @@ export default {
         .tongyi {
           padding: 2px 0;
           display: flex;
+          // justify-content: space-between;
           padding-left: 2px;
         }
         .xiaoK1,
@@ -330,7 +353,9 @@ export default {
         .xiaoK8,
         .xiaoK9,
         .xiaoK10 {
-          width: 26px;
+          // width: 26px;
+          width: 9%;
+
           height: 16px;
           margin-right: 3px;
           // background: linear-gradient(90deg, #03171f 0%, #46f7cb 100%);

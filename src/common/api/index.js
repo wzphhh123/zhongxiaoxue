@@ -12,12 +12,14 @@ import {
     addEditelectricity,
     electricityDelete,
 
+    softwareAll,
     softwarepage,
     softwareAdd,
     softwareDelete,
 
-    getregion,
-    regionAddEdit,
+    districtpage,
+    districtsave,
+    districtfindAll,
     regionDelete,
 
     userhealth,
@@ -29,6 +31,19 @@ import {
     ydtywebuseradmin,
     useradminregister,
     Delydtywebuseradmin,
+    placepage, addEditPlace,
+    placeDelete,
+
+    areapage,
+    areaAdd,
+    areaDelete,
+    areaAll,
+
+    deploydistrictfindAll,
+    deploydistrictAdd,
+    deploydistrictDelete,
+
+    bearuserpage,
 } from './admin'
 
 export default {
@@ -44,11 +59,13 @@ export default {
     electricity,
     addEditelectricity,
     electricityDelete,
+    softwareAll,
     softwarepage,
     softwareAdd,
     softwareDelete,
-    getregion,
-    regionAddEdit,
+    districtpage,
+    districtsave,
+    districtfindAll,
     regionDelete,
     userhealth,
     addEditHealth,
@@ -56,7 +73,18 @@ export default {
     placepage,
     addEditPlace,
     placeDelete,
+<<<<<<< HEAD
     ydtywebuseradmin,
     useradminregister,
     Delydtywebuseradmin,
+=======
+    areapage,
+    areaAdd,
+    areaDelete,
+    areaAll,
+    deploydistrictfindAll,
+    deploydistrictAdd,
+    deploydistrictDelete,
+    bearuserpage,
+>>>>>>> 4861ea72a5980d229ea9a40795fdaaa02dfb87a1
 }

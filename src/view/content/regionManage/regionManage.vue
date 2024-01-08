@@ -9,17 +9,26 @@
           :wrapper-col="wrapperCol"
           layout="inline"
         >
-          <a-form-model-item label="姓名">
-            <a-input
-              v-model="searchForm.name"
-              style="width: 250px"
-              placeholder="请输入姓名"
-            />
+          <a-form-model-item label="展馆名称">
+            <a-select
+              v-model="searchForm.id"
+              placeholder="展馆地址"
+              style="width: 200px"
+            >
+              <a-select-option
+                :value="item.id"
+                v-for="item in addressNameList"
+                :key="item.id"
+                >{{ item.name }}</a-select-option
+              >
+            </a-select>
           </a-form-model-item>
         </a-form-model>
-        <a-button type="primary" @click="getregion()">查询</a-button>
+        <a-button type="primary" @click="districtfindAll()">查询</a-button>
         <a-button type="primary" @click="reset()">重置</a-button>
-        <a-button type="primary" @click="addVisible = true">新增</a-button>
+        <a-button type="primary" @click="(isOpen = false), (addVisible = true)"
+          >新增</a-button
+        >
       </div>
       <div class="main">
         <a-table
@@ -39,12 +48,8 @@
           </template>
           <template slot="operation" slot-scope="text, record">
             <a-tooltip>
-              <template slot="title"> 添加子级专题 </template>
-              <a-icon
-                type="plus-circle"
-                theme="twoTone"
-                @click="(addForm.fatherId = record.id), (addVisible = true)"
-              />
+              <template slot="title"> 详情 </template>
+              <a-icon type="snippets" theme="twoTone" @click="gotoInf(record)" />
               <a-divider type="vertical" />
             </a-tooltip>
             <a-tooltip>
@@ -85,16 +90,25 @@
         :model="addForm"
         :label-col="labelCol2"
         :wrapper-col="wrapperCol2"
-      >
-        <a-form-model-item label="人员姓名" prop="name">
+        ><a-form-model-item label="区域名称" prop="name">
           <a-input v-model="addForm.name" />
         </a-form-model-item>
-        <a-form-model-item label="长" prop="grow">
-          <a-input v-model="addForm.grow" />
+        <a-form-model-item label="展馆地址" prop="addressName">
+          <a-select
+            v-model="addForm.id"
+            placeholder="展馆地址"
+            style="width: 200px"
+            @change="change(addForm.id)"
+          >
+            <a-select-option
+              :value="item.id"
+              v-for="item in addressNameList"
+              :key="item.id"
+              >{{ item.name }}</a-select-option
+            >
+          </a-select>
         </a-form-model-item>
-        <a-form-model-item label="宽" prop="wide">
-          <a-input v-model="addForm.wide" />
-        </a-form-model-item>
+       
         <a-form-model-item label="正常照片" prop="name">
           <a-input v-model="addForm.normalUrl" />
         </a-form-model-item>
@@ -110,26 +124,32 @@
 export default {
   data() {
     return {
-      labelCol: { span: 4 },
-      wrapperCol: { span: 14 },
+      labelCol: { span: 6 },
+      wrapperCol: { span: 18 },
       labelCol2: { span: 6 },
       wrapperCol2: { span: 12 },
       columns: [
+        
+        {
+          title: "展馆名称",
+          dataIndex: "areaName",
+          align: "center",
+        },
         {
           title: "名称",
           dataIndex: "name",
           align: "center",
         },
-        {
-          title: "长",
-          dataIndex: "grow",
-          align: "center",
-        },
-        {
-          title: "宽",
-          dataIndex: "wide",
-          align: "center",
-        },
+        // {
+        //   title: "长",
+        //   dataIndex: "grow",
+        //   align: "center",
+        // },
+        // {
+        //   title: "宽",
+        //   dataIndex: "wide",
+        //   align: "center",
+        // },
         {
           title: "正常照片",
           dataIndex: "normalUrl",
@@ -150,10 +170,17 @@ export default {
         },
       ],
       rules: {
+        addressName: [
+          {
+            required: true,
+            message: "请选择展馆地址名称",
+            trigger: "blur",
+          },
+        ],
         name: [
           {
             required: true,
-            message: "请填写人员姓名",
+            message: "请填写区域名称",
             trigger: "blur",
           },
         ],
@@ -171,6 +198,14 @@ export default {
             trigger: "blur",
           },
         ],
+
+        softwareName: [
+          {
+            required: true,
+            message: "软件名称",
+            trigger: "blur",
+          },
+        ],
       },
       pagination: {
         current: 1,
@@ -185,29 +220,60 @@ export default {
       addForm: {},
       addVisible: false,
       addActive: true,
+      addressNameList: [],
+      // softwareList: [],
+      loading: false,
+      imageUrl: "",
+      detailVisible: false,
     };
   },
   methods: {
     //开发者管理列表
-    async getregion() {
+    async districtpage() {
       var data = {
         pageNum: this.pagination.current,
         pageSize: this.pagination.pageSize,
-        // pageNum: this.searchForm.PageIndex,
-        // pageSize: this.searchForm.PageSize,
-        name: this.searchForm.name,
+        id: 2,
       };
-      const res = await this.$api.getregion(data);
+      const res = await this.$api.districtpage(data);
       if (res.success) {
         this.dataLists = res.data.records;
         this.pagination.total = res.data.total;
       }
     },
+    // 查询
+    async districtfindAll() {
+      var data = {
+        id: this.searchForm.id,
+      };
+      const res = await this.$api.districtfindAll(data);
+      if (res.success) {
+        this.dataLists = res.data;
+        // this.dataLists = res.data.records;
+        // this.pagination.total = res.data.total;
+      }
+    },
+    // 获取全部软件列表
+    // async softwareAdd() {
+    //   const res = await this.$api.softwareAdd();
+    //   if (res.success) {
+    //     this.softwareList = res.data;
+    //   }
+    // },
+    async areaAll() {
+      const res = await this.$api.areaAll();
+      if (res.success) {
+        this.addressNameList = res.data;
+      }
+    },
+    change(e) {
+      this.addressNameList.forEach((item) => {
+        if (item.id == e) {
+          this.addForm.areaName = item.name;
+        }
+      });
+    },
     edit(e) {
-      // this.addForm.name = e.name;
-      // this.addForm.heatNetworkName = e.label;
-      // this.addForm.heatNetworkId = e.Id;
-      // this.addForm.type = e.type;
       this.addVisible = true;
       this.addActive = false;
       // 第一层，没有父节点
@@ -218,11 +284,11 @@ export default {
       }
     },
     // 添加编辑
-    async regionAddEdit() {
-      const res = await this.$api.regionAddEdit(this.addForm);
+    async districtsave() {
+      const res = await this.$api.districtsave(this.addForm);
       if (res.success) {
         this.$message.success(res.msg);
-        this.getregion();
+        this.districtpage();
       } else {
         this.$message.warn(res.msg);
       }
@@ -231,9 +297,12 @@ export default {
     async regionDelete(e) {
       const res = await this.$api.regionDelete({ id: e });
       if (res.success) {
-        this.getregion();
+        this.districtpage();
         this.$message.success(res.msg);
       }
+    },
+    gotoInf(e) {
+      this.$router.push({ path: `/regionInf/${e.id}/${e.name}`});
     },
     tablePageChange(pagination) {
       let { current, pageSize } = pagination;
@@ -241,33 +310,32 @@ export default {
       this.pagination.pageSize = pageSize;
       this.searchForm.PageIndex = current;
       this.searchForm.PageSize = pageSize;
-      this.getregion();
+      this.districtpage();
     },
     reset() {
       this.searchForm = {};
-      this.getregion();
+      this.districtpage();
     },
     handleOk(e) {
-      console.log("EE",e);
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
           this.addVisible = false;
           if (e) {
             this.addForm.id = e;
           }
-          this.regionAddEdit();
+          this.districtsave();
           this.addForm = {};
         }
       });
     },
     handleCancel(e) {
-      console.log("Clicked cancel button");
       this.addVisible = false;
       this.addForm = {};
     },
   },
   mounted() {
-    this.getregion();
+    this.districtpage();
+    this.areaAll();
   },
 };
 </script>

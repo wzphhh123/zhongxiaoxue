@@ -150,6 +150,8 @@ export default {
       quyuData: [], //区域管理
       top2Name: "",
       dataList: [], //展示
+      timer: null, // 定時器
+      selectIndex: 0,
     };
   },
   methods: {
@@ -165,7 +167,7 @@ export default {
           orient: "horizontal", //设置图例排列纵向显示
           align: "left", //设置图例中文字位置在icon标识符的右侧
           left: "68%",
-          top: "20%",
+          top: "15%",
           color: "red",
           itemGap: 10, //设置图例之间的间距
           padding: [0, 0, 8, 0], //设置图例与圆环图之间的间距
@@ -181,8 +183,12 @@ export default {
               }
             }
 
-            var v = tarValue;
+            var v = tarValue ;
+            
             var b = Math.round((tarValue / total) * 100);
+            if(v == 0){
+               b = 0
+            }
             return (
               "{name| " + name + "} " + "{v| " + v + "}" + "{b| " + b + "%}"
             );
@@ -287,27 +293,54 @@ export default {
         this.echarts();
       }
     },
+    //   lunbo(e) {
+    //     if (e >= 0) {
+    //       this.selectIndex = e;
+    //     }
+    //     this.timer = window.setInterval(() => {
+    //       this.showNowQuyuId = this.quyuIdList[this.selectIndex];
+    //       this.selectIndex++;
+    //       this.findAllSoftware(this.showNowQuyuId);
+    //       if (this.selectIndex >= this.quyuIdList.length) {
+    //         this.selectIndex = 0;
+    //       }
+    //     }, 1500);
+    //   },
+    //   change(e) {
+    //     this.selectIndex = e
+    //     window.clearInterval(this.timer);
+    //     this.showNowQuyuId = this.quyuIdList[this.selectIndex];
+    //     this.findAllSoftware(this.showNowQuyuId);
+    //     this.lunbo(this.selectIndex);
+    //   },
+    // },
     lunbo(e) {
-      let index = 1;
-      setInterval(() => {
-        this.showNowQuyuId = this.quyuIdList[index];
-        index++;
-        this.findAllSoftware(this.showNowQuyuId);
-        if (index >= this.quyuIdList.length) {
-          index = 0;
+      if(e >=0 ){
+        this.selectIndex = e
+      }
+      this.timer= window.setInterval(() => {
+        this.showNowQuyuId = this.quyuIdList[this.selectIndex]
+        this.selectIndex ++
+        this.findAllSoftware(this.showNowQuyuId)
+        if(this.selectIndex >= this.quyuIdList.length){
+          this.selectIndex = 0
         }
-      }, 1000);
+      },10000)   
     },
     change(e) {
-      this.showNowQuyuId = this.quyuIdList[e];
-      this.findAllSoftware(this.showNowQuyuId);
-      // this.lunbo(e);
+      window.clearInterval(this.timer)
+      this.showNowQuyuId = this.quyuIdList[e]
+      this.findAllSoftware(this.showNowQuyuId)
+      // this.lunbo(e)
     },
   },
-  mounted() {
+  // 销毁前
+  beforeDestroy() {
+    window.clearInterval(this.timer);
+  },
+  created() {
     this.AreaFindAll();
-
-    // this.lunbo();
+    this.lunbo();
   },
 };
 </script>
@@ -328,7 +361,7 @@ export default {
     background-image: url("../../../assets/images/title长图.png");
     background-size: 100%;
     background-repeat: no-repeat;
-    height: 39px;
+    // height: 39px;
     line-height: 39px;
     padding-left: 42px;
     letter-spacing: 1px;
@@ -384,9 +417,11 @@ export default {
           // letter-spacing:0.5px;
           .isTitle {
             color: #ffda30;
+            font-weight: bold;
           }
           .noTitle {
             color: #30fdff;
+            font-weight: bold;
           }
         }
       }
@@ -436,12 +471,12 @@ export default {
     }
     ul {
       display: flex;
-
+      margin-bottom: 6px;
       li {
         list-style-type: none;
         color: #fff;
         text-align: center;
-        padding: 6px 0;
+        padding: 7px 0;
       }
     }
   }

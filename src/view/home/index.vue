@@ -9,60 +9,92 @@
       </div>
       <div class="content">
         <a-row>
-          <a-col :span="3">
-            <div class="leftMenu">
+          <a-col :span="4"
+            ><div class="leftMenu">
               <a-menu
                 :default-selected-keys="['1']"
-                :default-open-keys="['sub1', 'sub2', 'sub3']"
+                :default-open-keys="['sub1']"
                 mode="inline"
                 theme="light"
               >
                 <a-sub-menu key="sub1">
                   <span slot="title"
-                    ><a-icon type="mail" /><span>位置管理</span></span
+                    ><a-icon type="mail" /><span style="margin-left: 20%"
+                      >体验展馆列表</span
+                    ></span
                   >
-                  <a-menu-item key="1" @click="goContent(0)">
-                    位置管理
+                  <!-- <a-menu-item key="1" @click="goContent(0)">
+                位置管理
+              </a-menu-item> -->
+                  <a-menu-item
+                    key="11"
+                    @click="goContent(11)"
+                    style="padding-left: 30%"
+                  >
+                    体验展馆列表
                   </a-menu-item>
                 </a-sub-menu>
                 <a-sub-menu key="sub2">
                   <span slot="title"
-                    ><a-icon type="appstore" /><span>区域管理</span></span
+                    ><a-icon type="appstore" /><span style="margin-left: 20%"
+                      >区域管理</span
+                    ></span
                   >
-                  <a-menu-item key="2" @click="goContent(1)">
+                  <a-menu-item
+                    key="2"
+                    @click="goContent(1)"
+                    style="padding-left: 30%"
+                  >
                     区域管理
                   </a-menu-item>
-                  <!-- <a-menu-item key="7" @click="goContent(6)">
-                    门禁管理
-                  </a-menu-item> -->
+                  
                 </a-sub-menu>
 
                 <a-sub-menu key="sub3">
                   <span slot="title"
-                    ><a-icon type="appstore" /><span>用户健康管理</span></span
+                    ><a-icon type="appstore" /><span style="margin-left: 20%"
+                      >用户健康管理</span
+                    ></span
                   >
-                  <a-menu-item key="3" @click="goContent(2)">
+                  <a-menu-item
+                    key="3"
+                    @click="goContent(2)"
+                    style="padding-left: 30%"
+                  >
                     用户健康管理
                   </a-menu-item>
                 </a-sub-menu>
                 <a-sub-menu key="sub4">
                   <span slot="title"
-                    ><a-icon type="appstore" /><span>电量管理</span></span
+                    ><a-icon type="appstore" /><span style="margin-left: 20%"
+                      >电量管理</span
+                    ></span
                   >
-                  <a-menu-item key="4" @click="goContent(3)">
+                  <a-menu-item
+                    key="4"
+                    @click="goContent(3)"
+                    style="padding-left: 30%"
+                  >
                     电量管理
                   </a-menu-item>
                 </a-sub-menu>
                 <a-sub-menu key="sub6">
                   <span slot="title"
-                    ><a-icon type="appstore" /><span>软件管理</span></span
+                    ><a-icon type="appstore" /><span style="margin-left: 20%"
+                      >软件管理</span
+                    ></span
                   >
-                  <a-menu-item key="6" @click="goContent(5)">
+                  <a-menu-item
+                    key="5"
+                    @click="goContent(5)"
+                    style="padding-left: 30%"
+                  >
                     软件管理
                   </a-menu-item>
                 </a-sub-menu>
                 <a-sub-menu key="sub7">
                   <span slot="title"
+<<<<<<< HEAD
                     ><a-icon type="appstore" /><span>机构列表</span></span
                   >
                   <a-menu-item key="6" @click="goContent(6)">
@@ -77,6 +109,28 @@
               <router-view></router-view>
             </div>
           </a-col>
+=======
+                    ><a-icon type="appstore" /><span style="margin-left: 20%"
+                      >门禁管理</span
+                    ></span
+                  >
+                  <a-menu-item
+                    key="7"
+                    @click="goContent(6)"
+                    style="padding-left: 30%"
+                  >
+                    门禁管理
+                  </a-menu-item>
+                </a-sub-menu>
+              </a-menu>
+            </div></a-col
+          >
+          <a-col :span="20"
+            ><div class="rightConent">
+              <router-view></router-view>
+              </div
+          ></a-col>
+>>>>>>> 4861ea72a5980d229ea9a40795fdaaa02dfb87a1
         </a-row>
       </div>
     </div>
@@ -98,14 +152,16 @@ export default {
         this.$router.push({ path: "/locateManage" });
       } else if (e == 1) {
         this.$router.push({ path: "/regionManage" });
-      }else if (e == 2) {
+      } else if (e == 2) {
         this.$router.push({ path: "/healthManage" });
-      }else if (e == 3) {
+      } else if (e == 3) {
         this.$router.push({ path: "/electManage" });
-      }else if (e == 5) {
+      } else if (e == 5) {
         this.$router.push({ path: "/softwareManage" });
-      }else if (e == 6) {
-        this.$router.push({ path: "/institution" });
+      } else if (e == 6) {
+        this.$router.push({ path: "/doorControlManage" });
+      } else if (e == 11) {
+        this.$router.push({ path: "/exhibeAddress" });
       }
     },
   },
@@ -144,8 +200,10 @@ export default {
   }
 }
 .content {
+  // display: flex;
   .leftMenu {
     width: 100%;
+    // width: 300px;
     height: 92vh;
   }
   .rightConent{

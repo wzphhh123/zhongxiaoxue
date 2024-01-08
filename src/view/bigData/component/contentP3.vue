@@ -103,19 +103,19 @@ export default {
       // 传入数据生成 option
       let series = getPie3D(this.optionData, 0);
       let option = {
-        tooltip: {
-          formatter: (params) => {
-            // console.log(params)
-            if (
-              params.seriesName !== "mouseoutSeries" &&
-              params.seriesName !== "pie2d"
-            ) {
-              return `<div style="padding:0 10px">${params.seriesName}：${(
-                option.series[params.seriesIndex].pieData.proportion * 100
-              ).toFixed(2)}%</div>`;
-            }
-          },
-        },
+        // tooltip: {
+        //   formatter: (params) => {
+        //     // console.log(params)
+        //     if (
+        //       params.seriesName !== "mouseoutSeries" &&
+        //       params.seriesName !== "pie2d"
+        //     ) {
+        //       return `<div style="padding:0 10px">${params.seriesName}：${(
+        //         option.series[params.seriesIndex].pieData.proportion * 100
+        //       ).toFixed(2)}%</div>`;
+        //     }
+        //   },
+        // },
         xAxis3D: {
           min: -1,
           max: 1,

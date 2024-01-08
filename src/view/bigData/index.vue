@@ -1,5 +1,6 @@
 <template>
-  <div class="bk">
+  <div class="bk" id="bk">
+    <!-- <div class="bk2" @click="f11open()"> -->
     <div class="bk2">
       <vue-particles
         style="position: fixed; width: 100%"
@@ -78,28 +79,27 @@ export default {
   },
   methods: {
     // 打开全屏
-    f11open() {
+    f11open(){
       var docElm = document.documentElement;
-      //W3C
+      //W3C 
       if (docElm.requestFullscreen) {
-        docElm.requestFullscreen();
+          docElm.requestFullscreen();
       }
-      //FireFox
+          //FireFox 
       else if (docElm.mozRequestFullScreen) {
-        docElm.mozRequestFullScreen();
+          docElm.mozRequestFullScreen();
       }
-      //Chrome等
+          //Chrome等 
       else if (docElm.webkitRequestFullScreen) {
-        docElm.webkitRequestFullScreen();
+          docElm.webkitRequestFullScreen();
       }
-      //IE11
+          //IE11 
       else if (docElm.msRequestFullscreen) {
-        docElm.msRequestFullscreen();
+          docElm.msRequestFullscreen();
       }
     },
   },
   mounted() {
-    // this.f11open();
   },
 };
 </script>

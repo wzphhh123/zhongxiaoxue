@@ -61,12 +61,12 @@
         <a-form-model-item label="地域名称" prop="name">
           <a-input v-model="addForm.name" />
         </a-form-model-item>
-        <a-form-model-item label="长" prop="grow">
+        <!-- <a-form-model-item label="长" prop="grow">
           <a-input v-model="addForm.grow" />
         </a-form-model-item>
         <a-form-model-item label="宽" prop="wide">
           <a-input v-model="addForm.wide" />
-        </a-form-model-item>
+        </a-form-model-item> -->
       </a-form-model>
     </a-modal>
   </div>

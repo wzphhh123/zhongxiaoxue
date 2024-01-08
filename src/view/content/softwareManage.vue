@@ -2,7 +2,6 @@
   <div>
     <div class="content">
       <div class="top">
-        <!-- <a-button type="primary">添加</a-button> -->
         <a-form-model
           :model="searchForm"
           :label-col="labelCol"
@@ -16,7 +15,7 @@
               placeholder="请输入姓名"
             />
           </a-form-model-item>
-          <a-form-model-item label="选择类型" style="margin-left: 20px">
+          <!-- <a-form-model-item label="选择类型" style="margin-left: 20px">
             <a-select
               v-model="searchForm.type"
               style="width: 250px"
@@ -25,7 +24,7 @@
               <a-select-option :value="0"> 门禁 </a-select-option>
               <a-select-option :value="1"> 软件 </a-select-option>
             </a-select>
-          </a-form-model-item>
+          </a-form-model-item> -->
         </a-form-model>
         <a-button type="primary" @click="softwarepage()">查询</a-button>
         <a-button type="primary" @click="reset()">重置</a-button>
@@ -39,11 +38,11 @@
           @change="tablePageChange"
           bordered
         >
-        <template slot="type" slot-scope="text">
-          <span v-if="text == 0">门禁</span>
-          <span v-if="text == 1">软件</span>
-        </template>
-          <p slot="operation" slot-scope="text, record">
+          <template slot="type" slot-scope="text">
+            <span v-if="text == 0">门禁</span>
+            <span v-if="text == 1">软件</span>
+          </template>
+          <template slot="operation" slot-scope="text, record">
             <span @click="(addVisible = true), (addForm = record)"> 编辑 </span>
             <a-divider type="vertical" />
             <a-popconfirm
@@ -54,7 +53,7 @@
             >
               <span>删除</span>
             </a-popconfirm>
-          </p>
+          </template>
         </a-table>
       </div>
     </div>
@@ -81,7 +80,7 @@
         <a-form-model-item label="序列号" prop="number">
           <a-input v-model="addForm.number" />
         </a-form-model-item>
-        <a-form-model-item label="选择类型">
+        <!-- <a-form-model-item label="选择类型">
           <a-select
             v-model="addForm.type"
             style="width: 250px"
@@ -90,7 +89,7 @@
             <a-select-option :value="0"> 门禁 </a-select-option>
             <a-select-option :value="1"> 软件 </a-select-option>
           </a-select>
-        </a-form-model-item>
+        </a-form-model-item> -->
       </a-form-model>
     </a-modal>
   </div>
@@ -253,11 +252,9 @@ export default {
   .ant-table-wrapper {
     width: 1500px;
   }
-  p {
-    span {
-      color: rgb(10, 66, 187);
-      cursor: pointer;
-    }
+  span {
+    color: rgb(10, 66, 187);
+    cursor: pointer;
   }
 }
 </style>

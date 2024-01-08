@@ -31,7 +31,7 @@ const routes = [
 		path: "/index",
 		name: "index",
 		component: () => import("@/view/home/index.vue"),
-		redirect: "/locateManage",
+		redirect: "/exhibeAddress",
 		children: [
 			// 位置管理
 			{
@@ -39,11 +39,24 @@ const routes = [
 				name: "locateManage",
 				component: () => import("@/view/content/locateManage.vue"),
 			},
+			// 展馆管理
+			{
+				path: "/exhibeAddress",
+				name: "exhibeAddress",
+				component: () => import("@/view/content/exhibeAddress.vue"),
+			},
 			// 区域管理
 			{
 				path: "/regionManage",
 				name: "regionManage",
-				component: () => import("@/view/content/regionManage.vue"),
+				component: () => import("@/view/content/regionManage/regionManage.vue"),
+
+			},
+			// 区域管理详情
+			{
+				path: "/regionInf/:id/:name",
+				name: "regionInf",
+				component: () => import("@/view/content/regionManage/regionInf.vue"),
 			},
 			// 健康体验管理
 			{
@@ -68,7 +81,13 @@ const routes = [
 				path: "/institution",
 				name: "institution",
 				component: () => import("@/view/institution/index.vue"),
-			}
+			},
+			// 门禁管理
+			{
+				path: "/doorControlManage",
+				name: "doorControlManage",
+				component: () => import("@/view/content/doorControlManage.vue"),
+			},
 		]
 	},
 	{

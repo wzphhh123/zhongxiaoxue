@@ -2,24 +2,24 @@
   <div>
     <div class="content">
       <div class="top">
-        <!-- <a-button type="primary">添加</a-button> -->
         <a-form-model
           :model="searchForm"
           :label-col="labelCol"
           :wrapper-col="wrapperCol"
           layout="inline"
         >
-          <a-form-model-item label="身份信息">
+          <a-form-model-item label="软件名称">
             <a-input
-              v-model="searchForm.identity"
+              v-model="searchForm.name"
               style="width: 250px"
-              placeholder="请输入身份信息"
+              placeholder="请输入软件名称"
             />
           </a-form-model-item>
         </a-form-model>
-        <a-button type="primary" @click="userhealth()">查询</a-button>
+        <a-button type="primary" @click="softwarepage()">查询</a-button>
         <a-button type="primary" @click="reset()">重置</a-button>
         <a-button type="primary" @click="addVisible = true">新增</a-button>
+        <a-button type="primary" @click="goback">返回</a-button>
       </div>
       <div class="main">
         <a-table
@@ -29,9 +29,9 @@
           @change="tablePageChange"
           bordered
         >
-          <template slot="state" slot-scope="text">
-            <span v-if="text == 0" style="color: red">不健康</span>
-            <span v-if="text == 1" style="color: #10c30c">健康</span>
+          <template slot="type" slot-scope="text">
+            <span v-if="text == 0">门禁</span>
+            <span v-if="text == 1">软件</span>
           </template>
           <template slot="operation" slot-scope="text, record">
             <span @click="(addVisible = true), (addForm = record)"> 编辑 </span>
@@ -40,7 +40,7 @@
               title="确定删除?"
               ok-text="是"
               cancel-text="否"
-              @confirm="userhealthDelete(record.id)"
+              @confirm="softwareDelete(record.id)"
             >
               <span>删除</span>
             </a-popconfirm>
@@ -62,31 +62,25 @@
         :label-col="labelCol2"
         :wrapper-col="wrapperCol2"
       >
-        <a-form-model-item label="身份信息" prop="identity">
-          <a-input v-model="addForm.identity" />
+        <a-form-model-item label="软件名称" prop="name">
+          <a-input v-model="addForm.name" />
         </a-form-model-item>
-        <a-form-model-item label="心率" prop="heartRate">
-          <a-input v-model="addForm.heartRate" />
+        <a-form-model-item label="软件编号" prop="softwareNumber">
+          <a-input v-model="addForm.softwareNumber" />
         </a-form-model-item>
-        <a-form-model-item label="血氧" prop="bloodOxygen">
-          <a-input v-model="addForm.bloodOxygen" />
+        <a-form-model-item label="序列号" prop="number">
+          <a-input v-model="addForm.number" />
         </a-form-model-item>
-        <a-form-model-item label="身高" prop="stature">
-          <a-input v-model="addForm.stature" />
-        </a-form-model-item>
-        <a-form-model-item label="体重" prop="weight">
-          <a-input v-model="addForm.weight" />
-        </a-form-model-item>   
-        <a-form-model-item label="选择状态" prop="state">
+        <!-- <a-form-model-item label="选择类型">
           <a-select
-            v-model="addForm.state"
+            v-model="addForm.type"
             style="width: 250px"
-            placeholder="请选择状态"
+            placeholder="请选择类型"
           >
-            <a-select-option :value="0"> 不健康 </a-select-option>
-            <a-select-option :value="1"> 健康 </a-select-option>
+            <a-select-option :value="0"> 门禁 </a-select-option>
+            <a-select-option :value="1"> 软件 </a-select-option>
           </a-select>
-        </a-form-model-item>
+        </a-form-model-item> -->
       </a-form-model>
     </a-modal>
   </div>
@@ -96,29 +90,32 @@
 export default {
   data() {
     return {
-      labelCol: { span: 6 },
+      labelCol: { span: 5 },
       wrapperCol: { span: 14 },
       labelCol2: { span: 6 },
       wrapperCol2: { span: 12 },
       columns: [
         {
-          title: "身份信息",
-          dataIndex: "identity",
+          title: "区域名称",
+          dataIndex: "areaName",
           align: "center",
         },
         {
-          title: "心率",
-          dataIndex: "heartRate",
+          title: "软件名称",
+          dataIndex: "name",
           align: "center",
         },
-        { title: "血氧", dataIndex: "bloodOxygen", align: "center" },
-        { title: "体重", dataIndex: "weight", align: "center" },
-        { title: "身高", dataIndex: "stature", align: "center" },
         {
-          title: "状态",
-          dataIndex: "state",
+          title: "软件编号",
+          dataIndex: "softwareNumber",
           align: "center",
-          scopedSlots: { customRender: "state" },
+        },
+        { title: "数量", dataIndex: "number", align: "center" },
+        {
+          title: "类型",
+          dataIndex: "type",
+          align: "center",
+          scopedSlots: { customRender: "type" },
         },
         {
           title: "操作",
@@ -128,45 +125,31 @@ export default {
         },
       ],
       rules: {
-        identity: [
+        name: [
           {
             required: true,
-            message: "请填写身份信息",
+            message: "请填写人员软件名称",
             trigger: "blur",
           },
         ],
-        heartRate: [
+        softwareNumber: [
           {
             required: true,
-            message: "请填写心率",
+            message: "请填写软件数量",
             trigger: "blur",
           },
         ],
-        bloodOxygen: [
+        number: [
           {
             required: true,
-            message: "请填写血氧",
+            message: "请填写数量",
             trigger: "blur",
           },
         ],
-        weight: [
+        type: [
           {
             required: true,
-            message: "请填写体重",
-            trigger: "blur",
-          },
-        ],
-        stature: [
-          {
-            required: true,
-            message: "请填写身高",
-            trigger: "blur",
-          },
-        ],
-        state: [
-          {
-            required: true,
-            message: "请填写状态",
+            message: "请填写类型",
             trigger: "blur",
           },
         ],
@@ -184,45 +167,57 @@ export default {
   },
   methods: {
     //开发者管理列表
-    async userhealth() {
+    async softwarepage() {
       var data = {
         pageNum: this.pagination.current,
         pageSize: this.pagination.pageSize,
-        identity: this.searchForm.identity,
+        type: this.$route.params.id,
       };
-      const res = await this.$api.userhealth(data);
+      const res = await this.$api.softwarepage(data);
       if (res.success) {
         this.dataLists = res.data.records;
         this.pagination.total = res.data.total;
       }
     },
-    // 增加修改
-    async addEditHealth() {
-      const res = await this.$api.addEditHealth(this.addForm);
+    // 添加编辑
+    async softwareAdd() {
+      var data = {
+        areaId: this.$route.params.id,
+        areaName:this.$route.params.name,
+        name: this.addForm.name,
+        number: this.addForm.number,
+        softwareNumber: this.addForm.softwareNumber,
+      };
+      const res = await this.$api.softwareAdd(data);
       if (res.success) {
         this.$message.success(res.msg);
-        this.userhealth();
+        this.softwarepage();
       } else {
         this.$message.warn(res.msg);
       }
     },
     // 删除开发者项目
-    async userhealthDelete(e) {
-      const res = await this.$api.userhealthDelete({ id: e });
+    async softwareDelete(e) {
+      const res = await this.$api.softwareDelete({ id: e });
       if (res.success) {
-        this.userhealth();
+        this.softwarepage();
         this.$message.success(res.msg);
       }
     },
+    goback() {
+      this.$router.go(-1);
+    },
     tablePageChange(pagination) {
       let { current, pageSize } = pagination;
+      console.log("0", current);
+      console.log("00", pageSize);
       this.pagination.current = current;
       this.pagination.pageSize = pageSize;
-      this.userhealth();
+      this.softwarepage();
     },
     reset() {
       this.searchForm = {};
-      this.userhealth();
+      this.softwarepage();
     },
     handleOk(e) {
       this.$refs.ruleForm.validate((valid) => {
@@ -231,18 +226,20 @@ export default {
           if (e) {
             this.addForm.id = e;
           }
-          this.addEditHealth();
+          this.softwareAdd();
           this.addForm = {};
         }
       });
     },
     handleCancel(e) {
+      console.log("Clicked cancel button");
       this.addVisible = false;
       this.addForm = {};
     },
   },
   mounted() {
-    this.userhealth();
+    this.softwarepage();
+    console.log(this.$route.params);
   },
 };
 </script>
@@ -258,15 +255,9 @@ export default {
       margin-left: 10px;
     }
   }
-<<<<<<< HEAD
-  p {
-    span {
-      color: rgb(10, 66, 187);
-      cursor: pointer;
-    }
-=======
   .main {
     // text-align: center;
+    margin-top: 20px;
   }
   .ant-table-wrapper {
     width: 1500px;
@@ -274,7 +265,6 @@ export default {
   span {
     color: rgb(10, 66, 187);
     cursor: pointer;
->>>>>>> 4861ea72a5980d229ea9a40795fdaaa02dfb87a1
   }
 }
 </style>
