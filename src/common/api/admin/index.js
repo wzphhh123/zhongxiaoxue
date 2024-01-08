@@ -105,3 +105,15 @@ export function addEditPlace(data) {
 export function placeDelete(params) {
     return http.delete(url.placeDelete, params);
 }
+// 机构列表查询
+export function ydtywebuseradmin(params){
+    return http.get(url.ydtywebuseradmin,params)
+}
+// 修改添加机构
+export function useradminregister(data){
+    return http.post(url.useradminregister,data)
+}
+// 删除机构
+export function Delydtywebuseradmin(params){
+    return http.delete(url.Delydtywebuseradmin,params)
+}

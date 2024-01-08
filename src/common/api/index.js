@@ -8,7 +8,7 @@ import {
     findAllElectricity,
     findAllShow,
 
-    electricity, 
+    electricity,
     addEditelectricity,
     electricityDelete,
 
@@ -21,11 +21,14 @@ import {
     regionDelete,
 
     userhealth,
-    addEditHealth, 
+    addEditHealth,
     userhealthDelete,
-    
+
     placepage,addEditPlace,
     placeDelete,
+    ydtywebuseradmin,
+    useradminregister,
+    Delydtywebuseradmin,
 } from './admin'
 
 export default {
@@ -48,9 +51,12 @@ export default {
     regionAddEdit,
     regionDelete,
     userhealth,
-    addEditHealth, 
+    addEditHealth,
     userhealthDelete,
     placepage,
     addEditPlace,
-placeDelete,
+    placeDelete,
+    ydtywebuseradmin,
+    useradminregister,
+    Delydtywebuseradmin,
 }

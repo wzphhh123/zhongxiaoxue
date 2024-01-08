@@ -1,6 +1,6 @@
 module.exports ={
     JWTToken:'/useradmin/login', //登录
-    // 
+
     showfindAllUser:'/api/show/findAllUser' , //人员统计
     SoftwareFindAll:'/api/show/SoftwareFindAll', //软件使用占比
     AreaFindAll:'/api/show/AreaFindAll', //区域管理
@@ -28,4 +28,8 @@ module.exports ={
     placepage:'/place/page', //位置管理
     addEditPlace:'/place' , //新增编辑地域
     placeDelete:'/place/delete',//删除地域
+
+    ydtywebuseradmin: '/useradmin', // 机构列表查询
+    useradminregister: '/useradmin/register', // 修改添加机构
+    Delydtywebuseradmin: '/useradmin/delete', // 删除机构
 }

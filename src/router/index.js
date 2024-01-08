@@ -33,7 +33,7 @@ const routes = [
 		component: () => import("@/view/home/index.vue"),
 		redirect: "/locateManage",
 		children: [
-			// 人员统计管理
+			// 位置管理
 			{
 				path: "/locateManage",
 				name: "locateManage",
@@ -63,6 +63,12 @@ const routes = [
 				name: "softwareManage",
 				component: () => import("@/view/content/softwareManage.vue"),
 			},
+			// 机构列表
+			{
+				path: "/institution",
+				name: "institution",
+				component: () => import("@/view/institution/index.vue"),
+			}
 		]
 	},
 	{

@@ -213,12 +213,6 @@ export default {
       margin-left: 10px;
     }
   }
-  .main {
-    // text-align: center;
-  }
-  .ant-table-wrapper {
-    width: 1500px;
-  }
   p {
     span {
       color: rgb(10, 66, 187);

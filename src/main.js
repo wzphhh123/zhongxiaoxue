@@ -4,6 +4,8 @@ Vue.config.productionTip = false
 //三方库
 import router from "./router";
 import Router from "vue-router";
+//公共样式
+import "./assets/style/index.scss";
 
 //重写router.push
 const routerPush = Router.prototype.push;
