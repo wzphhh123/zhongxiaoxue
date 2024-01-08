@@ -9,11 +9,11 @@
           :wrapper-col="wrapperCol"
           layout="inline"
         >
-          <a-form-model-item label="姓名">
+          <a-form-model-item label="身份信息">
             <a-input
               v-model="searchForm.identity"
               style="width: 250px"
-              placeholder="请输入姓名"
+              placeholder="请输入身份信息"
             />
           </a-form-model-item>
         </a-form-model>
@@ -30,10 +30,10 @@
           bordered
         >
           <template slot="state" slot-scope="text">
-            <span v-if="text == 0">不健康</span>
-            <span v-if="text == 1">健康</span>
+            <span v-if="text == 0" style="color: red">不健康</span>
+            <span v-if="text == 1" style="color: #10c30c">健康</span>
           </template>
-          <p slot="operation" slot-scope="text, record">
+          <template slot="operation" slot-scope="text, record">
             <span @click="(addVisible = true), (addForm = record)"> 编辑 </span>
             <a-divider type="vertical" />
             <a-popconfirm
@@ -44,7 +44,7 @@
             >
               <span>删除</span>
             </a-popconfirm>
-          </p>
+          </template>
         </a-table>
       </div>
     </div>
@@ -62,7 +62,7 @@
         :label-col="labelCol2"
         :wrapper-col="wrapperCol2"
       >
-        <a-form-model-item label="身份" prop="identity">
+        <a-form-model-item label="身份信息" prop="identity">
           <a-input v-model="addForm.identity" />
         </a-form-model-item>
         <a-form-model-item label="心率" prop="heartRate">
@@ -71,17 +71,17 @@
         <a-form-model-item label="血氧" prop="bloodOxygen">
           <a-input v-model="addForm.bloodOxygen" />
         </a-form-model-item>
-        <a-form-model-item label="体重" prop="weight">
-          <a-input v-model="addForm.weight" />
-        </a-form-model-item>
-        <a-form-model-item label="身材" prop="stature">
+        <a-form-model-item label="身高" prop="stature">
           <a-input v-model="addForm.stature" />
         </a-form-model-item>
-        <a-form-model-item label="选择模式" prop="state">
+        <a-form-model-item label="体重" prop="weight">
+          <a-input v-model="addForm.weight" />
+        </a-form-model-item>   
+        <a-form-model-item label="选择状态" prop="state">
           <a-select
             v-model="addForm.state"
             style="width: 250px"
-            placeholder="请选择模式"
+            placeholder="请选择状态"
           >
             <a-select-option :value="0"> 不健康 </a-select-option>
             <a-select-option :value="1"> 健康 </a-select-option>
@@ -96,13 +96,13 @@
 export default {
   data() {
     return {
-      labelCol: { span: 4 },
+      labelCol: { span: 6 },
       wrapperCol: { span: 14 },
       labelCol2: { span: 6 },
       wrapperCol2: { span: 12 },
       columns: [
         {
-          title: "身份",
+          title: "身份信息",
           dataIndex: "identity",
           align: "center",
         },
@@ -113,7 +113,7 @@ export default {
         },
         { title: "血氧", dataIndex: "bloodOxygen", align: "center" },
         { title: "体重", dataIndex: "weight", align: "center" },
-        { title: "身材", dataIndex: "stature", align: "center" },
+        { title: "身高", dataIndex: "stature", align: "center" },
         {
           title: "状态",
           dataIndex: "state",
@@ -131,7 +131,7 @@ export default {
         identity: [
           {
             required: true,
-            message: "请填写身份",
+            message: "请填写身份信息",
             trigger: "blur",
           },
         ],
@@ -159,7 +159,7 @@ export default {
         stature: [
           {
             required: true,
-            message: "请填写身材",
+            message: "请填写身高",
             trigger: "blur",
           },
         ],
@@ -173,7 +173,7 @@ export default {
       },
       pagination: {
         current: 1,
-        pageSize: 2,
+        pageSize: 10,
         total: 0,
       },
       dataLists: [],
@@ -266,11 +266,9 @@ export default {
   .ant-table-wrapper {
     width: 1500px;
   }
-  p {
-    span {
-      color: rgb(10, 66, 187);
-      cursor: pointer;
-    }
+  span {
+    color: rgb(10, 66, 187);
+    cursor: pointer;
   }
 }
 </style>
