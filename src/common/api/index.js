@@ -73,11 +73,9 @@ export default {
     placepage,
     addEditPlace,
     placeDelete,
-<<<<<<< HEAD
     ydtywebuseradmin,
     useradminregister,
     Delydtywebuseradmin,
-=======
     areapage,
     areaAdd,
     areaDelete,
@@ -86,5 +84,4 @@ export default {
     deploydistrictAdd,
     deploydistrictDelete,
     bearuserpage,
->>>>>>> 4861ea72a5980d229ea9a40795fdaaa02dfb87a1
 }
