@@ -94,22 +94,6 @@
                 </a-sub-menu>
                 <a-sub-menu key="sub7">
                   <span slot="title"
-<<<<<<< HEAD
-                    ><a-icon type="appstore" /><span>机构列表</span></span
-                  >
-                  <a-menu-item key="6" @click="goContent(6)">
-                    机构列表
-                  </a-menu-item>
-                </a-sub-menu>
-              </a-menu>
-            </div>
-          </a-col>
-          <a-col :span="21">
-            <div class="rightConent">
-              <router-view></router-view>
-            </div>
-          </a-col>
-=======
                     ><a-icon type="appstore" /><span style="margin-left: 20%"
                       >门禁管理</span
                     ></span
@@ -130,7 +114,6 @@
               <router-view></router-view>
               </div
           ></a-col>
->>>>>>> 4861ea72a5980d229ea9a40795fdaaa02dfb87a1
         </a-row>
       </div>
     </div>

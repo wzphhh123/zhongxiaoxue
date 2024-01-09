@@ -26,12 +26,11 @@ import {
     addEditHealth,
     userhealthDelete,
 
-    placepage,addEditPlace,
-    placeDelete,
     ydtywebuseradmin,
     useradminregister,
     Delydtywebuseradmin,
-    placepage, addEditPlace,
+    placepage,
+    addEditPlace,
     placeDelete,
 
     areapage,

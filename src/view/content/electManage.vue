@@ -231,23 +231,11 @@ export default {
       margin-left: 10px;
     }
   }
-<<<<<<< HEAD
   p {
     span {
       color: rgb(10, 66, 187);
       cursor: pointer;
     }
-=======
-  .main {
-    // text-align: center;
-  }
-  .ant-table-wrapper {
-    width: 1500px;
-  }
-  span {
-    color: rgb(10, 66, 187);
-    cursor: pointer;
->>>>>>> 4861ea72a5980d229ea9a40795fdaaa02dfb87a1
   }
 }
 </style>
