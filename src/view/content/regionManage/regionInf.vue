@@ -1,6 +1,16 @@
 <template>
   <div>
     <div class="content">
+      <a-breadcrumb style="font-size: 18px; cursor: pointer">
+        <a-breadcrumb-item>
+          <!-- <a href="">区域管理</a> -->
+          <span @click="goback">区域管理</span>
+        </a-breadcrumb-item>
+        <a-breadcrumb-item style="color: #000">{{
+          this.$route.params.name
+        }}</a-breadcrumb-item>
+      </a-breadcrumb>
+      <div class="line"></div>
       <div class="top">
         <a-form-model
           :model="searchForm"
@@ -13,13 +23,14 @@
               v-model="searchForm.name"
               style="width: 250px"
               placeholder="请输入软件名称"
+              allow-clear
             />
           </a-form-model-item>
         </a-form-model>
         <a-button type="primary" @click="softwarepage()">查询</a-button>
-        <a-button type="primary" @click="reset()">重置</a-button>
+        <!-- <a-button type="primary" @click="reset()">重置</a-button> -->
         <a-button type="primary" @click="addVisible = true">新增</a-button>
-        <a-button type="primary" @click="goback">返回</a-button>
+        <!-- <a-button type="primary" @click="goback">返回</a-button> -->
       </div>
       <div class="main">
         <a-table
@@ -34,15 +45,26 @@
             <span v-if="text == 1">软件</span>
           </template>
           <template slot="operation" slot-scope="text, record">
-            <span @click="(addVisible = true), (addForm = record)"> 编辑 </span>
-            <a-divider type="vertical" />
+            <a-tooltip>
+              <template slot="title"> 编辑</template>
+              <a-icon
+                type="edit"
+                theme="twoTone"
+                @click="(addVisible = true), (addForm = record)"
+              />
+              <a-divider type="vertical" />
+            </a-tooltip>
+
             <a-popconfirm
-              title="确定删除?"
+              title="确定删除？"
               ok-text="是"
               cancel-text="否"
               @confirm="softwareDelete(record.id)"
             >
-              <span>删除</span>
+              <a-tooltip>
+                <template slot="title"> 删除 </template>
+                <a-icon type="delete" theme="twoTone" />
+              </a-tooltip>
             </a-popconfirm>
           </template>
         </a-table>
@@ -183,7 +205,7 @@ export default {
     async softwareAdd() {
       var data = {
         areaId: this.$route.params.id,
-        areaName:this.$route.params.name,
+        areaName: this.$route.params.name,
         name: this.addForm.name,
         number: this.addForm.number,
         softwareNumber: this.addForm.softwareNumber,
@@ -247,6 +269,14 @@ export default {
 <style lang="scss" scoped>
 .content {
   padding: 15px;
+
+  .line {
+    width: 97%;
+    height: 1px;
+    background-color: rgb(180, 178, 178);
+    margin-top: 10px;
+    margin-bottom: 15px;
+  }
   .top {
     display: flex;
     margin-bottom: 20px;

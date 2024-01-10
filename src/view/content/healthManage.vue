@@ -9,16 +9,17 @@
           :wrapper-col="wrapperCol"
           layout="inline"
         >
-          <a-form-model-item label="身份信息">
+          <a-form-model-item label="用户信息">
             <a-input
               v-model="searchForm.identity"
               style="width: 250px"
-              placeholder="请输入身份信息"
+              placeholder="请输入用户信息"
+              allow-clear
             />
           </a-form-model-item>
         </a-form-model>
         <a-button type="primary" @click="userhealth()">查询</a-button>
-        <a-button type="primary" @click="reset()">重置</a-button>
+        <!-- <a-button type="primary" @click="reset()">重置</a-button> -->
         <a-button type="primary" @click="addVisible = true">新增</a-button>
       </div>
       <div class="main">
@@ -34,15 +35,26 @@
             <span v-if="text == 1" style="color: #10c30c">健康</span>
           </template>
           <template slot="operation" slot-scope="text, record">
-            <span @click="(addVisible = true), (addForm = record)"> 编辑 </span>
-            <a-divider type="vertical" />
+            <a-tooltip>
+              <template slot="title"> 编辑</template>
+              <a-icon
+                type="edit"
+                theme="twoTone"
+                @click="(addVisible = true), (addForm = record)"
+              />
+              <a-divider type="vertical" />
+            </a-tooltip>
+
             <a-popconfirm
-              title="确定删除?"
+              title="确定删除？"
               ok-text="是"
               cancel-text="否"
               @confirm="userhealthDelete(record.id)"
             >
-              <span>删除</span>
+              <a-tooltip>
+                <template slot="title"> 删除 </template>
+                <a-icon type="delete" theme="twoTone" />
+              </a-tooltip>
             </a-popconfirm>
           </template>
         </a-table>
@@ -62,27 +74,23 @@
         :label-col="labelCol2"
         :wrapper-col="wrapperCol2"
       >
-        <a-form-model-item label="身份信息" prop="identity">
+        <a-form-model-item label="用户信息" prop="identity">
           <a-input v-model="addForm.identity" />
         </a-form-model-item>
-        <a-form-model-item label="心率" prop="heartRate">
+        <a-form-model-item label="心率(次/分钟)" prop="heartRate">
           <a-input v-model="addForm.heartRate" />
         </a-form-model-item>
-        <a-form-model-item label="血氧" prop="bloodOxygen">
+        <a-form-model-item label="血氧(mol/l)" prop="bloodOxygen">
           <a-input v-model="addForm.bloodOxygen" />
         </a-form-model-item>
-        <a-form-model-item label="身高" prop="stature">
+        <a-form-model-item label="身高(cm)" prop="stature">
           <a-input v-model="addForm.stature" />
         </a-form-model-item>
-        <a-form-model-item label="体重" prop="weight">
+        <a-form-model-item label="体重(Kg)" prop="weight">
           <a-input v-model="addForm.weight" />
-        </a-form-model-item>   
+        </a-form-model-item>
         <a-form-model-item label="选择状态" prop="state">
-          <a-select
-            v-model="addForm.state"
-            style="width: 250px"
-            placeholder="请选择状态"
-          >
+          <a-select v-model="addForm.state" placeholder="请选择状态">
             <a-select-option :value="0"> 不健康 </a-select-option>
             <a-select-option :value="1"> 健康 </a-select-option>
           </a-select>
@@ -102,18 +110,18 @@ export default {
       wrapperCol2: { span: 12 },
       columns: [
         {
-          title: "身份信息",
+          title: "用户信息",
           dataIndex: "identity",
           align: "center",
         },
         {
-          title: "心率",
+          title: "心率（次/分钟）",
           dataIndex: "heartRate",
           align: "center",
         },
-        { title: "血氧", dataIndex: "bloodOxygen", align: "center" },
-        { title: "体重", dataIndex: "weight", align: "center" },
-        { title: "身高", dataIndex: "stature", align: "center" },
+        { title: "血氧（mol/l）", dataIndex: "bloodOxygen", align: "center" },
+        { title: "身高(cm)", dataIndex: "stature", align: "center" },
+        { title: "体重(Kg)", dataIndex: "weight", align: "center" },
         {
           title: "状态",
           dataIndex: "state",
@@ -131,7 +139,7 @@ export default {
         identity: [
           {
             required: true,
-            message: "请填写身份信息",
+            message: "请填写用户信息",
             trigger: "blur",
           },
         ],

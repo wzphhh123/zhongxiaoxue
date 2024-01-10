@@ -25,7 +25,7 @@
           </a-form-model-item>
         </a-form-model>
         <a-button type="primary" @click="districtfindAll()">查询</a-button>
-        <a-button type="primary" @click="reset()">重置</a-button>
+        <!-- <a-button type="primary" @click="reset()">重置</a-button> -->
         <a-button type="primary" @click="(isOpen = false), (addVisible = true)"
           >新增</a-button
         >
@@ -97,7 +97,6 @@
           <a-select
             v-model="addForm.id"
             placeholder="展馆地址"
-            style="width: 200px"
             @change="change(addForm.id)"
           >
             <a-select-option

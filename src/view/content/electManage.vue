@@ -14,13 +14,13 @@
               v-model="searchForm.areaId"
               style="width: 250px"
               placeholder="请输入地域Id"
+              allow-clear
             />
           </a-form-model-item>
         </a-form-model>
         <a-button type="primary" @click="electricity()">查询</a-button>
-        <a-button type="primary" @click="reset()">重置</a-button>
+        <!-- <a-button type="primary" @click="reset()">重置</a-button> -->
         <!-- <a-button type="primary" @click="addVisible = true">新增</a-button> -->
-        
       </div>
       <div class="main">
         <a-table
@@ -33,13 +33,17 @@
           <template slot="operation" slot-scope="text, record">
             <!-- <span @click="(addVisible = true), (addForm = record)"> 编辑 </span>
             <a-divider type="vertical" /> -->
+
             <a-popconfirm
-              title="确定删除?"
+              title="确定删除？"
               ok-text="是"
               cancel-text="否"
               @confirm="electricityDelete(record.id)"
             >
-              <span>删除</span>
+              <a-tooltip>
+                <template slot="title"> 删除 </template>
+                <a-icon type="delete" theme="twoTone" />
+              </a-tooltip>
             </a-popconfirm>
           </template>
         </a-table>
@@ -88,11 +92,11 @@ export default {
           align: "center",
         },
         {
-          title: "总功率",
+          title: "总电量",
           dataIndex: "totalPower",
           align: "center",
         },
-        { title: "转储能量", dataIndex: "dumpEnergy", align: "center" },
+        { title: "剩余电量", dataIndex: "dumpEnergy", align: "center" },
         { title: "创建时间", dataIndex: "createTime", align: "center" },
         {
           title: "操作",
@@ -211,7 +215,7 @@ export default {
           fuzhi = value;
         },
       });
-    },  
+    },
   },
   mounted() {
     this.electricity();

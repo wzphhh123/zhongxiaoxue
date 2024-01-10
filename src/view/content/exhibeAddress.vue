@@ -9,16 +9,17 @@
           :wrapper-col="wrapperCol"
           layout="inline"
         >
-          <a-form-model-item label="名称">
+          <a-form-model-item label="展馆名称">
             <a-input
               v-model="searchForm.name"
               style="width: 250px"
-              placeholder="请输入名称"
+              placeholder="请输入展馆名称"
+              allow-clear
             />
           </a-form-model-item>
         </a-form-model>
         <a-button type="primary" @click="areapage()">查询</a-button>
-        <a-button type="primary" @click="reset()">重置</a-button>
+        <!-- <a-button type="primary" @click="reset()">重置</a-button> -->
         <a-button type="primary" @click="addVisible = true">新增</a-button>
       </div>
       <div class="main">
@@ -30,15 +31,16 @@
           bordered
         >
           <template slot="operation" slot-scope="text, record">
-            <!-- <span @click="(addVisible = true), (addForm = record)"> 编辑 </span>
-            <a-divider type="vertical" /> -->
             <a-popconfirm
-              title="确定删除?"
+              title="确定删除？"
               ok-text="是"
               cancel-text="否"
               @confirm="areaDelete(record.id)"
             >
-              <span>删除</span>
+              <a-tooltip>
+                <template slot="title"> 删除 </template>
+                <a-icon type="delete" theme="twoTone" />
+              </a-tooltip>
             </a-popconfirm>
           </template>
         </a-table>
@@ -59,7 +61,7 @@
         :wrapper-col="wrapperCol2"
       >
         <a-form-model-item label="展馆名称" prop="name">
-          <a-input v-model="addForm.name" style="width: 80%" />
+          <a-input v-model="addForm.name" style="width: 300px" />
         </a-form-model-item>
         <a-form-model-item label="展馆地址" prop="county">
           <a-select
@@ -103,10 +105,10 @@
           </a-select>
         </a-form-model-item>
         <a-form-model-item label="经度">
-          <a-input v-model="addForm.longitude" style="width: 80%" />
+          <a-input v-model="addForm.longitude" style="width: 300px" />
         </a-form-model-item>
         <a-form-model-item label="纬度">
-          <a-input v-model="addForm.latitude" style="width: 80%" />
+          <a-input v-model="addForm.latitude" style="width: 300px" />
         </a-form-model-item>
       </a-form-model>
     </a-modal>
@@ -117,7 +119,7 @@
 export default {
   data() {
     return {
-      labelCol: { span: 4 },
+      labelCol: { span: 6 },
       wrapperCol: { span: 14 },
       labelCol2: { span: 6 },
       wrapperCol2: { span: 16 },

@@ -8,11 +8,12 @@
           :wrapper-col="wrapperCol"
           layout="inline"
         >
-          <a-form-model-item label="姓名">
+          <a-form-model-item label="用户名称">
             <a-input
               v-model="searchForm.name"
               style="width: 250px"
-              placeholder="请输入姓名"
+              placeholder="请输入用户名称"
+              allow-clear
             />
           </a-form-model-item>
           <!-- <a-form-model-item label="选择类型" style="margin-left: 20px">
@@ -27,7 +28,7 @@
           </a-form-model-item> -->
         </a-form-model>
         <a-button type="primary" @click="bearuserpage()">查询</a-button>
-        <a-button type="primary" @click="reset()">重置</a-button>
+        <!-- <a-button type="primary" @click="reset()">重置</a-button> -->
         <a-button type="primary" @click="addVisible = true">新增</a-button>
       </div>
       <div class="main">
@@ -43,15 +44,25 @@
             <span v-if="text == 1">软件</span>
           </template>
           <template slot="operation" slot-scope="text, record">
-            <span @click="(addVisible = true), (addForm = record)"> 编辑 </span>
-            <a-divider type="vertical" />
+            <a-tooltip>
+              <template slot="title"> 编辑</template>
+              <a-icon
+                type="edit"
+                theme="twoTone"
+                @click="(addVisible = true), (addForm = record)"
+              />
+              <a-divider type="vertical" />
+            </a-tooltip>
             <a-popconfirm
-              title="确定删除?"
+              title="确定删除？"
               ok-text="是"
               cancel-text="否"
               @confirm="softwareDelete(record.id)"
             >
-              <span>删除</span>
+              <a-tooltip>
+                <template slot="title"> 删除 </template>
+                <a-icon type="delete" theme="twoTone" />
+              </a-tooltip>
             </a-popconfirm>
           </template>
         </a-table>
@@ -71,7 +82,7 @@
         :label-col="labelCol2"
         :wrapper-col="wrapperCol2"
       >
-        <a-form-model-item label="软件名" prop="name">
+        <a-form-model-item label="用户名称" prop="name">
           <a-input v-model="addForm.name" />
         </a-form-model-item>
         <a-form-model-item label="软件编号" prop="softwareNumber">
@@ -105,8 +116,14 @@ export default {
       wrapperCol2: { span: 12 },
       columns: [
         {
-          title: "软件名",
+          title: "用户名称",
           dataIndex: "name",
+          align: "center",
+        },
+
+        {
+          title: "身份信息",
+          dataIndex: "identity",
           align: "center",
         },
         {
@@ -132,7 +149,7 @@ export default {
         name: [
           {
             required: true,
-            message: "请填写人员姓名",
+            message: "请填写人员用户名称",
             trigger: "blur",
           },
         ],
