@@ -76,6 +76,12 @@ const routes = [
 				name: "softwareManage",
 				component: () => import("@/view/content/softwareManage.vue"),
 			},
+			// 机构列表
+			{
+				path: "/institution",
+				name: "institution",
+				component: () => import("@/view/institution/index.vue"),
+			},
 			// 门禁管理
 			{
 				path: "/doorControlManage",

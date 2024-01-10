@@ -26,7 +26,11 @@ import {
     addEditHealth,
     userhealthDelete,
 
-    placepage, addEditPlace,
+    ydtywebuseradmin,
+    useradminregister,
+    Delydtywebuseradmin,
+    placepage,
+    addEditPlace,
     placeDelete,
 
     areapage,
@@ -68,6 +72,9 @@ export default {
     placepage,
     addEditPlace,
     placeDelete,
+    ydtywebuseradmin,
+    useradminregister,
+    Delydtywebuseradmin,
     areapage,
     areaAdd,
     areaDelete,

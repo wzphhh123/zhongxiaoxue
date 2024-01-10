@@ -224,8 +224,6 @@ export default {
     },
     tablePageChange(pagination) {
       let { current, pageSize } = pagination;
-      console.log("0", current);
-      console.log("00", pageSize);
       this.pagination.current = current;
       this.pagination.pageSize = pageSize;
       this.userhealth();
@@ -268,15 +266,11 @@ export default {
       margin-left: 10px;
     }
   }
-  .main {
-    // text-align: center;
-  }
-  .ant-table-wrapper {
-    width: 1500px;
-  }
-  span {
-    color: rgb(10, 66, 187);
-    cursor: pointer;
+  p {
+    span {
+      color: rgb(10, 66, 187);
+      cursor: pointer;
+    }
   }
 }
 </style>

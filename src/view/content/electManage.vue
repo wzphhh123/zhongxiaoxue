@@ -235,15 +235,11 @@ export default {
       margin-left: 10px;
     }
   }
-  .main {
-    // text-align: center;
-  }
-  .ant-table-wrapper {
-    width: 1500px;
-  }
-  span {
-    color: rgb(10, 66, 187);
-    cursor: pointer;
+  p {
+    span {
+      color: rgb(10, 66, 187);
+      cursor: pointer;
+    }
   }
 }
 </style>

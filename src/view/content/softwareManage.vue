@@ -260,9 +260,6 @@ export default {
       margin-left: 10px;
     }
   }
-  .main {
-    // text-align: center;
-  }
   .ant-table-wrapper {
     width: 1500px;
   }

@@ -131,13 +131,6 @@ export default {
       this.$router.push({ path: "/" });
     },
     goContent(e) {
-      // if (e == 0) {
-      //   this.$router.push({ path: "/project" });
-      // } else if (e == 1) {
-      //   this.$router.push({ path: "/index2" });
-      // } else {
-      //   this.$router.push({ path: "/builder" });
-      // }
       if (e == 0) {
         this.$router.push({ path: "/locateManage" });
       } else if (e == 1) {
@@ -195,6 +188,9 @@ export default {
     width: 100%;
     // width: 300px;
     height: 92vh;
+  }
+  .rightConent{
+    padding: 10px;
   }
 }
 </style>
