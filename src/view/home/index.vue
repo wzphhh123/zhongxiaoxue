@@ -29,7 +29,7 @@
                   <a-menu-item
                     key="11"
                     @click="goContent(11)"
-                    style="padding-left: 30%"
+                    style="padding-left: 33%"
                   >
                     体验展馆列表
                   </a-menu-item>
@@ -43,11 +43,10 @@
                   <a-menu-item
                     key="2"
                     @click="goContent(1)"
-                    style="padding-left: 30%"
+                    style="padding-left: 33%"
                   >
                     区域管理
                   </a-menu-item>
-                  
                 </a-sub-menu>
 
                 <a-sub-menu key="sub3">
@@ -59,7 +58,7 @@
                   <a-menu-item
                     key="3"
                     @click="goContent(2)"
-                    style="padding-left: 30%"
+                    style="padding-left: 33%"
                   >
                     用户健康管理
                   </a-menu-item>
@@ -73,7 +72,7 @@
                   <a-menu-item
                     key="4"
                     @click="goContent(3)"
-                    style="padding-left: 30%"
+                    style="padding-left: 33%"
                   >
                     电量管理
                   </a-menu-item>
@@ -87,7 +86,7 @@
                   <a-menu-item
                     key="5"
                     @click="goContent(5)"
-                    style="padding-left: 30%"
+                    style="padding-left: 33%"
                   >
                     软件管理
                   </a-menu-item>
@@ -101,7 +100,14 @@
                   <a-menu-item
                     key="7"
                     @click="goContent(6)"
-                    style="padding-left: 30%"
+                    style="padding-left: 33%"
+                  >
+                    门禁用户管理
+                  </a-menu-item>
+                  <a-menu-item
+                    key="8"
+                    @click="goContent(7)"
+                    style="padding-left: 33%"
                   >
                     门禁管理
                   </a-menu-item>
@@ -111,8 +117,7 @@
           >
           <a-col :span="20"
             ><div class="rightConent">
-              <router-view></router-view>
-              </div
+              <router-view></router-view></div
           ></a-col>
         </a-row>
       </div>
@@ -142,6 +147,8 @@ export default {
       } else if (e == 5) {
         this.$router.push({ path: "/softwareManage" });
       } else if (e == 6) {
+        this.$router.push({ path: "/doorUserManage" });
+      } else if (e == 7) {
         this.$router.push({ path: "/doorControlManage" });
       } else if (e == 11) {
         this.$router.push({ path: "/exhibeAddress" });
@@ -189,7 +196,7 @@ export default {
     // width: 300px;
     height: 92vh;
   }
-  .rightConent{
+  .rightConent {
     padding: 10px;
   }
 }

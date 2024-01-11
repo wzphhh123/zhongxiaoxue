@@ -43,6 +43,9 @@ import {
     deploydistrictDelete,
 
     bearuserpage,
+    entranceguardpage,
+    entranceguardsave,
+    entranceguarddelete,
 } from './admin'
 
 export default {
@@ -83,4 +86,7 @@ export default {
     deploydistrictAdd,
     deploydistrictDelete,
     bearuserpage,
+    entranceguardpage,
+    entranceguardsave,
+    entranceguarddelete,
 }

@@ -82,11 +82,17 @@ const routes = [
 				name: "institution",
 				component: () => import("@/view/institution/index.vue"),
 			},
+			// 门禁用户管理
+			{
+				path: "/doorUserManage",
+				name: "doorUserManage",
+				component: () => import("@/view/content/doorControlManage/doorUserManage.vue"),
+			},
 			// 门禁管理
 			{
 				path: "/doorControlManage",
 				name: "doorControlManage",
-				component: () => import("@/view/content/doorControlManage.vue"),
+				component: () => import("@/view/content/doorControlManage/doorControlManage.vue"),
 			},
 		]
 	},

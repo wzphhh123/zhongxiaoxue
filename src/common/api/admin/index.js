@@ -156,6 +156,17 @@ export function deploydistrictDelete(params) {
 export function bearuserpage(params) {
     return http.get(url.bearuserpage, params);
 }
-
+// 获取门禁用户列表
+export function entranceguardpage(params) {
+    return http.get(url.entranceguardpage, params);
+}
+// 添加门禁
+export function entranceguardsave(data) {
+    return http.post(url.entranceguardsave, data);
+}
+// 门禁删除
+export function entranceguarddelete(params) {
+    return http.delete(url.entranceguarddelete, params);
+}
 
   

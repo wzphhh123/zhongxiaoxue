@@ -16,16 +16,6 @@
               allow-clear
             />
           </a-form-model-item>
-          <!-- <a-form-model-item label="选择类型" style="margin-left: 20px">
-            <a-select
-              v-model="searchForm.type"
-              style="width: 250px"
-              placeholder="请选择类型"
-            >
-              <a-select-option :value="0"> 门禁 </a-select-option>
-              <a-select-option :value="1"> 软件 </a-select-option>
-            </a-select>
-          </a-form-model-item> -->
         </a-form-model>
         <a-button type="primary" @click="bearuserpage()">查询</a-button>
         <!-- <a-button type="primary" @click="reset()">重置</a-button> -->
@@ -91,11 +81,11 @@
         <a-form-model-item label="序列号" prop="number">
           <a-input v-model="addForm.number" />
         </a-form-model-item>
-        <!-- <a-form-model-item label="选择类型">
+        <!-- <a-form-model-item label="选择状态">
           <a-select
             v-model="addForm.type"
             style="width: 250px"
-            placeholder="请选择类型"
+            placeholder="请选择状态"
           >
             <a-select-option :value="0"> 门禁 </a-select-option>
             <a-select-option :value="1"> 软件 </a-select-option>
@@ -131,12 +121,11 @@ export default {
           dataIndex: "softwareNumber",
           align: "center",
         },
-        { title: "序列号", dataIndex: "number", align: "center" },
         {
-          title: "类型",
-          dataIndex: "type",
+          title: "状态",
+          dataIndex: "state",
           align: "center",
-          scopedSlots: { customRender: "type" },
+          scopedSlots: { customRender: "state" },
         },
         {
           title: "操作",
@@ -156,7 +145,7 @@ export default {
         softwareNumber: [
           {
             required: true,
-            message: "请填写软件数量",
+            message: "请填写软件编号",
             trigger: "blur",
           },
         ],
@@ -170,7 +159,7 @@ export default {
         type: [
           {
             required: true,
-            message: "请填写类型",
+            message: "请填写状态",
             trigger: "blur",
           },
         ],
