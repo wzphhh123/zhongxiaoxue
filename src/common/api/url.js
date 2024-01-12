@@ -44,6 +44,7 @@ module.exports ={
     deploydistrictDelete:'/deploydistrict/delete', //删除
 
     bearuserpage:'/bearuser/page', //门禁用户管理
+    addEditbearuser:'/bearuser', //门禁用户添加编辑
     entranceguardpage:'/entranceguard/page', // 门禁管理
     entranceguardsave:'/entranceguard/save', //添加编辑门禁
     entranceguarddelete:'/entranceguard/delete', //删除门禁

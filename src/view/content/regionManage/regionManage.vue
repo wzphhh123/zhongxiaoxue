@@ -12,8 +12,9 @@
           <a-form-model-item label="展馆名称">
             <a-select
               v-model="searchForm.id"
-              placeholder="展馆地址"
+              placeholder="展馆名称"
               style="width: 200px"
+              allow-clear
             >
               <a-select-option
                 :value="item.id"

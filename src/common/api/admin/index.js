@@ -152,11 +152,16 @@ export function deploydistrictAdd(data) {
 export function deploydistrictDelete(params) {
     return http.delete(url.deploydistrictDelete, params);
 }
-// 获取门禁列表
+// 获取门禁用户列表
 export function bearuserpage(params) {
     return http.get(url.bearuserpage, params);
 }
-// 获取门禁用户列表
+
+// 添加编辑门禁用户
+export function addEditbearuser(data) {
+    return http.post(url.addEditbearuser, data);
+}
+// 获取门禁列表
 export function entranceguardpage(params) {
     return http.get(url.entranceguardpage, params);
 }

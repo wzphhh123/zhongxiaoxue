@@ -43,6 +43,7 @@ import {
     deploydistrictDelete,
 
     bearuserpage,
+    addEditbearuser,
     entranceguardpage,
     entranceguardsave,
     entranceguarddelete,
@@ -86,6 +87,7 @@ export default {
     deploydistrictAdd,
     deploydistrictDelete,
     bearuserpage,
+    addEditbearuser,
     entranceguardpage,
     entranceguardsave,
     entranceguarddelete,

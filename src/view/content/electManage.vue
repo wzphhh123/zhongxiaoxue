@@ -2,18 +2,17 @@
   <div>
     <div class="content">
       <div class="top">
-        <!-- <a-button type="primary">添加</a-button> -->
         <a-form-model
           :model="searchForm"
           :label-col="labelCol"
           :wrapper-col="wrapperCol"
           layout="inline"
         >
-          <a-form-model-item label="地域Id">
+          <a-form-model-item label="地域编号">
             <a-input
               v-model="searchForm.areaId"
               style="width: 250px"
-              placeholder="请输入地域Id"
+              placeholder="请输入地域编号"
               allow-clear
             />
           </a-form-model-item>
@@ -81,13 +80,13 @@
 export default {
   data() {
     return {
-      labelCol: { span: 4 },
+      labelCol: { span: 6 },
       wrapperCol: { span: 14 },
       labelCol2: { span: 6 },
       wrapperCol2: { span: 12 },
       columns: [
         {
-          title: "地域Id",
+          title: "地域编号",
           dataIndex: "areaId",
           align: "center",
         },

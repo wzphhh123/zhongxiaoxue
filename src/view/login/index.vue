@@ -22,7 +22,7 @@
               placeholder="请输入手机号"
               style="margin-bottom: 45px"
             >
-              <a-icon slot="prefix" type="phone" style="font-size: 20px" />
+              <a-icon slot="prefix" type="user" style="font-size: 20px" />
             </a-input>
             <a-input
               ref="userNameInput"
@@ -31,7 +31,7 @@
               type="password"
               style="margin-bottom: 45px"
             >
-              <a-icon slot="prefix" type="user" style="font-size: 20px" />
+              <a-icon slot="prefix" type="lock" style="font-size: 20px" />
             </a-input>
             <div style="text-align: center">
               <a-button

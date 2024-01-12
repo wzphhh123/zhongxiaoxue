@@ -135,7 +135,7 @@ export default {
           align: "center",
         },
         { title: "市", dataIndex: "city", align: "center" },
-        { title: "区", dataIndex: "county", align: "center" },
+        { title: "区/县", dataIndex: "county", align: "center" },
         { title: "经纬度", dataIndex: "jwd", align: "center" },
         {
           title: "操作",

@@ -292,7 +292,6 @@ export default {
   }
   span {
     color: rgb(10, 66, 187);
-    cursor: pointer;
   }
 }
 </style>

@@ -82,14 +82,14 @@
         :label-col="labelCol2"
         :wrapper-col="wrapperCol2"
       >
-        <a-form-model-item label="软件名" prop="name">
+        <a-form-model-item label="软件名称" prop="name">
           <a-input v-model="addForm.name" />
         </a-form-model-item>
         <a-form-model-item label="软件编号" prop="softwareNumber">
           <a-input v-model="addForm.softwareNumber" />
         </a-form-model-item>
         <a-form-model-item label="序列号" prop="number">
-          <a-input v-model="addForm.number" />
+           <a-input-number  v-model="addForm.number" :min="1" style="width:236px" />
         </a-form-model-item>
         <!-- <a-form-model-item label="选择类型">
           <a-select
@@ -116,7 +116,7 @@ export default {
       wrapperCol2: { span: 12 },
       columns: [
         {
-          title: "软件名",
+          title: "软件名称",
           dataIndex: "name",
           align: "center",
         },
@@ -126,12 +126,12 @@ export default {
           align: "center",
         },
         { title: "序列号", dataIndex: "number", align: "center" },
-        {
-          title: "类型",
-          dataIndex: "type",
-          align: "center",
-          scopedSlots: { customRender: "type" },
-        },
+        // {
+        //   title: "类型",
+        //   dataIndex: "type",
+        //   align: "center",
+        //   scopedSlots: { customRender: "type" },
+        // },
         {
           title: "操作",
           dataIndex: "operation",
@@ -150,14 +150,14 @@ export default {
         softwareNumber: [
           {
             required: true,
-            message: "请填写软件数量",
+            message: "请填写软件编号",
             trigger: "blur",
           },
         ],
         number: [
           {
             required: true,
-            message: "请填写数量",
+            message: "请填写序列号",
             trigger: "blur",
           },
         ],

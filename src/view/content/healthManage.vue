@@ -31,7 +31,7 @@
           bordered
         >
           <template slot="state" slot-scope="text">
-            <span v-if="text == 0" style="color: red">不健康</span>
+            <span v-if="text == 0" style="color: red">异常</span>
             <span v-if="text == 1" style="color: #10c30c">健康</span>
           </template>
           <template slot="operation" slot-scope="text, record">
@@ -78,20 +78,20 @@
           <a-input v-model="addForm.identity" />
         </a-form-model-item>
         <a-form-model-item label="心率(次/分钟)" prop="heartRate">
-          <a-input v-model="addForm.heartRate" />
+          <a-input-number  v-model="addForm.heartRate" :min="1" style="width:236px" />
         </a-form-model-item>
         <a-form-model-item label="血氧(mol/l)" prop="bloodOxygen">
-          <a-input v-model="addForm.bloodOxygen" />
+          <a-input-number  v-model="addForm.bloodOxygen" :min="1"  style="width:236px"/>
         </a-form-model-item>
         <a-form-model-item label="身高(cm)" prop="stature">
-          <a-input v-model="addForm.stature" />
+          <a-input-number  v-model="addForm.stature" :min="1" style="width:236px" />
         </a-form-model-item>
         <a-form-model-item label="体重(Kg)" prop="weight">
-          <a-input v-model="addForm.weight" />
+          <a-input-number  v-model="addForm.weight" :min="1" style="width:236px" />
         </a-form-model-item>
         <a-form-model-item label="选择状态" prop="state">
           <a-select v-model="addForm.state" placeholder="请选择状态">
-            <a-select-option :value="0"> 不健康 </a-select-option>
+            <a-select-option :value="0"> 异常 </a-select-option>
             <a-select-option :value="1"> 健康 </a-select-option>
           </a-select>
         </a-form-model-item>

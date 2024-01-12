@@ -1,7 +1,12 @@
 <template>
   <div>
     <div class="content">
-      <a-breadcrumb style="font-size: 18px; cursor: pointer">
+      
+      <a-breadcrumb style="font-size: 18px; cursor: pointer; margin-left: 80%">
+        <a-tooltip>
+        <template slot="title"> 点击区域管理返回上一页 </template>
+        <a-icon type="exclamation-circle" style="margin-right: 10px" />
+      </a-tooltip>
         <a-breadcrumb-item>
           <!-- <a href="">区域管理</a> -->
           <span @click="goback">区域管理</span>

@@ -29,9 +29,9 @@
           @change="tablePageChange"
           bordered
         >
-          <template slot="type" slot-scope="text">
-            <span v-if="text == 0">门禁</span>
-            <span v-if="text == 1">软件</span>
+          <template slot="state" slot-scope="text">
+            <span v-if="text == 0" style="color:green">未使用</span>
+            <span v-if="text == 1" style="color:red">使用</span>
           </template>
           <template slot="operation" slot-scope="text, record">
             <a-tooltip>
@@ -75,22 +75,18 @@
         <a-form-model-item label="用户名称" prop="name">
           <a-input v-model="addForm.name" />
         </a-form-model-item>
-        <a-form-model-item label="软件编号" prop="softwareNumber">
+        <a-form-model-item label="身份证号" prop="identity">
+          <a-input v-model="addForm.identity" />
+        </a-form-model-item>
+        <a-form-model-item label="门禁编号" prop="softwareNumber">
           <a-input v-model="addForm.softwareNumber" />
-        </a-form-model-item>
-        <a-form-model-item label="序列号" prop="number">
-          <a-input v-model="addForm.number" />
-        </a-form-model-item>
-        <!-- <a-form-model-item label="选择状态">
-          <a-select
-            v-model="addForm.type"
-            style="width: 250px"
-            placeholder="请选择状态"
-          >
+        </a-form-model-item>     
+        <a-form-model-item label="选择状态" prop="state">
+          <a-select v-model="addForm.state" placeholder="请选择状态">
             <a-select-option :value="0"> 门禁 </a-select-option>
             <a-select-option :value="1"> 软件 </a-select-option>
           </a-select>
-        </a-form-model-item> -->
+        </a-form-model-item>
       </a-form-model>
     </a-modal>
   </div>
@@ -112,12 +108,12 @@ export default {
         },
 
         {
-          title: "身份信息",
+          title: "身份证号",
           dataIndex: "identity",
           align: "center",
         },
         {
-          title: "软件编号",
+          title: "门禁编号",
           dataIndex: "softwareNumber",
           align: "center",
         },
@@ -145,18 +141,18 @@ export default {
         softwareNumber: [
           {
             required: true,
-            message: "请填写软件编号",
+            message: "请填写门禁编号",
             trigger: "blur",
           },
         ],
-        number: [
+        identity: [
           {
             required: true,
-            message: "请填写数量",
+            message: "请填写身份证号",
             trigger: "blur",
           },
         ],
-        type: [
+        state: [
           {
             required: true,
             message: "请填写状态",
@@ -191,8 +187,8 @@ export default {
       }
     },
     // 添加编辑
-    async softwareAdd() {
-      const res = await this.$api.softwareAdd(this.addForm);
+    async addEditbearuser() {
+      const res = await this.$api.addEditbearuser(this.addForm);
       if (res.success) {
         this.$message.success(res.msg);
         this.bearuserpage();
@@ -227,7 +223,7 @@ export default {
           if (e) {
             this.addForm.id = e;
           }
-          this.softwareAdd();
+          this.addEditbearuser();
           this.addForm = {};
         }
       });
@@ -262,8 +258,6 @@ export default {
     width: 1500px;
   }
   span {
-    color: rgb(10, 66, 187);
-    cursor: pointer;
   }
 }
 </style>
