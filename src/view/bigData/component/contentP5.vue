@@ -8,8 +8,8 @@
       </div>
       <div class="content">
         <a-row>
-          <a-col :span="6"
-            ><div class="leftTitle">
+          <a-col :span="6">
+            <!-- <div class="leftTitle">
               <div :class="isShow1 ? 'titleP1' : 'nobianse'" @click="change(1)">
                 <div class="shangXian"></div>
                 <span>全国所有体验中心统计</span>
@@ -24,8 +24,23 @@
                 <div class="shangXian"></div>
                 <span>各体验中心使用率排名</span>
                 <div class="xiaXian"></div>
-              </div></div
-          ></a-col>
+              </div>
+            </div> -->
+            <div
+              class="leftTitle"
+              v-for="(item, index) in showTitle"
+              :key="index"
+            >
+              <div
+                :class="index+ 1 ==showNowQuyuId ? 'titleP1' : 'nobianse'"
+                @click="testChange(index+1)"
+              >
+                <div class="shangXian"></div>
+                <span>{{ item.name }}</span>
+                <div class="xiaXian"></div>
+              </div>
+            </div>
+          </a-col>
           <a-col :span="18">
             <div class="container">
               <div class="xx-map" id="baseMap"></div></div
@@ -128,6 +143,19 @@ export default {
       isShow1: true,
       isShow2: false,
       isShow3: false,
+      showTitle: [
+        {
+          name: "全国所有体验中心统计",
+        },
+        {
+          name: "体验中心分布情况展示",
+        },
+        {
+          name: "各体验中心使用率排名",
+        },
+      ],
+      timer: null, // 定時器
+      showNowQuyuId:'',
     };
   },
   methods: {
@@ -158,13 +186,17 @@ export default {
       this.$set(this.option.series[0], "data", this.scatterData);
       myChart.setOption(this.option, true);
     },
-    async findAllShow() {
-      const res = await this.$api.findAllShow();
+    async findAllShow(e) {
+      var data = {
+        type: e,
+      };
+      const res = await this.$api.findAllShow(data);
       if (res.success) {
         res.data.map((item) => {
           item.value.map((item2) => {
             item2 = Number(item2);
           });
+          this.showNowQuyuId = 1
           item.symbol = this.symbol;
         });
         this.scatterData = res.data;
@@ -178,23 +210,55 @@ export default {
           this.isShow2 = false;
           this.isShow3 = false;
         }
+        this.findAllShow(1);
       } else if (e == 2) {
         if (this.isShow2 == false) {
           this.isShow2 = !this.isShow2;
           this.isShow1 = false;
           this.isShow3 = false;
         }
+        this.findAllShow(2);
       } else {
         if (this.isShow3 == false) {
           this.isShow3 = !this.isShow3;
           this.isShow1 = false;
           this.isShow2 = false;
         }
+        this.findAllShow(3);
       }
     },
+    testChange(e) {
+      window.clearInterval(this.timer);
+      this.findAllShow(e);
+      this.lunbo(e);
+      this.showNowQuyuId =e
+    },
+    lunbo(e) {
+      console.log("e", e);
+      var index = 2;
+      if (e && e < 3) {
+        index = e + 1;
+      } else if (e && e == 3) {
+        index = 1;
+      }
+      this.timer = window.setInterval(() => {
+        console.log("index2", index);
+        this.findAllShow(index);
+        index++;
+        this.showNowQuyuId++
+        if (index > 3 ) {
+          index = 1;
+        }
+      }, 5000);
+    },
   },
-  mounted() {
-    this.findAllShow();
+  // 销毁前
+  beforeDestroy() {
+    window.clearInterval(this.timer);
+  },
+  created() {
+    this.findAllShow(1);
+    this.lunbo();
   },
 };
 </script>
@@ -223,10 +287,10 @@ export default {
   border: 1px solid #00bcff;
   // display: flex;
   .leftTitle {
-    margin-top: 80px;
-    margin-left: 30px;
+    margin-top: 55px;
+    margin-left: 40px;
     .titleP1 {
-      margin-bottom: 25px;
+      margin-bottom: 15px;
       width: 200px;
       height: 56px;
       line-height: 50px;
@@ -257,7 +321,7 @@ export default {
     .nobianse {
       // border-top: 2px solid #00bcff;
       // border-bottom: 2px solid #00bcff;
-      margin-bottom: 25px;
+      margin-bottom: 15px;
       width: 200px;
       height: 56px;
       line-height: 50px;
