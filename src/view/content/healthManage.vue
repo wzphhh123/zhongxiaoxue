@@ -203,6 +203,24 @@ export default {
           width: 100,
         },
         {
+          title: "每日需水量",
+          dataIndex: "water",
+          align: "center",
+          width: 100,
+        },
+        {
+          title: "骨密度",
+          dataIndex: "density",
+          align: "center",
+          width: 100,
+        },
+        {
+          title: "体表面积",
+          dataIndex: "surface",
+          align: "center",
+          width: 100,
+        },
+        {
           title: "购买状态",
           dataIndex: "purchase",
           align: "center",

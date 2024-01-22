@@ -249,7 +249,7 @@ export default {
         if (index > 3 ) {
           index = 1;
         }
-      }, 5000);
+      }, 10000);
     },
   },
   // 销毁前

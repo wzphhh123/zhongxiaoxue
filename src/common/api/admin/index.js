@@ -11,8 +11,8 @@ export function showfindAllUser(params) {
 }
 
 //软件使用占比
-export function SoftwareFindAll(params) {
-    return http.get(url.SoftwareFindAll, params)
+export function FindHealthIndex(params) {
+    return http.get(url.FindHealthIndex, params)
 }
 
 //区域管理
@@ -172,6 +172,23 @@ export function entranceguardsave(data) {
 // 门禁删除
 export function entranceguarddelete(params) {
     return http.delete(url.entranceguarddelete, params);
+}
+// 获取预约列表
+export function subscribepage(params) {
+    return http.get(url.subscribepage, params);
+}
+// 获取预约用户删除
+export function subscribedelete(params) {
+    return http.delete(url.subscribedelete, params);
+}
+// 获取预约用户列表
+export function experienceUserfindUser(params) {
+    return http.get(url.experienceUserfindUser, params);
+}
+
+// 获取预约用户删除
+export function experienceUserdelete(params) {
+    return http.delete(url.experienceUserdelete, params);
 }
 
   

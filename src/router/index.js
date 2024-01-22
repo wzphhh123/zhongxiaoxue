@@ -94,6 +94,19 @@ const routes = [
 				name: "doorControlManage",
 				component: () => import("@/view/content/doorControlManage/doorControlManage.vue"),
 			},
+			
+			// 预约管理
+			{
+				path: "/reservateManage",
+				name: "reservateManage",
+				component: () => import("@/view/content/reservateManage/reservateManage.vue"),
+			},
+			// 预约用户管理
+			{
+				path: "/reserUser/:id/:name",
+				name: "reserUser",
+				component: () => import("@/view/content/reservateManage/reserUser.vue"),
+			},
 		]
 	},
 	{

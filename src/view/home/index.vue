@@ -36,7 +36,7 @@
                 </a-sub-menu>
                 <a-sub-menu key="sub2">
                   <span slot="title"
-                    ><a-icon type="appstore" /><span style="margin-left: 20%"
+                    ><a-icon type="mail" /><span style="margin-left: 20%"
                       >区域管理</span
                     ></span
                   >
@@ -51,7 +51,7 @@
 
                 <a-sub-menu key="sub3">
                   <span slot="title"
-                    ><a-icon type="appstore" /><span style="margin-left: 20%"
+                    ><a-icon type="mail" /><span style="margin-left: 20%"
                       >用户健康管理</span
                     ></span
                   >
@@ -65,7 +65,7 @@
                 </a-sub-menu>
                 <a-sub-menu key="sub4">
                   <span slot="title"
-                    ><a-icon type="appstore" /><span style="margin-left: 20%"
+                    ><a-icon type="mail" /><span style="margin-left: 20%"
                       >电量管理</span
                     ></span
                   >
@@ -79,7 +79,7 @@
                 </a-sub-menu>
                 <a-sub-menu key="sub6">
                   <span slot="title"
-                    ><a-icon type="appstore" /><span style="margin-left: 20%"
+                    ><a-icon type="mail" /><span style="margin-left: 20%"
                       >软件管理</span
                     ></span
                   >
@@ -93,7 +93,7 @@
                 </a-sub-menu>
                 <a-sub-menu key="sub7">
                   <span slot="title"
-                    ><a-icon type="appstore" /><span style="margin-left: 20%"
+                    ><a-icon type="mail" /><span style="margin-left: 20%"
                       >门禁管理</span
                     ></span
                   >
@@ -111,6 +111,27 @@
                   >
                     门禁管理
                   </a-menu-item>
+                </a-sub-menu>
+                <a-sub-menu key="sub8">
+                  <span slot="title"
+                    ><a-icon type="mail" /><span style="margin-left: 20%"
+                      >预约管理</span
+                    ></span
+                  >
+                  <a-menu-item
+                    key="7"
+                    @click="goContent(8)"
+                    style="padding-left: 33%"
+                  >
+                    预约管理
+                  </a-menu-item>
+                  <!-- <a-menu-item
+                    key="8"
+                    @click="goContent(9)"
+                    style="padding-left: 33%"
+                  >
+                    用户管理
+                  </a-menu-item> -->
                 </a-sub-menu>
               </a-menu>
             </div></a-col
@@ -150,7 +171,11 @@ export default {
         this.$router.push({ path: "/doorUserManage" });
       } else if (e == 7) {
         this.$router.push({ path: "/doorControlManage" });
-      } else if (e == 11) {
+      } else if (e == 8) {
+        this.$router.push({ path: "/reservateManage" });
+      }else if (e == 9) {
+        this.$router.push({ path: "/reserUser" });
+      }else if (e == 11) {
         this.$router.push({ path: "/exhibeAddress" });
       }
     },

@@ -68,9 +68,9 @@
               font-weight: 550;
             "
           >
-            <li style="width: 25%; margin-left: -9%; padding: 10px 0">
+            <!-- <li style="width: 25%; margin-left: -9%; padding: 10px 0">
               进入时间
-            </li>
+            </li> -->
             <li style="width: 25%; margin-left: 2%; padding: 10px 0">
               体验区域
             </li>
@@ -92,9 +92,9 @@
             :key="index"
             :class="index % 2 != 0 ? 'bianse' : 'nobianse'"
           >
-            <li style="margin-left: -15px; width: 14%">{{ item.startTime }}</li>
-            <li style="width: 41%">{{ item.name }}</li>
-            <li style="width: 14%">{{ item.count }}</li>
+            <!-- <li style="margin-left: -15px; width: 14%">{{ item.startTime }}</li> -->
+            <li style="width: 36%;margin-left: -15px;">{{ item.name }}</li>
+            <li style="width: 20%">{{ item.count }}</li>
             <li style="width: 20%; margin-left: 10%">
               {{ item.visitingTime }}
             </li>

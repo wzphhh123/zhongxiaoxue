@@ -2,7 +2,7 @@ module.exports ={
     JWTToken:'/useradmin/login', //登录
 
     showfindAllUser:'/api/show/findAllUser' , //人员统计
-    SoftwareFindAll:'/api/show/SoftwareFindAll', //软件使用占比
+    FindHealthIndex:'/api/show/FindHealthIndex', //软件使用占比
     AreaFindAll:'/api/show/AreaFindAll', //区域管理
     findAllSoftware:'/api/show/findAllSoftware', //区域管理展示
     showHealthy:'/api/show', //健康体验管理
@@ -48,4 +48,9 @@ module.exports ={
     entranceguardpage:'/entranceguard/page', // 门禁管理
     entranceguardsave:'/entranceguard/save', //添加编辑门禁
     entranceguarddelete:'/entranceguard/delete', //删除门禁
+
+    subscribepage:'/subscribe/page', //预约管理
+    subscribedelete:'/subscribe/delete', //预约删除
+    experienceUserfindUser:'/experienceUser/findUserPage', //预约用户管理
+    experienceUserdelete:'/experienceUser/delete', //预约用户删除
 }

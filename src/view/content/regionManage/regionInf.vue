@@ -1,12 +1,17 @@
 <template>
   <div>
     <div class="content">
-      
+      <a-button
+        type="primary"
+        style="position: absolute; left: 35px"
+        @click="goback"
+        >返回上一页</a-button
+      >
       <a-breadcrumb style="font-size: 18px; cursor: pointer; margin-left: 80%">
         <a-tooltip>
-        <template slot="title"> 点击区域管理返回上一页 </template>
-        <a-icon type="exclamation-circle" style="margin-right: 10px" />
-      </a-tooltip>
+          <template slot="title"> 点击区域管理返回上一页 </template>
+          <a-icon type="exclamation-circle" style="margin-right: 10px" />
+        </a-tooltip>
         <a-breadcrumb-item>
           <!-- <a href="">区域管理</a> -->
           <span @click="goback">区域管理</span>
@@ -266,7 +271,6 @@ export default {
   },
   mounted() {
     this.softwarepage();
-    console.log(this.$route.params);
   },
 };
 </script>

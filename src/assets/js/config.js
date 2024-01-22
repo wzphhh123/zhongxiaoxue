@@ -11,9 +11,9 @@ export default {
      */
     http: {
       // 开发环境
-      // baseUrl: "http://192.168.55.78:8112/ydtyweb",//线下
+      baseUrl: "http://192.168.55.78:8409/ydtyweb",//线下
       // baseUrl: "http://cs.bohechina.com:8190/ydtyweb",//上线
-      baseUrl: "http://cs.bohechina.com:8409/ydtyweb",//3
+      // baseUrl: "http://cs.bohechina.com:8409/ydtyweb",//3
       timeOut: 5000, // 超时时间
     },
 

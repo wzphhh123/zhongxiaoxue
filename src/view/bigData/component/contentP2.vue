@@ -441,7 +441,7 @@ export default {
   margin-top: 65px;
   .top2 {
     background-image: url("../../../assets/images/title长图.png");
-    background-size: 100%;
+    background-size: 112% 100%;
     background-repeat: no-repeat;
     height: 39px;
     line-height: 39px;

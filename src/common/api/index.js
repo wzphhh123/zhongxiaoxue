@@ -1,7 +1,7 @@
 import {
     JWTToken,
     showfindAllUser,
-    SoftwareFindAll,
+    FindHealthIndex,
     AreaFindAll,
     findAllSoftware,
     showHealthy,
@@ -47,12 +47,17 @@ import {
     entranceguardpage,
     entranceguardsave,
     entranceguarddelete,
+
+    subscribepage,
+    subscribedelete,
+    experienceUserfindUser,
+    experienceUserdelete,
 } from './admin'
 
 export default {
     JWTToken,
     showfindAllUser,
-    SoftwareFindAll,
+    FindHealthIndex,
     AreaFindAll,
     findAllSoftware,
     showHealthy,
@@ -91,4 +96,8 @@ export default {
     entranceguardpage,
     entranceguardsave,
     entranceguarddelete,
+    subscribepage,
+    subscribedelete,
+    experienceUserfindUser,
+    experienceUserdelete,
 }

@@ -16,12 +16,12 @@
               border-radius: 5px;
               text-align: center;
               font-size: 15px;
-              font-weight:550;
+              font-weight: 550;
             "
           >
-            <li style="width: 30%; margin-left: -9%; padding: 10px 0">编号</li>
-            <li style="width: 30%; margin-left: 2%; padding: 10px 0">姓名</li>
-            <li style="width: 40%; margin-left: 3%; padding: 10px 0">
+            <li style="width: 33%;margin-left:-7%; padding: 10px 0;">编号</li>
+            <li style="width: 33%;padding: 10px 0">姓名</li>
+            <li style="width: 33%;  padding: 10px 0">
               健康综合指数
             </li>
           </ul>
@@ -36,9 +36,9 @@
             :key="index"
             :class="index % 2 != 0 ? 'bianse' : 'nobianse'"
           >
-            <li style="margin-left: -15px; width: 20%">{{ item.id }}11</li>
-            <li style="width: 43%">{{ item.name }}</li>
-            <li style="width: 34%">{{ item.count }}</li>
+            <li style="margin-left: -7%; width: 33%">{{ item.identity }}</li>
+            <li style="width: 33%">{{ item.name }}</li>
+            <li style="width: 33%">{{ item.healthIndex }}</li>
           </ul>
         </vue-seamless-scroll>
       </div>
@@ -72,18 +72,18 @@ export default {
     };
   },
   methods: {
-    async SoftwareFindAll() {
+    async FindHealthIndex() {
       var data = {
         type: 0,
       };
-      const res = await this.$api.SoftwareFindAll(data);
+      const res = await this.$api.FindHealthIndex(data);
       if (res.success) {
         this.dataList = res.data;
       }
     },
   },
   mounted() {
-    this.SoftwareFindAll();
+    this.FindHealthIndex();
   },
 };
 </script>
