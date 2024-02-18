@@ -5,8 +5,10 @@ import {
     AreaFindAll,
     findAllSoftware,
     showHealthy,
-    findAllElectricity,
+    findElectricity,
     findAllShow,
+    FindRankingSoftware,
+    FindRankingRight,
 
     electricity,
     addEditelectricity,
@@ -61,8 +63,10 @@ export default {
     AreaFindAll,
     findAllSoftware,
     showHealthy,
-    findAllElectricity,
+    findElectricity,
     findAllShow,
+    FindRankingSoftware,
+    FindRankingRight,
 
     electricity,
     addEditelectricity,

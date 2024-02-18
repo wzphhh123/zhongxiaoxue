@@ -17,15 +17,14 @@
                 <span>%</span>
               </p>
             </div>
-            <a-progress
+            <!-- <a-progress
               class="xiaoGuo"
               type="circle"
               :format="() => ''"
               :width="78"
               :percent="this.shuzi"
-              
-               stroke-color="#45f5ca"
-            />
+              stroke-color="#45f5ca"
+            /> -->
           </div>
           <!-- 具体 -->
           <div class="topRight">
@@ -126,7 +125,7 @@
           <div class="mainTitle">各区域耗电量占比:</div>
           <div
             id="main4"
-            style="width: 400px; height: 300px; margin-left: -10%"
+            style="width: 400px; height: 280px; margin-left: -15%"
           ></div>
         </div>
       </div>
@@ -139,95 +138,150 @@ import * as echarts from "echarts";
 export default {
   data() {
     return {
-      shuzi: "",
+      shuzi: "100",
       dataList: [],
+      oneData: [],
+      twoData: [],
+      nameData: [],
     };
   },
   methods: {
-    charts() {
+    async charts() {
       var myChart = echarts.init(document.getElementById("main4"));
       var option = {
-        toolbox: {
-          show: true,
+        tooltip: {
+          trigger: "axis",
+          axisPointer: {
+            type: "shadow",
+          },
         },
-        color: [
-          "#7351E3",
-          "#EA5401",
-          "#209A90",
-          "#FC4873",
-          "#FDD100",
-          "#42EAFB",
+        legend: {
+          orient: "horizontal",
+          itemHeight: 10,
+          itemWidth: 10,
+          // data: [
+          //   {
+          //     name: "正确数",
+          //     icon: "circle",
+          //     textStyle: { fontWeight: "bold", color: "#fff" },
+          //   },
+          // ],
+          icon: "circle",
+          textStyle: {
+            color: "#fff",
+          },
+          left: "60%",
+        },
+        grid: {
+          left: "3%",
+          right: "4%",
+          bottom: "3%",
+          containLabel: true,
+        },
+        xAxis: [
+          {
+            type: "category",
+            // show: false,
+            data: this.nameData,
+            // 去掉刻度线
+            axisTick: {
+              show: false,
+            },
+            // 去掉x轴横线
+            axisLine: {
+              show: false,
+            },
+          },
+        ],
+        yAxis: [
+          {
+            type: "value",
+            show: false,
+          },
         ],
         series: [
           {
-            name: "Nightingale Chart",
-            type: "pie",
-            radius: [25, 90],
-            center: ["50%", "45%"],
-            roseType: "area",
-            // 弧度
-            // itemStyle: {
-            //   borderRadius: 8,
-            // },
-            data: this.dataList,
-            labelLine: {
-              //设置延长线的长度
-              normal: {
-                length: 0, //设置延长线的长度
-                length2: 20, //设置第二段延长线的长度
+            name: "发电量",
+            type: "bar",
+            emphasis: {
+              focus: "series",
+            },
+            data: this.oneData,
+            // barWidth: 20,
+            itemStyle: {
+              // 使用方法二的写法
+              color: {
+                type: "linear",
+                x: 0, //右
+                y: 0, //下
+                x2: 0, //左
+                y2: 1, //上
+                colorStops: [
+                  {
+                    offset: 0,
+                    color: "#3e92f3", // 0% 处的颜色
+                  },
+                  {
+                    offset: 0.5,
+                    color: "#226dcf", // 70% 处的颜色
+                  },
+                  {
+                    offset: 1,
+                    color: "#1054b7", // 100% 处的颜色
+                  },
+                ],
               },
             },
             label: {
-              color: "#fff",
-              fontSize: 16,
-              opacity: 1,
-              position: "outside",
-              formatter: "{name|{b}}\n{per|{d}%}",
-              padding: [0, -10],
-
-              // formatter: (name) => {
-              //   var data = this.dataList;
-              //   var total = 0;
-              //   var tarValue;
-              //   for (var i = 0; i < data.length; i++) {
-              //     total += data[i].value;
-              //     // console.log("i",i);
-              //     // console.log("total",total);
-              //     if (data[i].name === name) {
-              //       tarValue = data[i].value;
-              //       console.log("tarValue",tarValue);
-              //     }
-              //   }
-              //   var v = tarValue;
-              //   var b = Math.round((tarValue / total) * 100);
-              //   return b + "%";
-
-              //   // return item.data.name + ":" + item.data.value + "（人）" + "";
-              // },
-              rich: {
-                fangkuai: {
-                  width: "5px",
-                  height: "5px",
-                  color: "#fff",
+              normal: {
+                show: true, //开启显示
+                position: "top", //柱形上方
+                textStyle: {
+                  //数值样式
+                  color: "#1054b7",
                 },
-                name: {
-                  color: "#fff",
-                  lineHeight: 20, //设置最后一行空数据高度，为了能让延长线与hr线对接起来
-                  align: "center",
-                },
-                // hr: {
-                //   //设置hr是为了让中间线能够自适应长度
-                //   borderColor: "auto", //hr的颜色为auto时候会主动显示颜色的
-                //   width: "75%",
-                //   borderWidth: 0.5,
-                //   height: 0.5,
-                // },
-                per: {
-                  //用百分比数据来调整下数字位置，显的好看些。如果不设置，formatter最后一行的空数据就不需要
-                  padding: [4, 0],
-                  fontSize: "16px",
-                  color: "#488CF7",
-                  fontFamily: "AlibabaSans",
+              },
+            },
+          },
+          {
+            name: "耗电量",
+            type: "bar",
+            emphasis: {
+              focus: "series",
+            },
+            data: this.twoData,
+            // barWidth: 20,
+            itemStyle: {
+              // 使用方法二的写法
+              color: {
+                type: "linear",
+                x: 0, //右
+                y: 0, //下
+                x2: 0, //左
+                y2: 1, //上
+                colorStops: [
+                  {
+                    offset: 0,
+                    color: "#20fde7", // 0% 处的颜色
+                  },
+                  {
+                    offset: 0.5,
+                    color: "#22dbd7", // 70% 处的颜色
+                  },
+                  {
+                    offset: 1,
+                    color: "#25beca", // 100% 处的颜色
+                  },
+                ],
+              },
+            },
+            label: {
+              normal: {
+                show: true, //开启显示
+                position: "top", //柱形上方
+                textStyle: {
+                  //数值样式
+                  color: "#25beca",
                 },
               },
             },
@@ -237,17 +291,19 @@ export default {
       myChart.setOption(option);
     },
     // 获取电量
-    async findAllElectricity() {
-      const res = await this.$api.findAllElectricity();
+    async findElectricity() {
+      const res = await this.$api.findElectricity();
       if (res.success) {
-        this.shuzi = res.data.sumElec;
-        this.dataList = res.data.map;
+        // this.shuzi = res.data.sumElec;
+        this.nameData = res.data.nameData;
+        this.oneData = res.data.oneData;
+        this.twoData = res.data.twoData;
         this.charts();
       }
     },
   },
   mounted() {
-    this.findAllElectricity();
+    this.findElectricity();
   },
 };
 </script>
@@ -266,7 +322,7 @@ export default {
   background-image: url("../../../assets/images/title.png");
   background-size: 100%;
   background-repeat: no-repeat;
-  height: 39px;
+  // height: 39px;
   line-height: 39px;
   padding-left: 42px;
   letter-spacing: 1px;
@@ -277,7 +333,7 @@ export default {
 }
 .content {
   width: 100%;
-  height: 440px;
+  height: 41vh;
   background: rgba(0, 188, 255, 0.1);
   border: 1px solid #00bcff;
   .contentTop {
@@ -301,16 +357,18 @@ export default {
         }
         p {
           display: flex;
+          text-align: right;
+          margin-left: -1px;
           span {
-            width: 31px;
             height: 13px;
-            font-size: 20px;
+            font-size: 17px;
             color: #4bf9ef;
+            margin-top: 4px;
+            min-width: 11px;
           }
           span:nth-child(2) {
             font-size: 13px;
             margin-top: 8px;
-            margin-left: -8px;
           }
         }
       }
@@ -392,10 +450,10 @@ export default {
         }
       }
       .shuzi {
-        display: flex;
+        // display: flex;
         position: absolute;
         top: 30%;
-        left: 88%;
+        left: 84%;
         span {
           color: #bdefff;
           font-size: 16px;

@@ -7,12 +7,12 @@
       <div class="imgDiv">
         <div class="img1">
           <img src="../../../assets/images/xiao2.png" alt="" />
-          <div style="position: absolute; top: 70%; left: 14%">
+          <div style="position: absolute; top: 70%; left: 20%">
             <p>
               <span>{{ this.dataList.sumCount }}</span>
               <span>人</span>
             </p>
-            <span class="imgFootTitle">总健康体验人数</span>
+            <span class="imgFootTitle">总体验人数</span>
           </div>
         </div>
         <div class="img2">
@@ -21,12 +21,12 @@
             src="../../../assets/images/xiao1.png"
             alt=""
           />
-          <div style="position: absolute; top: 70%; left: 16%">
+          <div style="position: absolute; top: 70%; left: 8%">
             <p>
               <span>{{ this.dataList.healthCount }}</span>
               <span>人</span>
             </p>
-            <span class="imgFootTitle">总健康人数</span>
+            <span class="imgFootTitle">健康标准人数</span>
           </div>
         </div>
         <div class="img3">
@@ -35,12 +35,12 @@
             src="../../../assets/images/xiao3.png"
             alt=""
           />
-          <div style="position: absolute; top: 70%; left: 12%">
+          <div style="position: absolute; top: 70%; left: 24%">
             <p>
               <span>{{ this.dataList.notHealthCount }}</span>
               <span>人</span>
             </p>
-            <span class="imgFootTitle">总健康异常人数</span>
+            <span class="imgFootTitle">异常人数</span>
           </div>
         </div>
       </div>
@@ -48,7 +48,7 @@
         <div
           ref="chartPanel"
           id="chart-panel"
-          style="width: 100%; height: 220px"
+          style="width: 100%; height: 175px;margin-top:15%"
         ></div>
       </div>
     </div>
@@ -66,7 +66,7 @@ export default {
     return {
       optionData: [
         {
-          name: "总健康体验人数",
+          name: "BMI值偏高人数",
           value: "",
           itemStyle: {
             opacity: 0.2,
@@ -74,7 +74,7 @@ export default {
           },
         },
         {
-          name: "总健康人数",
+          name: "BMI值标准人数",
           value: "",
           itemStyle: {
             opacity: 0.2,
@@ -82,7 +82,7 @@ export default {
           },
         },
         {
-          name: "总健康异常人数",
+          name: "BMI值偏低人数",
           value: "",
           itemStyle: {
             opacity: 0.2,
@@ -225,7 +225,7 @@ export default {
   background-image: url("../../../assets/images/title.png");
   background-size: 100%;
   background-repeat: no-repeat;
-  height: 39px;
+  // height: 39px;
   line-height: 39px;
   padding-left: 42px;
   letter-spacing: 1px;
@@ -236,7 +236,7 @@ export default {
 }
 .content {
   width: 100%;
-  height: 450px;
+  height: 41.6vh;
   background: rgba(0, 188, 255, 0.1);
   border: 1px solid #00bcff;
   .imgDiv {
@@ -265,6 +265,7 @@ export default {
       .imgFootTitle {
         font-size: 14px;
         color: #bac3c4;
+        margin-left: 5px;
       }
     }
     .img2 {
@@ -284,7 +285,7 @@ export default {
       .imgFootTitle {
         font-size: 14px;
         color: #bac3c4;
-        margin-left: 12px;
+        margin-left: 10px;
       }
     }
     .img3 {
@@ -310,9 +311,7 @@ export default {
 }
 .footer {
   width: 450px;
-  height: 270px;
   overflow: hidden;
   float: right;
-  margin: 60px 0 0 60px;
 }
 </style>

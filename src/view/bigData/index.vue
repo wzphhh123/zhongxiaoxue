@@ -23,13 +23,12 @@
       </vue-particles>
       <div class="top"></div>
       <div class="main">
-        <div class="content">
+        <!-- <div class="content">
           <a-row>
             <a-col :span="6"> <contentP1Vue /> </a-col>
             <a-col :span="12"> <contentP2Vue /></a-col>
             <a-col :span="6">
               <contentP3Vue />
-              <!-- <testVue /> -->
             </a-col>
           </a-row>
         </div>
@@ -38,11 +37,17 @@
             <a-col :span="6"><contentP4Vue /></a-col>
             <a-col :span="12">
               <contentP5Vue />
-              <!-- <test2Vue /> -->
-              <!-- <test3Vue /> -->
-              <!-- <test21Vue /> -->
             </a-col>
             <a-col :span="6"> <contentP6Vue /></a-col>
+          </a-row>
+        </div> -->
+        <div class="content">
+          <a-row>
+            <a-col :span="6"> <contentP1Vue /> <contentP4Vue /></a-col>
+            <a-col :span="12"> <contentP2Vue /></a-col>
+            <a-col :span="6">
+              <contentP3Vue /><contentP6Vue />
+            </a-col>
           </a-row>
         </div>
       </div>
@@ -82,8 +87,8 @@ export default {
     f11open(){
       var docElm = document.documentElement;
       //W3C 
-      if (docElm.requestFullscreen) {
-          docElm.requestFullscreen();
+      if (docElm.RequestFullscreen) {
+          docElm.RequestFullscreen();
       }
           //FireFox 
       else if (docElm.mozRequestFullScreen) {
@@ -99,7 +104,8 @@ export default {
       }
     },
   },
-  mounted() {
+  created() {
+    // this.f11open()
   },
 };
 </script>

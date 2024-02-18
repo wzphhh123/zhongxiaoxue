@@ -1,50 +1,134 @@
 
 <template>
-  <!-- 中国地图 -->
   <div>
     <div class="bk">
       <div class="top">
-        <span>体验中心管理</span>
+        <span>区域排行榜{{ showNowQuyuId }}</span>
       </div>
       <div class="content">
         <a-row>
-          <a-col :span="6">
-            <!-- <div class="leftTitle">
-              <div :class="isShow1 ? 'titleP1' : 'nobianse'" @click="change(1)">
-                <div class="shangXian"></div>
-                <span>全国所有体验中心统计</span>
-                <div class="xiaXian"></div>
+          <a-col :span="8">
+            <div class="kuang">
+              <div class="kuangTitle">
+                <span>软件区域名称</span>
               </div>
-              <div :class="isShow2 ? 'titleP1' : 'nobianse'" @click="change(2)">
-                <div class="shangXian"></div>
-                <span>体验中心分布情况展示</span>
-                <div class="xiaXian"></div>
-              </div>
-              <div :class="isShow3 ? 'titleP1' : 'nobianse'" @click="change(3)">
-                <div class="shangXian"></div>
-                <span>各体验中心使用率排名</span>
-                <div class="xiaXian"></div>
-              </div>
-            </div> -->
-            <div
-              class="leftTitle"
-              v-for="(item, index) in showTitle"
-              :key="index"
-            >
-              <div
-                :class="index+ 1 ==showNowQuyuId ? 'titleP1' : 'nobianse'"
-                @click="testChange(index+1)"
-              >
-                <div class="shangXian"></div>
-                <span>{{ item.name }}</span>
-                <div class="xiaXian"></div>
+              <!--  @mouseenter="isStop" @mousemove="isStop" -->
+              <div style="margin-top: 55px">
+                <vue-seamless-scroll
+                  class="seamless-warpLeft"
+                  :data="showTitle"
+                  :class-option="defaultOptionLeft"
+                >
+                  <div
+                    class="leftTitle"
+                    :class="isnoJZ ? 'isnoJZ' : ''"
+                    v-for="(item, index) in newArr2"
+                    :key="index"
+                  >
+                    <div
+                      :class="
+                        index == leftIndex + 1 ? 'leftBian' : 'leftNobian'
+                      "
+                      @click="testChange(item.name, index)"
+                    >
+                      <div class="shangXian"></div>
+                      <span>{{ item.name }}{{ leftIndex }}{{ index }}</span>
+                      <div class="xiaXian"></div>
+                    </div>
+                  </div>
+                </vue-seamless-scroll>
               </div>
             </div>
           </a-col>
-          <a-col :span="18">
-            <div class="container">
-              <div class="xx-map" id="baseMap"></div></div
-          ></a-col>
+          <a-col :span="16">
+            <div class="gundong">
+              <div>
+                <ul
+                  style="
+                    color: #fff;
+                    width: 100%;
+                    display: flex;
+                    list-style-type: none;
+                    background-color: #084f8c;
+                    border-radius: 5px;
+                    text-align: center;
+                    font-size: 15px;
+                    font-weight: 550;
+                  "
+                >
+                  <li style="width: 15%; padding: 10px 0; margin-left: -7%">
+                    排名
+                  </li>
+                  <li style="width: 15%; margin-left: 4%; padding: 10px 0">
+                    头像
+                  </li>
+                  <li style="width: 15%; margin-left: 3%; padding: 10px 0">
+                    名字
+                  </li>
+                  <li style="width: 15%; margin-left: 3%; padding: 10px 0">
+                    得分
+                  </li>
+                  <li style="width: 40%; margin-left: 3%; padding: 10px 0">
+                    时间
+                  </li>
+                </ul>
+              </div>
+              <vue-seamless-scroll
+                class="seamless-warp"
+                :data="dataList"
+                :class-option="defaultOption"
+              >
+                <ul
+                  v-for="(item, index) in dataList"
+                  :key="index"
+                  :class="index % 2 != 0 ? 'bianse' : 'nobianse'"
+                >
+                  <li style="width: 15%; margin-left: -6%">
+                    <div
+                      style="border-radius: 50%; background-color: #364e6f"
+                      :class="
+                        index == 0
+                          ? 'isjin'
+                          : index == 1
+                          ? 'isyin'
+                          : index == 2
+                          ? 'istong'
+                          : 'isno'
+                      "
+                    >
+                      {{ index + 1 }}
+                    </div>
+                  </li>
+                  <li style="width: 15%; margin-left: 1.5%; position: relative">
+                    <!-- 用户头像 -->
+                    <img
+                      style="
+                        width: 27px;
+                        height: 27px;
+                        border-radius: 50%;
+                        z-index: 999;
+                      "
+                      :src="item.url"
+                      alt=""
+                    />
+                    <!-- 边框 -->
+                    <div class="poaImg1" v-if="index == 0"></div>
+                    <div class="poaImg2" v-if="index == 1"></div>
+                    <div class="poaImg3" v-if="index == 2"></div>
+                  </li>
+                  <li style="width: 15%; margin-left: 2.5%; padding-top: 9px">
+                    {{ item.userName }}
+                  </li>
+                  <li style="width: 15%; margin-left: 1.5%; padding-top: 9px">
+                    {{ item.score }}
+                  </li>
+                  <li style="width: 40%; padding-top: 9px">
+                    {{ item.createTime }}
+                  </li>
+                </ul>
+              </vue-seamless-scroll>
+            </div>
+          </a-col>
         </a-row>
       </div>
     </div>
@@ -52,155 +136,199 @@
 </template>
 
 <script>
-import China from "../../test/china";
-import * as echarts from "echarts";
-import "echarts-gl";
-var patternSrc =
-  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAIAAAACDbGyAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3NpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQ1IDc5LjE2MzQ5OSwgMjAxOC8wOC8xMy0xNjo0MDoyMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDoyODIwYzUxMy1hYjk5LTE1NDEtYTk1Ni1lOWE4MDdlZTY4M2UiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RjRENTQzNDlFQUY3MTFFQzhFMDNFNjI4MzExMjBCQkMiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RjRENTQzNDhFQUY3MTFFQzhFMDNFNjI4MzExMjBCQkMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIxLjAgKFdpbmRvd3MpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NGVhZTRmY2ItYzE1Ny1jNjQ1LTgzOTgtOTM2YTk0M2QxNDMxIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjI4MjBjNTEzLWFiOTktMTU0MS1hOTU2LWU5YTgwN2VlNjgzZSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PifD0UMAAAA4SURBVHjaLIvBDQAgDALB1O4/gfs0cSax1d6LcMAVm6T7JHCkwQINYWleKFJaS/1Olp8yvcAVYADRHwpwESUINQAAAABJRU5ErkJggg==";
-var patternImg = new Image();
-patternImg.src = patternSrc;
-// 散点提示框
-var scatterBg =
-  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADkAAAAbCAYAAADGfCe4AAAEpElEQVRYhaWYvaskRRDAf7W37+19KAb+A4IG74y8CwwMFJMLX2CgYHKZf4CI+DTRaEUwUsHMUOMFOTCWOw5EzG4xMhCEE0G89873dne2pKd7Zmpru2fmsGF3uquruuuru6pLbt678wtwTeFc4JEiFeiW+K2Av4E1EPqVQBVwgVOQDeimmQM5Bb2Q2K+0ppcV6FnCCetuBN0q/BvXlQTXZo3ztH+AbQXZarfHNv00zAsaeFEB1RpW/wJtGsa/qcJzwGvAI+CZAJeIpDUGzIDDRKBp0TC4FpmJG6apaVwzMtgIIHBZW0WwTf1JhGslaS7C9Woc1wJsoqLi3tIqrp1XaelaA2hSWKOQ7TQx/Nvy+CR0n4pykeSrBa/YbRdES9pWHS3mZwT1JFLdWca2HCyqNjRLLy127GmGtoNImpe2l+CTqSF7HfiyM7k1f/HXaLlaHp9Uhq6x2mly9a2BBSU9drhrA6vMvgG2cXys0k/dGudG5m36XkyuzB5OZYSak88Xploau1QDu2qEa5gPsKcN05U5b5U7e5bO4uSUrgavNZBuqgcTJ5kYBMuxFSAnjFeUZOBFJY5oY+k01590Pr/DoGfSE/v5klC+iaPPMZ9ba+z6FreVY+L2ygnnhSr1/w9Dlom+28rOifvijk/rkZMRHJUEzzFRGlt4bssc3J71EptSctGMJYsM9rlVaVMGXE4zlhnjEX3K3nPRHUvqrqJKLjN08eQE6GtjXFozv6ELLSd4sOQOX32WsK3kciXavjNdUkrJTcfwtiNHzl37BLDj0oVUujhKZ6e09/h0qYAnjbuOJPC31hiGfBOzzpPE3awAPXu0eNpjydJ57LPaUFjxaz9pUjA+LMlOr7OklNDyF0nuHJVcMZdEjI2NffBiE92ntWndWYZwKPuxeOr6Obf08Jz75vYuxcw93hxznbsKPH+0mP8AvAn8mtFwLnZ6wcfENd/vCwt2ndK5dVlplq864/lA4Xvgk6PF/GfgFvAx8E+Bkb58cygEiWN6KESMclfjollFh2Tga+CmwAvAT0eL+avXF59+k6oF3420pg/GpaRgKJT4W3xU2maA2btCbty7Y+lugX4O3BfkQ0UfLo9PXkyWfck9Urfu3effer6/GXg/Dn39up4PzX3lYPrA3K610sK5fBn4XdEfQW4fLeZL4C3gXeDPEc8jf1nYyybnrrk+Hi55S/W1Lo2zlrTVEYHrCp/FrEHeV3S5PD4Jr/p3gNvApcKrXQvWGnr9D83lrOkrA3vfYEnnrjkLyduCvqfIt4J+kUqJdUtCT43FDlN1rxlPUrnDWuGKO2sHaQ01NDN3ti+78UHCszQNH019p64wyuzwjyEhG26eBT4CbgBfhZtXkga1jq91/bXR3soUlZpy5eNmHMqdiq7TGcXUTFd92XrHSz9WZnYy9cQ+OifIX+lMvgLyRqrJVqkAPQtjQTapCBwILkldM2WN6gapNV8LlgRsNB7664Qb9lqDBmHXyWMukjICzkqjIjbaFbVX7lIL6+y5ci1klNz+N4Lu6e4u6N1OEeVo0KYo9aEuKbCcFkksfLdbp/5Eu6SmcdNcyEpegyrwHzdCxPS7nMn3AAAAAElFTkSuQmCC";
+import vueSeamlessScroll from "vue-seamless-scroll";
 export default {
-  name: "xx-map",
+  computed: {
+    defaultOptionLeft() {
+      return {
+        step: 0.15, // 数值越大速度滚动越快
+        limitMoveNum: this.showTitle.length, // 开始无缝滚动的数据量 this.dataList.length
+        hoverStop: false, // 是否开启鼠标悬停stop
+        direction: 1, // 0向下 1向上 2向左 3向右
+        openWatch: true, // 开启数据实时监控刷新dom
+        singleHeight: 67, // 单步运动停止的高度(默认值0是无缝不停止的滚动) direction => 0/1
+        singleWidth: 0, // 单步运动停止的宽度(默认值0是无缝不停止的滚动) direction => 2/3
+        waitTime: 8000, // 单步运动停止的时间(默认值1000ms)
+      };
+    },
+    defaultOption() {
+      return {
+        step: 0.2, // 数值越大速度滚动越快
+        limitMoveNum: this.dataList.length, // 开始无缝滚动的数据量 this.dataList.length
+        hoverStop: true, // 是否开启鼠标悬停stop
+        direction: 1, // 0向下 1向上 2向左 3向右
+        openWatch: true, // 开启数据实时监控刷新dom
+        singleHeight: 0, // 单步运动停止的高度(默认值0是无缝不停止的滚动) direction => 0/1
+        singleWidth: 0, // 单步运动停止的宽度(默认值0是无缝不停止的滚动) direction => 2/3
+        waitTime: 100, // 单步运动停止的时间(默认值1000ms)
+      };
+    },
+  },
+  components: {
+    vueSeamlessScroll,
+  },
+  props: ["showNowQuyuId"],
   data() {
     return {
-      map: China, // 加载地图
-      symbol:
-        "image://data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAwCAYAAACfbhNRAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFHGlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDUgNzkuMTYzNDk5LCAyMDE4LzA4LzEzLTE2OjQwOjIyICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOSAoV2luZG93cykiIHhtcDpDcmVhdGVEYXRlPSIyMDIyLTA2LTEzVDE3OjEzOjM2KzA4OjAwIiB4bXA6TW9kaWZ5RGF0ZT0iMjAyMi0wNi0xM1QxNzoxOTo1NSswODowMCIgeG1wOk1ldGFkYXRhRGF0ZT0iMjAyMi0wNi0xM1QxNzoxOTo1NSswODowMCIgZGM6Zm9ybWF0PSJpbWFnZS9wbmciIHBob3Rvc2hvcDpDb2xvck1vZGU9IjMiIHBob3Rvc2hvcDpJQ0NQcm9maWxlPSJzUkdCIElFQzYxOTY2LTIuMSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo3MWRkOTZkNi1hZDMx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",
-      option: {
-        animation: true,
-        geo: {
-          show: true,
-          map: "china", // 要与 `registerMap()` 的第一个参数对应, 'china' 会显示南海诸岛
-          roam: false, // 鼠标缩放+平移
-          aspectScale: 0.9,
-          zoom: 1.2,
-          selectedMode: "single", // 选中
-          silent: true,
-          center: [105.194115019531, 35.582111640625],
-          regions: [
-            {
-              name: "南海诸岛",
-              value: 0,
-              itemStyle: {
-                normal: {
-                  opacity: 0,
-                  label: {
-                    show: false,
-                  },
-                },
-              },
-            },
-          ],
-          itemStyle: {
-            areaColor: "rgba(23,58,103,1)", // 地图阴影区颜色
-            borderColor: "#115fea",
-            borderWidth: 1,
-          },
-        },
-        series: [
-          {
-            type: "map",
-            map: "china",
-            roam: false, // 鼠标缩放+平移
-            aspectScale: 0.9,
-            zoom: 1.2,
-            center: [105.194115019531, 34.982111640625], // 设置地图中心
-            data: this.scatterData,
-            // geoIndex: 0, // 共享 geo 样式
-            itemStyle: {
-              areaColor: "rgba(23,58,103,0)", // 默认地图颜色
-              // areaColor: '#173a67',
-              borderColor: "#84e0f6", // 边框
-              shadowColor: "rgba(132,224,246,1)", // 省份边框阴影
-              shadowBlur: 6, // 省份边框聚焦
-              borderWidth: 2,
-            },
-          },
-          {
-            type: "scatter",
-            coordinateSystem: "geo",
-            data: this.scatterData,
-            symbolSize: 50,
-            label: {
-              show: true,
-              formatter: "{b}",
-              fontSize: 12,
-              fontWeight: "bold",
-              position: "top",
-              backgroundColor: {
-                image: scatterBg,
-              },
-              align: "center",
-              padding: [8, 15],
-              color: "#fff",
-            },
-          },
-        ],
-      },
       isShow1: true,
       isShow2: false,
       isShow3: false,
-      showTitle: [
-        {
-          name: "全国所有体验中心统计",
-        },
-        {
-          name: "体验中心分布情况展示",
-        },
-        {
-          name: "各体验中心使用率排名",
-        },
-      ],
+      showTitle: [],
       timer: null, // 定時器
-      showNowQuyuId:'',
+      timer2: null,
+      timer3: null,
+      showNowQuyuIdP5: "",
+      dataList: [],
+      newId: "",
+      leftIndex: 0,
+      newArr2: [],
+      isnoJZ: false, //点击是否居中
+      chaIndex: 0,
     };
   },
+  watch: {
+    // showNowQuyuId(newVal, oldVal) {
+    //   this.showTitle = [];
+    //   this.newId = newVal;
+    //   this.FindRankingSoftware(newVal);
+    //   window.clearInterval(this.timer);
+    // },
+    showNowQuyuId: {
+      handler(newVal, oldVal) {
+        this.showTitle = [];
+        this.dataList = [];
+        this.newArr2 = [];
+        this.leftIndex = 0;
+        this.newId = newVal;
+        this.FindRankingSoftware(newVal);
+        window.clearInterval(this.timer);
+        this.timer = null;
+      },
+      immediate: true,
+    },
+    leftIndex: {
+      handler(newVal, oldVal) {
+        window.clearInterval(this.timer3);
+        this.timer3 = null;
+      },
+      immediate: true,
+    },
+  },
   methods: {
-    // 销毁图表实例, 防止内存泄漏
-    destroyChart() {
-      let chart = echarts.init(document.getElementById("baseMap"));
-      if (chart) {
-        chart.clear(); // 释放图形资源
-        chart.dispose(); // 销毁实例对象
+    // isEnter() {
+    //   window.clearInterval(this.timer);
+    // },
+    // isLeave() {
+    //   this.timer = setInterval(() => {
+    //     if (this.leftIndex >= 1) {
+    //       window.setTimeout(() => {
+    //         this.leftIndex++;
+    //         this.newArr2.forEach((item, index) => {
+    //           var leftIndex = this.leftIndex + 1;
+    //           if (this.leftIndex > 1 && leftIndex == index) {
+    //             // this.rightData(item.name);
+    //             this.FindRankingRight(item.name);
+    //           }
+    //         });
+    //       }, 8000);
+    //     } else {
+    //       this.leftIndex++;
+    //       if (this.newArr2[2].name) {
+    //         var data = this.newArr2[2].name;
+    //         this.FindRankingRight(data);
+    //       }
+    //     }
+    //   }, 7710);
+    // },
+    // 获取区域软件名称
+    async FindRankingSoftware(e) {
+      var that = this;
+      var data = {
+        id: e,
+      };
+      const res = await this.$api.FindRankingSoftware(data);
+      if (res.success) {
+        if (res.data != null) {
+          this.showTitle = res.data;
+          var newArr = [];
+          for (var i = 0; i < 100; i++) {
+            newArr.push(this.showTitle);
+          }
+          // 整体循环的数组
+          newArr.forEach((item) => {
+            item.forEach((item2) => {
+              this.newArr2.push(item2);
+            });
+          });
+          // this.timer = setInterval(() => {
+          //   console.log("启动");
+          //   if (this.leftIndex >= 1) {
+          //     this.timer3 = window.setTimeout(() => {
+          //       this.leftIndex++;
+          //       console.log("00", this.leftIndex);
+          //       this.newArr2.forEach((item, index) => {
+          //         var leftIndex = this.leftIndex + 1;
+          //         if (this.leftIndex > 1 && leftIndex == index) {
+          //           this.FindRankingRight(item.name);
+          //         }
+          //       });
+          //     }, 8000);
+          //   } else {
+          //     this.leftIndex++;
+          //     if (this.newArr2[2].name) {
+          //       var data = this.newArr2[2].name;
+          //       this.FindRankingRight(data);
+          //     }
+          //     console.log("11", this.leftIndex);
+          //   }
+          //   console.log();
+          // }, 7710);
+
+          this.timer = setInterval(() => {
+            if (this.leftIndex >= 1) {
+              this.timer3 = window.setTimeout(() => {
+                this.leftIndex++;
+                this.newArr2.forEach((item, index) => {
+                  if (this.leftIndex + 1 == index) {
+                    console.log("name", item.name, index);
+                    this.FindRankingRight(item.name);
+                  }
+                });
+              }, 8000);
+            } else {
+              this.leftIndex++;
+              var data = this.newArr2[2].name;
+              this.FindRankingRight(data);
+            }
+          }, 7710);
+        }
       }
     },
-    // 图表初始化
-    initMap() {
-      this.destroyChart();
-      let myChart = echarts.init(document.getElementById("baseMap"));
-      // 注册地图
-      echarts.registerMap(this.option.geo.map, this.map);
-      // 事件解绑
-      myChart.off("click");
-      // 取消鼠标移入高亮
-      myChart.on("mouseover", function (params) {
-        myChart.dispatchAction({
-          type: "downplay",
-        });
-      });
-
-      this.$set(this.option.series[1], "data", this.scatterData);
-      this.$set(this.option.series[0], "data", this.scatterData);
-      myChart.setOption(this.option, true);
-    },
-    async findAllShow(e) {
+    // async findAllShow(e) {
+    //   var data = {
+    //     type: e,
+    //   };
+    //   const res = await this.$api.findAllShow(data);
+    //   if (res.success) {
+    //     res.data.map((item) => {
+    //       item.value.map((item2) => {
+    //         item2 = Number(item2);
+    //       });
+    //       this.showNowQuyuIdP5 = 1;
+    //       item.symbol = this.symbol;
+    //     });
+    //     this.scatterData = res.data;
+    //   }
+    // },
+    // 右侧排行榜、
+    async FindRankingRight(e) {
+      console.log("传过去e的值", e);
       var data = {
-        type: e,
+        name: e,
       };
-      const res = await this.$api.findAllShow(data);
+      const res = await this.$api.FindRankingRight(data);
       if (res.success) {
-        res.data.map((item) => {
-          item.value.map((item2) => {
-            item2 = Number(item2);
-          });
-          this.showNowQuyuId = 1
-          item.symbol = this.symbol;
-        });
-        this.scatterData = res.data;
-        this.initMap();
+        this.dataList = res.data;
       }
     },
     change(e) {
@@ -227,51 +355,59 @@ export default {
         this.findAllShow(3);
       }
     },
-    testChange(e) {
+    testChange(e, u) {
+      // this.isnoJZ = true
+      this.chaIndex = u - this.leftIndex;
+      console.log("e", u, this.leftIndex, "差值:", this.chaIndex);
       window.clearInterval(this.timer);
-      this.findAllShow(e);
-      this.lunbo(e);
-      this.showNowQuyuId =e
+      this.FindRankingRight(e);
+      // this.findAllShow(e);
+      // this.lunbo(e);
+      // this.showNowQuyuIdP5 = e;
     },
-    lunbo(e) {
-      console.log("e", e);
-      var index = 2;
-      if (e && e < 3) {
-        index = e + 1;
-      } else if (e && e == 3) {
-        index = 1;
-      }
-      this.timer = window.setInterval(() => {
-        console.log("index2", index);
-        this.findAllShow(index);
-        index++;
-        this.showNowQuyuId++
-        if (index > 3 ) {
-          index = 1;
-        }
-      }, 10000);
-    },
+    // lunbo(e) {
+    //   console.log("e", e);
+    //   var index = 2;
+    //   if (e && e < 3) {
+    //     index = e + 1;
+    //   } else if (e && e == 3) {
+    //     index = 1;
+    //   }
+    //   this.timer = window.setInterval(() => {
+    //     console.log("index2", index);
+    //     this.findAllShow(index);
+    //     index++;
+    //     this.showNowQuyuIdP5++;
+    //     if (index > 3) {
+    //       index = 1;
+    //     }
+    //   }, 10000);
+    // },
   },
   // 销毁前
   beforeDestroy() {
     window.clearInterval(this.timer);
+    window.clearInterval(this.timer2);
+    this.timer = null;
+    this.timer2 = null;
   },
   created() {
-    this.findAllShow(1);
-    this.lunbo();
+    // this.findAllShow(1);
+    // this.lunbo();
   },
 };
 </script>
  
 <style scoped lang="scss">
 .bk {
-  padding: 5px 7px;
+  // padding: 5px 7px;
+  margin-top: 67px;
 }
 .top {
   background-image: url("../../../assets/images/title长图.png");
   background-size: 100%;
   background-repeat: no-repeat;
-  height: 39px;
+  // height: 39px;
   line-height: 39px;
   padding-left: 42px;
   letter-spacing: 1px;
@@ -282,85 +418,251 @@ export default {
 }
 .content {
   width: 100%;
-  height: 418px;
+  height: 35vh;
   background: rgba(0, 188, 255, 0.1);
   border: 1px solid #00bcff;
   // display: flex;
-  .leftTitle {
-    margin-top: 55px;
-    margin-left: 40px;
-    .titleP1 {
-      margin-bottom: 15px;
-      width: 200px;
-      height: 56px;
-      line-height: 50px;
+
+  .kuang {
+    margin-top: 7%;
+    margin-left: 10%;
+    background-image: url("../../../assets/images/kuang.png");
+    background-size: 90% 100%;
+    height: 32vh;
+    background-repeat: no-repeat;
+    position: relative;
+    overflow: hidden;
+    .kuangTitle {
+      position: absolute;
+      left: 11%;
+      top: 2%;
+      background-image: url("../../../assets/images/tu645.png");
+      background-size: 100%;
+      background-repeat: no-repeat;
+      width: 190px;
+      height: 50px;
       text-align: center;
-      overflow: hidden;
-      cursor: pointer;
-      .shangXian {
-        width: 200px;
-        height: 2px;
-        background-color: #00bcff;
-        box-shadow: 0 2px 36px 4px #00bcff;
-      }
-      .xiaXian {
-        width: 200px;
-        height: 2px;
-        background-color: #00bcff;
-        box-shadow: 0 -2px 36px 4px #00bcff;
-      }
+      padding-top: 3px;
       span {
-        width: 160px;
-        height: 16px;
-        font-size: 16px;
-        font-family: Source Han Sans CN;
-        font-weight: 500;
-        color: #00ffff;
+        color: #fff;
+        font-size: 19px;
       }
     }
-    .nobianse {
-      // border-top: 2px solid #00bcff;
-      // border-bottom: 2px solid #00bcff;
-      margin-bottom: 15px;
-      width: 200px;
-      height: 56px;
-      line-height: 50px;
-      text-align: center;
-      // box-shadow: 0 2px 18px 1px #00bcff inset;
-      cursor: pointer;
-      .shangXian {
-        width: 200px;
-        height: 2px;
-        background-color: #00bcff;
-        box-shadow: 0 6px 14px 0px #00bcff;
+    .seamless-warpLeft {
+      width: 100%;
+      // height: 85%;
+      height: 23vh;
+      overflow: hidden;
+      position: relative;
+      overflow-y: auto;
+      margin-top: -3%;
+      // 是否显示滚动条
+      &::-webkit-scrollbar {
+        width: 0px;
+        height: 0px;
       }
-      .xiaXian {
+      .leftTitle {
+        margin-left: 10%;
+        margin-top: 9%;
         width: 200px;
-        height: 2px;
-        background-color: #00bcff;
-        box-shadow: 0 -6px 14px 0px #00bcff;
-      }
-      span {
-        width: 160px;
-        height: 16px;
-        font-size: 16px;
-        font-family: Source Han Sans CN;
-        font-weight: 500;
-        color: #fff;
+        .leftBian {
+          // margin-bottom: 15px;
+          width: 200px;
+          line-height: 37px;
+          text-align: center;
+          overflow: hidden;
+          cursor: pointer;
+          .shangXian {
+            width: 200px;
+            height: 2px;
+            background-color: #00bcff;
+            box-shadow: 0 2px 36px 4px #00bcff;
+          }
+          .xiaXian {
+            width: 200px;
+            height: 2px;
+            background-color: #00bcff;
+            box-shadow: 0 -2px 36px 4px #00bcff;
+          }
+          span {
+            width: 160px;
+            height: 16px;
+            font-size: 16px;
+            font-family: Source Han Sans CN;
+            font-weight: 500;
+            color: #00ffff;
+          }
+        }
+        .leftNobian {
+          // border-top: 2px solid #00bcff;
+          // border-bottom: 2px solid #00bcff;
+          // margin-bottom: 15px;
+          width: 200px;
+          line-height: 37px;
+          text-align: center;
+          // box-shadow: 0 2px 18px 1px #00bcff inset;
+          cursor: pointer;
+          .shangXian {
+            width: 200px;
+            height: 2px;
+            background-color: #00bcff;
+            box-shadow: 0 6px 14px 0px #00bcff;
+          }
+          .xiaXian {
+            width: 200px;
+            height: 2px;
+            background-color: #00bcff;
+            box-shadow: 0 -6px 14px 0px #00bcff;
+          }
+          span {
+            width: 160px;
+            height: 16px;
+            font-size: 16px;
+            font-family: Source Han Sans CN;
+            font-weight: 500;
+            color: #fff;
+          }
+        }
       }
     }
   }
-  .container {
-    position: relative;
+}
+.gundong {
+  padding: 0 12px;
+  margin-top: 36px;
+  width: 95%;
+  height: 280px;
+  .seamless-warp {
     width: 100%;
-    height: 340px;
-    margin: 0 auto;
-    // background: #032b50;
-    margin-top: 50px;
-    .xx-map {
-      width: 100%;
-      height: 100%;
+    // height: 85%;
+    height: 24vh;
+    overflow: hidden;
+    position: relative;
+    overflow-y: auto;
+    margin-top: -3%;
+    // 是否显示滚动条
+    &::-webkit-scrollbar {
+      width: 0px;
+      height: 0px;
     }
+    ul {
+      display: flex;
+      margin-bottom: 5px;
+      li {
+        list-style-type: none;
+        color: #fff;
+        padding: 7px;
+        text-align: center;
+      }
+    }
+    .bianse {
+      background: rgba(8, 79, 140, 0.4);
+      border-radius: 4px;
+    }
+    .nobianse {
+      border-radius: 4px;
+    }
+    .isjin {
+      background-image: url("../../../assets/images/jin.png");
+      background-size: 100%;
+      background-repeat: no-repeat;
+      margin-left: 19%;
+      height: 24px;
+      width: 24px;
+    }
+    .isyin {
+      background-image: url("../../../assets/images/yin.png");
+      background-size: 100%;
+      background-repeat: no-repeat;
+      margin-left: 19%;
+      height: 24px;
+      width: 24px;
+    }
+    .istong {
+      background-image: url("../../../assets/images/tong.png");
+      background-size: 100%;
+      background-repeat: no-repeat;
+      margin-left: 19%;
+      height: 24px;
+      width: 24px;
+    }
+    .isno {
+      height: 23px;
+      width: 23px;
+      margin-left: 22%;
+    }
+    .poaImg1 {
+      position: absolute;
+      background-image: url("../../../assets/images/jink.png");
+      background-size: 100%;
+      background-repeat: no-repeat;
+      border-radius: 50%;
+      height: 38px;
+      width: 38px;
+      left: 22%;
+      top: 4%;
+      z-index: -1;
+    }
+    .poaImg2 {
+      position: absolute;
+      background-image: url("../../../assets/images/yinK.png");
+      background-size: 103%;
+      background-repeat: no-repeat;
+      border-radius: 50%;
+      height: 38px;
+      width: 38px;
+      left: 21%;
+      top: -3.5%;
+      z-index: -1;
+    }
+    .poaImg3 {
+      position: absolute;
+      background-image: url("../../../assets/images/tongK.png");
+      background-size: 102%;
+      background-repeat: no-repeat;
+      border-radius: 50%;
+      height: 38px;
+      width: 38px;
+      left: 21%;
+      top: -1%;
+      z-index: -1;
+    }
+  }
+  // .list-style {
+  //   width: 100%;
+  //   height: 85%;
+  //   overflow: hidden;
+  //   position: relative;
+  //   overflow-y: auto;
+  //   margin-top: -3%;
+  //   // 是否显示滚动条
+  //   &::-webkit-scrollbar {
+  //     width: 0px;
+  //     height: 0px;
+  //   }
+  //   p {
+  //     list-style-type: none;
+  //     color: #fff;
+  //     padding: 7px;
+  //     text-align: center;
+  //     // margin-top: -10px;
+  //   }
+  // }
+}
+.isnoJZ {
+  // height: 200px;
+  overflow: hidden;
+  animation: scroll 10s linear infinite;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateY(0);
+    background-color: red;
+  }
+  100% {
+    transform: translateY(-100%);
+    background-color: rgb(0, 255, 200);
   }
 }
 </style>

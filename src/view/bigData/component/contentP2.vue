@@ -42,6 +42,8 @@
         </div>
       </div>
 
+      <contentP5Vue :showNowQuyuId="showNowQuyuId"/>
+      
       <div class="footerContent">
         <div class="top2">
           <span>{{ this.top2Name }}</span>
@@ -51,6 +53,7 @@
             display: flex;
             border: 1px solid #00bcff;
             background: rgba(0, 188, 255, 0.1);
+            height:21.8vh
           "
         >
           <div class="gundong">
@@ -113,7 +116,7 @@
           <div class="echart">
             <div
               id="main2"
-              style="height: 200px; width: 550px; margin-left: -140px"
+              style="height: 200px; width: 550px; margin-left: -140px;margin-top:5%"
             ></div>
           </div>
         </div>
@@ -125,6 +128,7 @@
 <script>
 import vueSeamlessScroll from "vue-seamless-scroll";
 import * as echarts from "echarts";
+import contentP5Vue from "./contentP5.vue";
 export default {
   computed: {
     defaultOption() {
@@ -142,6 +146,7 @@ export default {
   },
   components: {
     vueSeamlessScroll,
+    contentP5Vue,
   },
   data() {
     return {
@@ -155,7 +160,7 @@ export default {
     };
   },
   methods: {
-    echarts() {
+    async echarts() {
       var myChart = echarts.init(document.getElementById("main2"));
       var option = {
         tooltip: {
@@ -183,11 +188,11 @@ export default {
               }
             }
 
-            var v = tarValue ;
-            
+            var v = tarValue;
+
             var b = Math.round((tarValue / total) * 100);
-            if(v == 0){
-               b = 0
+            if (v == 0) {
+              b = 0;
             }
             return (
               "{name| " + name + "} " + "{v| " + v + "}" + "{b| " + b + "%}"
@@ -293,44 +298,23 @@ export default {
         this.echarts();
       }
     },
-    //   lunbo(e) {
-    //     if (e >= 0) {
-    //       this.selectIndex = e;
-    //     }
-    //     this.timer = window.setInterval(() => {
-    //       this.showNowQuyuId = this.quyuIdList[this.selectIndex];
-    //       this.selectIndex++;
-    //       this.findAllSoftware(this.showNowQuyuId);
-    //       if (this.selectIndex >= this.quyuIdList.length) {
-    //         this.selectIndex = 0;
-    //       }
-    //     }, 1500);
-    //   },
-    //   change(e) {
-    //     this.selectIndex = e
-    //     window.clearInterval(this.timer);
-    //     this.showNowQuyuId = this.quyuIdList[this.selectIndex];
-    //     this.findAllSoftware(this.showNowQuyuId);
-    //     this.lunbo(this.selectIndex);
-    //   },
-    // },
     lunbo(e) {
-      if(e >=0 ){
-        this.selectIndex = e
+      if (e >= 0) {
+        this.selectIndex = e;
       }
-      this.timer= window.setInterval(() => {
-        this.showNowQuyuId = this.quyuIdList[this.selectIndex]
-        this.selectIndex ++
-        this.findAllSoftware(this.showNowQuyuId)
-        if(this.selectIndex >= this.quyuIdList.length){
-          this.selectIndex = 0
+      this.timer = window.setInterval(() => {
+        this.showNowQuyuId = this.quyuIdList[this.selectIndex];
+        this.selectIndex++;
+        this.findAllSoftware(this.showNowQuyuId);
+        if (this.selectIndex >= this.quyuIdList.length) {
+          this.selectIndex = 0;
         }
-      },10000)   
+      }, 15000);
     },
     change(e) {
-      window.clearInterval(this.timer)
-      this.showNowQuyuId = this.quyuIdList[e]
-      this.findAllSoftware(this.showNowQuyuId)
+      window.clearInterval(this.timer);
+      this.showNowQuyuId = this.quyuIdList[e];
+      this.findAllSoftware(this.showNowQuyuId);
       // this.lunbo(e)
     },
   },
@@ -348,6 +332,7 @@ export default {
 <style lang="scss" scoped>
 .bk {
   padding: 17px 7px 0 7px;
+  
 }
 .bianse {
   background: rgba(8, 79, 140, 0.4);
@@ -431,19 +416,19 @@ export default {
         width: 99%;
         height: 90px;
         position: absolute;
-        top: 34%;
+        top: 18%;
         z-index: 10;
       }
     }
   }
 }
 .footerContent {
-  margin-top: 65px;
+  margin-top: 13px;
   .top2 {
     background-image: url("../../../assets/images/title长图.png");
     background-size: 112% 100%;
     background-repeat: no-repeat;
-    height: 39px;
+    // height: 39px;
     line-height: 39px;
     padding-left: 42px;
     letter-spacing: 1px;
@@ -454,9 +439,10 @@ export default {
   }
   .gundong {
     width: 53%;
-    height: 197px;
+    height: 21vh;
 
     padding: 0 12px;
+    margin-top: 17px;
     .seamless-warp {
       width: 95%;
       height: 65%;

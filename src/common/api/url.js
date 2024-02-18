@@ -6,8 +6,10 @@ module.exports ={
     AreaFindAll:'/api/show/AreaFindAll', //区域管理
     findAllSoftware:'/api/show/findAllSoftware', //区域管理展示
     showHealthy:'/api/show', //健康体验管理
-    findAllElectricity:'/api/show/findAllElectricity', //电量管理
+    findElectricity:'/api/show/findElectricity', //电量管理
     findAllShow:'/api/show/findAllShow', //体验中心管理
+    FindRankingSoftware:'/api/show/FindRankingSoftware',//区域列表
+    FindRankingRight:'/api/show/FindRanking', //右侧排行榜
 
     electricity:'/electricity/page', //电量管理
     addEditelectricity:'/electricity', //电量新增修改

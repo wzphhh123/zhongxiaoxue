@@ -31,8 +31,8 @@ export function showHealthy(params) {
 }
 
 //电量管理
-export function findAllElectricity(params) {
-    return http.get(url.findAllElectricity, params)
+export function findElectricity(params) {
+    return http.get(url.findElectricity, params)
 }
 
 //体验中心管理
@@ -40,6 +40,15 @@ export function findAllShow(params) {
     return http.get(url.findAllShow, params)
 }
 
+//获取区域列表
+export function FindRankingSoftware(params) {
+    return http.get(url.FindRankingSoftware, params)
+}
+
+//右侧排行榜
+export function FindRankingRight(params) {
+    return http.get(url.FindRankingRight, params)
+}
 //      后台管理    //////
 // 电量管理
 export function electricity(params) {
