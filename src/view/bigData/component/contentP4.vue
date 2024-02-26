@@ -138,7 +138,7 @@ import * as echarts from "echarts";
 export default {
   data() {
     return {
-      shuzi: "100",
+      shuzi: "",
       dataList: [],
       oneData: [],
       twoData: [],
@@ -294,16 +294,24 @@ export default {
     async findElectricity() {
       const res = await this.$api.findElectricity();
       if (res.success) {
-        // this.shuzi = res.data.sumElec;
         this.nameData = res.data.nameData;
         this.oneData = res.data.oneData;
         this.twoData = res.data.twoData;
         this.charts();
       }
     },
+    
+    // 获取电量占比
+    async serialPortconsume() {
+      const res = await this.$api.serialPortconsume({});
+      if (res.success) {
+        this.shuzi = res.data.proportion;
+      }
+    },
   },
   mounted() {
     this.findElectricity();
+    this.serialPortconsume()
   },
 };
 </script>

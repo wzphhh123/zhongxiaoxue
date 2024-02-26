@@ -5,7 +5,7 @@
         <span>人员趋势图</span>
       </div>
       <div class="content">
-        <div id="main6" style="height: 36vh; margin-top: 3%"></div>
+        <div id="main6" style="height: 36vh; margin-top: 3%;"></div>
       </div>
     </div>
   </div>
@@ -17,19 +17,19 @@ export default {
   data() {
     return {
       dataList: [],
-      xAxisData: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
-      yAxisData1: [820, 932, 901, 934, 190, 1330, 1320],
-      yAxisData2: [120, 132, 201, 134, 90, 230, 210],
+      xAxisData: [],
+      yAxisData1: [],
+      yAxisData2: [],
     };
   },
   methods: {
     async FindHealthIndex() {
-      var data = {
-        type: 0,
-      };
-      const res = await this.$api.FindHealthIndex(data);
+      const res = await this.$api.FindHealthIndex();
       if (res.success) {
-        this.dataList = res.data;
+        this.xAxisData = res.data.xaxisData;
+        res.data.yaxisData1;
+        this.yAxisData1 = res.data.yaxisData1;
+        this.yAxisData2 = res.data.xaxisData2;
         this.charts();
       }
     },
@@ -58,7 +58,7 @@ export default {
             },
           ],
           left: "70%",
-          top:"2%",
+          top: "2%",
         },
         grid: {
           left: "3%",
@@ -90,14 +90,17 @@ export default {
           },
           axisLabel: {
             textStyle: {
-              color: "#fff", // 将x轴文字颜色设为红色
+              color: "#fff", // x轴文字颜色
+              fontSize:10
             },
+            rotate:30,
+            
           },
         },
         yAxis: {
           type: "value",
-          splitLine:{
-            show:false,
+          splitLine: {
+            show: false,
           },
           axisLine: {
             //坐标轴轴线设置
@@ -123,7 +126,7 @@ export default {
           {
             name: "预约人数",
             type: "line",
-            data: [120, 132, 201, 134, 90, 230, 210],
+            data: this.yAxisData1,
             smooth: true,
             symbol: "none",
             lineStyle: {
@@ -145,7 +148,7 @@ export default {
           {
             name: "实际人数",
             type: "line",
-            data: [220, 182, 191, 234, 290, 330, 310],
+            data: this.yAxisData2,
             smooth: true,
             symbol: "none",
             lineStyle: {

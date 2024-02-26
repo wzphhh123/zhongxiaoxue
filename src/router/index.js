@@ -107,6 +107,13 @@ const routes = [
 				name: "reserUser",
 				component: () => import("@/view/content/reservateManage/reserUser.vue"),
 			},
+			
+			// 批次管理
+			{
+				path: "/batchManage",
+				name: "batchManage",
+				component: () => import("@/view/content/reservateManage/batchManage.vue"),
+			},
 		]
 	},
 	{

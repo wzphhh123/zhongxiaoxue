@@ -14,6 +14,8 @@ export default {
       // baseUrl: "http://192.168.55.78:8414/ydtyweb",//线下
       // baseUrl: "http://cs.bohechina.com:8190/ydtyweb",//上线
       baseUrl: "https://bzy.bohechina.com:8409/ydtyweb",//3
+      baseUrlInstanc: "http://192.168.55.78:8111/",//3
+      // baseUrlInstanc: "http://192.168.55.78:8414/",//3
       timeOut: 5000, // 超时时间
     },
 

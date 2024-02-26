@@ -7,11 +7,12 @@ module.exports ={
     findAllSoftware:'/api/show/findAllSoftware', //区域管理展示
     showHealthy:'/api/show', //健康体验管理
     findElectricity:'/api/show/findElectricity', //电量管理
+    serialPortconsume: 'serialPort/consume', //电量占比
     findAllShow:'/api/show/findAllShow', //体验中心管理
     FindRankingSoftware:'/api/show/FindRankingSoftware',//区域列表
     FindRankingRight:'/api/show/FindRanking', //右侧排行榜
 
-    electricity:'/electricity/page', //电量管理
+    electricity:'/api/electricity/page', //电量管理
     addEditelectricity:'/electricity', //电量新增修改
     electricityDelete:'/electricity/delete', //电量删除
 
@@ -37,9 +38,9 @@ module.exports ={
     useradminregister: '/useradmin/register', // 修改添加机构
     Delydtywebuseradmin: '/useradmin/delete', // 删除机构
     areapage:'/area/page', // 获取展馆分页
-    areaAdd:'/area/save', // 添加展馆
+    areaSave:'/area/save', // 添加展馆
     areaDelete:'/area/delete',//删除展馆
-    areaAll:'/area' ,//获取展馆所以
+    areaAll:'/area/select' ,//获取展馆所有
 
     deploydistrictfindAll:'/deploydistrict/findAll' ,// 获取省市区三连
     deploydistrictAdd:'/deploydistrict', // 添加
@@ -52,7 +53,13 @@ module.exports ={
     entranceguarddelete:'/entranceguard/delete', //删除门禁
 
     subscribepage:'/subscribe/page', //预约管理
+    subscribefindAllPage:'/subscribe/findAllPage', //批次
     subscribedelete:'/subscribe/delete', //预约删除
     experienceUserfindUser:'/experienceUser/findUserPage', //预约用户管理
     experienceUserdelete:'/experienceUser/delete', //预约用户删除
+    experienceUserprint:'/experienceUser/print', //批量生成二维码
+
+    fileuploadFlieImg:'/api/file/uploadFlieImg', //上传图片
+
+  
 }

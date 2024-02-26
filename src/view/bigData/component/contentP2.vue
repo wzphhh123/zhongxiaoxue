@@ -309,13 +309,13 @@ export default {
         if (this.selectIndex >= this.quyuIdList.length) {
           this.selectIndex = 0;
         }
-      }, 15000);
+      }, 20000);
     },
     change(e) {
       window.clearInterval(this.timer);
       this.showNowQuyuId = this.quyuIdList[e];
       this.findAllSoftware(this.showNowQuyuId);
-      // this.lunbo(e)
+      this.lunbo(e)
     },
   },
   // 销毁前

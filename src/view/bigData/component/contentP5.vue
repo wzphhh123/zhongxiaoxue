@@ -32,7 +32,7 @@
                       @click="testChange(item.name, index)"
                     >
                       <div class="shangXian"></div>
-                      <span>{{ item.name }}{{ leftIndex }}{{ index }}</span>
+                      <span>{{ item.name }}</span>
                       <div class="xiaXian"></div>
                     </div>
                   </div>
@@ -248,10 +248,10 @@ export default {
       };
       const res = await this.$api.FindRankingSoftware(data);
       if (res.success) {
-        if (res.data != null) {
+        if (res.data) {
           this.showTitle = res.data;
           var newArr = [];
-          for (var i = 0; i < 100; i++) {
+          for (var i = 0; i < 20; i++) {
             newArr.push(this.showTitle);
           }
           // 整体循环的数组
@@ -285,23 +285,32 @@ export default {
           // }, 7710);
 
           this.timer = setInterval(() => {
-            if (this.leftIndex >= 1) {
-              this.timer3 = window.setTimeout(() => {
+            if (this.newArr2.length>0) {
+              if (this.leftIndex >= 1) {
+                console.log("1", this.newArr2);
+                this.timer3 = window.setTimeout(() => {
+                  this.leftIndex++;
+                  this.newArr2.forEach((item, index) => {
+                    if (this.leftIndex + 1 == index) {
+                      console.log("name", item.name, index);
+                      this.FindRankingRight(item.name);
+                    }
+                  });
+                }, 8000);
+              } else {
+                console.log("2", this.newArr2);
                 this.leftIndex++;
-                this.newArr2.forEach((item, index) => {
-                  if (this.leftIndex + 1 == index) {
-                    console.log("name", item.name, index);
-                    this.FindRankingRight(item.name);
-                  }
-                });
-              }, 8000);
-            } else {
-              this.leftIndex++;
-              var data = this.newArr2[2].name;
-              this.FindRankingRight(data);
+                var data = this.newArr2[2].name;
+                this.FindRankingRight(data);
+              }
             }
           }, 7710);
         }
+        // if(res.data == null){
+        //   console.log("等同于");
+        // }else{
+        //   console.log("no");
+        // }
       }
     },
     // async findAllShow(e) {
@@ -383,6 +392,14 @@ export default {
     //     }
     //   }, 10000);
     // },
+    test(){
+      var aaa= []
+      if(aaa.length > 0){
+        console.log("是");
+      }else{
+        console.log("不是");
+      }
+    }
   },
   // 销毁前
   beforeDestroy() {
@@ -394,6 +411,7 @@ export default {
   created() {
     // this.findAllShow(1);
     // this.lunbo();
+    this.test()
   },
 };
 </script>

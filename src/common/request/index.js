@@ -13,6 +13,40 @@ const baseUrlInstanc = config.http.baseUrlInstanc;
 // axios.defaults.headers.get["Content-Type"] = "application/x-www-form-urlencoded";
 
 // axios.defaults.withCredentials = true;
+//自定义配置请求
+const instance = axios.create({
+  baseURL: baseUrlInstanc,
+});
+// 请求前拦截
+instance.interceptors.request.use(
+  (config) => {
+    if (config.method === "get") {
+      config.data = { unused: 0 }; // 这个是关键点，加入这行就可以了,解决get,请求添加不上Content-Type
+    }
+    config.headers["Content-Type"] = "application/json;charset=utf-8";
+    let Authorization =  sessionStorage.getItem("token");
+    // sessionStorage.setItem("Authorization")
+    if (!config.headers.hasOwnProperty("Authorization") && sessionStorage.getItem("token")) {
+      config.headers.Authorization = Authorization;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject("请求配置失败!");
+  }
+);
+/*是否有请求正在刷新token*/
+window.isRefreshing = false
+/*被挂起的请求数组*/
+let refreshSubscribers = []
+/*push所有请求到数组中*/
+function subscribeTokenRefresh (cb) {
+  refreshSubscribers.push(cb)
+}
+/*刷新请求（refreshSubscribers数组中的请求得到新的token之后会自执行，用新的token去请求数据）*/
+function onRrefreshed (token) {
+  refreshSubscribers.map(cb => cb(token))
+}
 
 // 请求前拦截
 axios.interceptors.request.use(
@@ -28,22 +62,6 @@ axios.interceptors.request.use(
    return Promise.reject("请求配置失败!");
  }
 );
-
-
-/*是否有请求正在刷新token*/
-window.isRefreshing = false
-/*被挂起的请求数组*/
-let refreshSubscribers = []
-/*push所有请求到数组中*/
-function subscribeTokenRefresh (cb) {
-  refreshSubscribers.push(cb)
-  console.log(refreshSubscribers);
-}
-/*刷新请求（refreshSubscribers数组中的请求得到新的token之后会自执行，用新的token去请求数据）*/
-function onRrefreshed (token) {
-  refreshSubscribers.map(cb => cb(token))
-}
-
 // 设置统一response
 axios.interceptors.response.use(
   (response) => {
@@ -125,6 +143,61 @@ axios.interceptors.response.use(
     }
   }
 );
+// 设置response统一处理
+instance.interceptors.response.use(
+  (response) => {
+    if (response.status === 200) {
+      return response;
+    }
+  },
+  (err) => {
+    // 401token过期
+    if (err.response.status === 401) {
+      if (!window.isRefreshing) {
+        window.isRefreshing = true
+        sessionStorage.removeItem('token')
+        // 再次请求刷新token
+        const refreshToken = utils.getCookie("refreshToken");
+        axios.get(
+          axios.defaults.baseURL +
+          "/user/api/User/RefreshToken?Refresh_token=" +
+          refreshToken
+        ).then(function (response) {
+          // window.isRefreshing = false
+          utils.setCookie("refreshToken", '', -1);
+          if (response.data.code == 1) {
+            sessionStorage.setItem("token", response.data.data.accessToken);
+            utils.setCookie("refreshToken", response.data.data.refreshToken, 15);
+            window.isRefreshing = false
+            onRrefreshed(response.data.data.accessToken)
+            refreshSubscribers = []
+            location.reload()
+          } else {
+            sessionStorage.clear();
+            redirectLogin(router.currentRoute.fullPath);
+          }
+        }).catch(function (error) {
+          // sessionStorage.clear();
+          // redirectLogin();
+        });
+      }
+      /*把请求(token)=>{....}都push到一个数组中*/
+      let retry = new Promise((resolve, reject) => {
+        /*(token) => {...}这个函数就是回调函数*/
+        subscribeTokenRefresh((token) => {
+          config.headers.Authorization = 'Bearer ' + sessionStorage.getItem("token");
+          /*将请求挂起*/
+          resolve(config)
+        })
+      })
+    }
+    // 403token错误
+    if (err.response.status === 403) {
+      message.error("拒绝访问");
+    }
+  }
+);
+
 
 // 跳转至重新登录页面
 
@@ -148,6 +221,19 @@ export default {
    */
   get(url, params) {
     return axios({
+      method: "get",
+      url,
+      params,
+    })
+      .then((data) => {
+        return data.data;
+      })
+      .catch((error) => {
+        return error;
+      });
+  },
+  instanceGet(url, params) {
+    return instance({
       method: "get",
       url,
       params,
@@ -198,6 +284,26 @@ export default {
       .catch((error) => {
         console.log(error);
         console.log(fail);
+      });
+  },
+  instancePost(url, data, params, fail) {
+    return instance({
+      method: "post",
+      url,
+      data,
+      params,
+    })
+      .then((data) => {
+        return data.data;
+      })
+      .catch((error) => {
+        // if (fail) {
+        //   fail(error);
+        // } else {
+        //   Message.error({
+        //     message: error,
+        //   });
+        // }
       });
   },
   /**

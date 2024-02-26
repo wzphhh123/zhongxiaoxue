@@ -18,6 +18,19 @@ import Antd from "ant-design-vue";
 import "ant-design-vue/dist/antd.css";
 Vue.use(Antd);
 
+//阿里字体图标混入Ant Design Vue中的icon
+//这个iconfont.js就是从iconfont.cn网站上下载后的解压JS文件
+import "./assets/iconfonts/iconfont.css"; //字体图标
+import iconFront from "./assets/iconfonts/iconfont.js"; //字体图标js
+import { Icon } from "ant-design-vue";
+const alicon = Icon.createFromIconfontCN({
+  scriptUrl: iconFront,
+});
+Vue.component("alicon", alicon);
+ 
+import * as moment from 'moment';
+Vue.prototype.moment = moment;
+
 // 全局配置及工具函数
 import * as utils from "./assets/js/utils";
 Vue.prototype.$utils = utils;

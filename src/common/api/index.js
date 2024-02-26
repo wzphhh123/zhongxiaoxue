@@ -6,6 +6,7 @@ import {
     findAllSoftware,
     showHealthy,
     findElectricity,
+    serialPortconsume,
     findAllShow,
     FindRankingSoftware,
     FindRankingRight,
@@ -36,7 +37,7 @@ import {
     placeDelete,
 
     areapage,
-    areaAdd,
+    areaSave,
     areaDelete,
     areaAll,
 
@@ -51,9 +52,13 @@ import {
     entranceguarddelete,
 
     subscribepage,
+    subscribefindAllPage,
     subscribedelete,
     experienceUserfindUser,
     experienceUserdelete,
+    experienceUserprint,
+
+    fileuploadFlieImg,
 } from './admin'
 
 export default {
@@ -64,6 +69,7 @@ export default {
     findAllSoftware,
     showHealthy,
     findElectricity,
+    serialPortconsume,
     findAllShow,
     FindRankingSoftware,
     FindRankingRight,
@@ -89,7 +95,7 @@ export default {
     useradminregister,
     Delydtywebuseradmin,
     areapage,
-    areaAdd,
+    areaSave,
     areaDelete,
     areaAll,
     deploydistrictfindAll,
@@ -101,7 +107,10 @@ export default {
     entranceguardsave,
     entranceguarddelete,
     subscribepage,
+    subscribefindAllPage,
     subscribedelete,
     experienceUserfindUser,
     experienceUserdelete,
+    experienceUserprint,
+    fileuploadFlieImg,
 }

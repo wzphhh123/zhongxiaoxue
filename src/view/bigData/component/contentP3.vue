@@ -21,12 +21,12 @@
             src="../../../assets/images/xiao1.png"
             alt=""
           />
-          <div style="position: absolute; top: 70%; left: 8%">
+          <div style="position: absolute; top: 70%; left: 18%">
             <p>
               <span>{{ this.dataList.healthCount }}</span>
               <span>人</span>
             </p>
-            <span class="imgFootTitle">健康标准人数</span>
+            <span class="imgFootTitle">健康人数</span>
           </div>
         </div>
         <div class="img3">
@@ -37,7 +37,7 @@
           />
           <div style="position: absolute; top: 70%; left: 24%">
             <p>
-              <span>{{ this.dataList.notHealthCount }}</span>
+              <span>{{ this.dataList.abnormalCount }}</span>
               <span>人</span>
             </p>
             <span class="imgFootTitle">异常人数</span>
@@ -190,20 +190,9 @@ export default {
       const res = await this.$api.showHealthy();
       if (res.success) {
         this.dataList = res.data;
-        // 对象转化为数组
-        let a = Object.values(this.dataList);
-        var one = "";
-        var two = "";
-        var three = "";
-        a.map((item) => {
-          console.log(item);
-          one = a[0];
-          two = a[1];
-          three = a[2];
-        });
-        this.optionData[0].value = one;
-        this.optionData[1].value = three;
-        this.optionData[2].value = two;
+        this.optionData[0].value =  res.data.obesityCount;
+        this.optionData[1].value = res.data.standardCount;
+        this.optionData[2].value = res.data.notHealthCount;
         this.draw3d();
       }
     },

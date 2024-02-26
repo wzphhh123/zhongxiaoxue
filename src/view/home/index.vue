@@ -119,7 +119,7 @@
                     ></span
                   >
                   <a-menu-item
-                    key="7"
+                    key="9"
                     @click="goContent(8)"
                     style="padding-left: 33%"
                   >
@@ -132,6 +132,13 @@
                   >
                     用户管理
                   </a-menu-item> -->
+                  <a-menu-item
+                    key="10"
+                    @click="goContent(10)"
+                    style="padding-left: 33%"
+                  >
+                    批次管理
+                  </a-menu-item>
                 </a-sub-menu>
               </a-menu>
             </div></a-col
@@ -173,9 +180,11 @@ export default {
         this.$router.push({ path: "/doorControlManage" });
       } else if (e == 8) {
         this.$router.push({ path: "/reservateManage" });
-      }else if (e == 9) {
+      } else if (e == 9) {
         this.$router.push({ path: "/reserUser" });
-      }else if (e == 11) {
+      } else if (e == 10) {
+        this.$router.push({ path: "/batchManage" });
+      } else if (e == 11) {
         this.$router.push({ path: "/exhibeAddress" });
       }
     },

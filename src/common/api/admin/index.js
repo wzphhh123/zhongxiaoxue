@@ -35,6 +35,10 @@ export function findElectricity(params) {
     return http.get(url.findElectricity, params)
 }
 
+// 电量占比
+export function serialPortconsume(params) {
+    return http.instanceGet(url.serialPortconsume, params);
+}
 //体验中心管理
 export function findAllShow(params) {
     return http.get(url.findAllShow, params)
@@ -122,24 +126,24 @@ export function placeDelete(params) {
     return http.delete(url.placeDelete, params);
 }
 // 机构列表查询
-export function ydtywebuseradmin(params){
-    return http.get(url.ydtywebuseradmin,params)
+export function ydtywebuseradmin(params) {
+    return http.get(url.ydtywebuseradmin, params)
 }
 // 修改添加机构
-export function useradminregister(data){
-    return http.post(url.useradminregister,data)
+export function useradminregister(data) {
+    return http.post(url.useradminregister, data)
 }
 // 删除机构
-export function Delydtywebuseradmin(params){
-    return http.delete(url.Delydtywebuseradmin,params)
+export function Delydtywebuseradmin(params) {
+    return http.delete(url.Delydtywebuseradmin, params)
 }
 // 获取展馆列表
 export function areapage(params) {
     return http.get(url.areapage, params);
 }
 // 添加展馆
-export function areaAdd(data) {
-    return http.post(url.areaAdd, data);
+export function areaSave(data) {
+    return http.post(url.areaSave, data);
 }
 // 删除展馆
 export function areaDelete(params) {
@@ -186,6 +190,11 @@ export function entranceguarddelete(params) {
 export function subscribepage(params) {
     return http.get(url.subscribepage, params);
 }
+
+// 获取批次列表
+export function subscribefindAllPage(params) {
+    return http.get(url.subscribefindAllPage, params);
+}
 // 获取预约用户删除
 export function subscribedelete(params) {
     return http.delete(url.subscribedelete, params);
@@ -200,4 +209,11 @@ export function experienceUserdelete(params) {
     return http.delete(url.experienceUserdelete, params);
 }
 
-  
+// 批量生成二维码
+export function experienceUserprint(params) {
+    return http.get(url.experienceUserprint, params);
+}
+// 上传文件
+export function fileuploadFlieImg(data) {
+    return http.post(url.fileuploadFlieImg, data);
+}
