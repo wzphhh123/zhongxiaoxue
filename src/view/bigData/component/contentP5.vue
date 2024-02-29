@@ -3,7 +3,7 @@
   <div>
     <div class="bk">
       <div class="top">
-        <span>区域排行榜{{ showNowQuyuId }}</span>
+        <span>区域排行榜</span>
       </div>
       <div class="content">
         <a-row>

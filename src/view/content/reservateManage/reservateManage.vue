@@ -335,6 +335,7 @@ export default {
     handleCancel(e) {
       this.addVisible = false;
       this.addForm = {};
+      this.subscribepage();
     },
   },
   mounted() {
@@ -355,9 +356,9 @@ export default {
       margin-left: 10px;
     }
   }
-  .ant-table-wrapper {
-    width: 1500px;
-  }
+  // .ant-table-wrapper {
+  //   width: 1500px;
+  // }
   p {
     span {
       color: rgb(10, 66, 187);

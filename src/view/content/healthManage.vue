@@ -12,14 +12,18 @@
           <a-form-model-item label="身份证号">
             <a-input
               v-model="searchForm.identity"
-              style="width: 250px"
               placeholder="请输入身份证号"
-              allow-clear
+            />
+          </a-form-model-item>
+           <a-form-model-item label="用户姓名">
+            <a-input
+              v-model="searchForm.name"
+              placeholder="请输入用户姓名"
             />
           </a-form-model-item>
         </a-form-model>
         <a-button type="primary" @click="userhealth()">查询</a-button>
-        <!-- <a-button type="primary" @click="reset()">重置</a-button> -->
+        <a-button type="primary" @click="reset()">重置</a-button>
         <!-- <a-button type="primary" @click="addVisible = true">新增</a-button> -->
       </div>
       <div class="main">
@@ -126,7 +130,7 @@ export default {
   data() {
     return {
       labelCol: { span: 6 },
-      wrapperCol: { span: 14 },
+      wrapperCol: { span: 18 },
       labelCol2: { span: 6 },
       wrapperCol2: { span: 12 },
       columns: [
@@ -304,6 +308,7 @@ export default {
         pageNum: this.pagination.current,
         pageSize: this.pagination.pageSize,
         identity: this.searchForm.identity,
+        name:this.searchForm.name,
       };
       const res = await this.$api.userhealth(data);
       if (res.success) {
@@ -354,6 +359,7 @@ export default {
     handleCancel(e) {
       this.addVisible = false;
       this.addForm = {};
+      this.userhealth();
     },
   },
   mounted() {

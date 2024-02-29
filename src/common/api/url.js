@@ -13,6 +13,7 @@ module.exports ={
     FindRankingRight:'/api/show/FindRanking', //右侧排行榜
 
     electricity:'/api/electricity/page', //电量管理
+    electricityFind:'/electricity/id', //查询电量
     addEditelectricity:'/electricity', //电量新增修改
     electricityDelete:'/electricity/delete', //电量删除
 
@@ -60,6 +61,7 @@ module.exports ={
     experienceUserprint:'/experienceUser/print', //批量生成二维码
 
     fileuploadFlieImg:'/api/file/uploadFlieImg', //上传图片
+    districtselect:'/district/select', //区域列表
 
   
 }

@@ -16,19 +16,19 @@
               allow-clear
             />
           </a-form-model-item>
-          <!-- <a-form-model-item label="选择类型" style="margin-left: 20px">
+          <a-form-model-item label="展馆名称" style="margin-left: 20px">
             <a-select
-              v-model="searchForm.type"
+              v-model="searchForm.id"
               style="width: 250px"
-              placeholder="请选择类型"
+              placeholder="请选择展馆名称"
+              allow-clear
             >
-              <a-select-option :value="0"> 门禁 </a-select-option>
-              <a-select-option :value="1"> 软件 </a-select-option>
+              <a-select-option v-for="(item,index) in addressNameList" :key="index" :value="item.id"> {{item.name}} </a-select-option>
             </a-select>
-          </a-form-model-item> -->
+          </a-form-model-item>
         </a-form-model>
         <a-button type="primary" @click="entranceguardpage()">查询</a-button>
-        <!-- <a-button type="primary" @click="reset()">重置</a-button> -->
+        <a-button type="primary" @click="reset()">重置</a-button>
         <a-button type="primary" @click="addVisible = true">新增</a-button>
       </div>
       <div class="main">
@@ -191,24 +191,25 @@ export default {
     };
   },
   methods: {
+    // 展馆名称
+    async areaAll() {
+      const res = await this.$api.areaAll();
+      if (res.success) {
+        this.addressNameList = res.data;
+      }
+    },
     //开发者管理列表
     async entranceguardpage() {
       var data = {
         pageNum: this.pagination.current,
         pageSize: this.pagination.pageSize,
         name: this.searchForm.name,
-        type: this.searchForm.type,
+        id: this.searchForm.id,
       };
       const res = await this.$api.entranceguardpage(data);
       if (res.success) {
         this.dataLists = res.data.records;
         this.pagination.total = res.data.total;
-      }
-    },
-    async areaAll() {
-      const res = await this.$api.areaAll();
-      if (res.success) {
-        this.addressNameList = res.data;
       }
     },
     change(e) {
@@ -264,6 +265,7 @@ export default {
       console.log("Clicked cancel button");
       this.addVisible = false;
       this.addForm = {};
+       this.entranceguardpage();
     },
   },
   mounted() {
@@ -287,9 +289,9 @@ export default {
   .main {
     // text-align: center;
   }
-  .ant-table-wrapper {
-    width: 1500px;
-  }
+  // .ant-table-wrapper {
+  //   width: 1500px;
+  // }
   span {
     color: rgb(10, 66, 187);
   }

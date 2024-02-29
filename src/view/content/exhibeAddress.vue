@@ -419,7 +419,7 @@ export default {
     // text-align: center;
   }
   .ant-table-wrapper {
-    width: 1500px;
+    // width: 1500px;
   }
   span {
     color: rgb(10, 66, 187);

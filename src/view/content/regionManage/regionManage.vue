@@ -50,7 +50,11 @@
           <template slot="operation" slot-scope="text, record">
             <a-tooltip>
               <template slot="title"> 详情 </template>
-              <a-icon type="snippets" theme="twoTone" @click="gotoInf(record)" />
+              <a-icon
+                type="snippets"
+                theme="twoTone"
+                @click="gotoInf(record)"
+              />
               <a-divider type="vertical" />
             </a-tooltip>
             <a-tooltip>
@@ -108,12 +112,50 @@
             >
           </a-select>
         </a-form-model-item>
-       
+
         <a-form-model-item label="正常照片" prop="name">
-          <a-input v-model="addForm.normalUrl" />
+          <a-upload
+            name="avatar"
+            list-type="picture-card"
+            class="avatar-uploader"
+            :show-upload-list="false"
+            :data="{ isup: 1 }"
+            :before-upload="beforeUpload"
+            :customRequest="imgBodyupload"
+          >
+            <img
+              style="width: 100px"
+              v-if="addForm.normalUrl"
+              :src="addForm.normalUrl"
+              alt="avatar"
+            />
+            <div v-else>
+              <a-icon type="plus" />
+              <div class="ant-upload-text">上传图片</div>
+            </div>
+          </a-upload>
         </a-form-model-item>
         <a-form-model-item label="变色照片" prop="name">
-          <a-input v-model="addForm.clickUrl" />
+          <a-upload
+            name="avatar"
+            list-type="picture-card"
+            class="avatar-uploader"
+            :show-upload-list="false"
+            :data="{ isup: 1 }"
+            :before-upload="beforeUpload"
+            :customRequest="imgBodyupload2"
+          >
+            <img
+              style="width: 100px"
+              v-if="addForm.clickUrl"
+              :src="addForm.clickUrl"
+              alt="avatar"
+            />
+            <div v-else>
+              <a-icon type="plus" />
+              <div class="ant-upload-text">上传图片</div>
+            </div>
+          </a-upload>
         </a-form-model-item>
       </a-form-model>
     </a-modal>
@@ -129,27 +171,16 @@ export default {
       labelCol2: { span: 6 },
       wrapperCol2: { span: 12 },
       columns: [
-        
         {
           title: "展馆名称",
           dataIndex: "areaName",
           align: "center",
         },
         {
-          title: "名称",
+          title: "区域名称",
           dataIndex: "name",
           align: "center",
         },
-        // {
-        //   title: "长",
-        //   dataIndex: "grow",
-        //   align: "center",
-        // },
-        // {
-        //   title: "宽",
-        //   dataIndex: "wide",
-        //   align: "center",
-        // },
         {
           title: "正常照片",
           dataIndex: "normalUrl",
@@ -217,7 +248,10 @@ export default {
         PageIndex: 1,
         PageSize: 10,
       },
-      addForm: {},
+      addForm: {
+        normalUrl: "",
+        clickUrl: "",
+      },
       addVisible: false,
       addActive: true,
       addressNameList: [],
@@ -228,6 +262,54 @@ export default {
     };
   },
   methods: {
+    // 图片上传前校验
+    beforeUpload(file) {
+      const isJpgOrPng =
+        file.type === "image/jpeg" || file.type === "image/png";
+      if (!isJpgOrPng) {
+        this.$message.error("图片格式错误，请上传jpg或png格式");
+      }
+      const isLt2M = file.size / 1024 / 1024 < 10;
+      if (!isLt2M) {
+        this.$message.error("图片大小要小于10MB!");
+      }
+      return isJpgOrPng && isLt2M;
+    },
+    // 上传课程封面
+    imgBodyupload(file) {
+      const formData = new FormData();
+      formData.append("Files", file.file);
+      formData.append("SavePath", "event/banner");
+      // this.UploadPictureToRemote(formData);
+    },
+    // 上传图片 正面
+    async UploadPictureToRemote(formData) {
+      const res = await this.$api.UploadPictureToRemote(formData);
+      if (res.success) {
+        this.addForm.normalUrl = res.response;
+        this.$message.success(res.msg);
+      } else {
+        this.$message.warning(res.msg);
+      }
+    },
+    
+    // 上传课程封面 反面
+    imgBodyupload2(file) {
+      const formData = new FormData();
+      formData.append("Files", file.file);
+      formData.append("SavePath", "event/banner");
+      // this.UploadPictureToRemote(formData);
+    },
+    // 反面
+    async UploadPictureToRemote2(formData) {
+      const res = await this.$api.UploadPictureToRemote(formData);
+      if (res.success) {
+        this.addForm.clickUrl = res.response;
+        this.$message.success(res.msg);
+      } else {
+        this.$message.warning(res.msg);
+      }
+    },
     //开发者管理列表
     async districtpage() {
       var data = {
@@ -249,17 +331,8 @@ export default {
       const res = await this.$api.districtfindAll(data);
       if (res.success) {
         this.dataLists = res.data;
-        // this.dataLists = res.data.records;
-        // this.pagination.total = res.data.total;
       }
     },
-    // 获取全部软件列表
-    // async softwareAdd() {
-    //   const res = await this.$api.softwareAdd();
-    //   if (res.success) {
-    //     this.softwareList = res.data;
-    //   }
-    // },
     async areaAll() {
       const res = await this.$api.areaAll();
       if (res.success) {
@@ -302,7 +375,7 @@ export default {
       }
     },
     gotoInf(e) {
-      this.$router.push({ path: `/regionInf/${e.id}/${e.name}`});
+      this.$router.push({ path: `/regionInf/${e.id}/${e.name}` });
     },
     tablePageChange(pagination) {
       let { current, pageSize } = pagination;
@@ -331,6 +404,7 @@ export default {
     handleCancel(e) {
       this.addVisible = false;
       this.addForm = {};
+      this.districtpage();
     },
   },
   mounted() {
@@ -351,9 +425,9 @@ export default {
       margin-left: 10px;
     }
   }
-  .ant-table-wrapper {
-    width: 1500px;
-  }
+  // .ant-table-wrapper {
+  //   width: 1500px;
+  // }
   p {
     span {
       color: rgb(10, 66, 187);

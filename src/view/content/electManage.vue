@@ -8,16 +8,16 @@
           :wrapper-col="wrapperCol"
           layout="inline"
         >
-          <a-form-model-item label="地域编号">
+          <a-form-model-item label="区域编号">
             <a-input
-              v-model="searchForm.areaId"
+              v-model="searchForm.id"
               style="width: 250px"
-              placeholder="请输入地域编号"
+              placeholder="请输入区域编号"
               allow-clear
             />
           </a-form-model-item>
         </a-form-model>
-        <a-button type="primary" @click="electricity()">查询</a-button>
+        <a-button type="primary" @click="electricityFind()">查询</a-button>
         <!-- <a-button type="primary" @click="reset()">重置</a-button> -->
         <!-- <a-button type="primary" @click="addVisible = true">新增</a-button> -->
       </div>
@@ -86,7 +86,7 @@ export default {
       wrapperCol2: { span: 12 },
       columns: [
         {
-          title: "地域编号",
+          title: "区域编号",
           dataIndex: "areaId",
           align: "center",
         },
@@ -139,6 +139,18 @@ export default {
     };
   },
   methods: {
+    // 查询电量
+     async electricityFind() {
+      var data = {
+        pageNum: this.pagination.current,
+        pageSize: this.pagination.pageSize,
+        id: this.searchForm.id,
+      };
+      const res = await this.$api.electricityFind(data);
+      if (res.success) {
+        this.dataLists = res.data;
+      }
+    },
     //开发者管理列表
     async electricity() {
       var data = {
@@ -198,6 +210,7 @@ export default {
       console.log("Clicked cancel button");
       this.addVisible = false;
       this.addForm = {};
+      this.electricity();
     },
     test() {
       var data = {

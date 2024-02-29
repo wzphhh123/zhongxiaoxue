@@ -11,24 +11,41 @@
           <a-form-model-item label="软件名称">
             <a-input
               v-model="searchForm.name"
-              style="width: 250px"
               placeholder="请输入软件名称"
-              allow-clear
             />
           </a-form-model-item>
-          <!-- <a-form-model-item label="选择类型" style="margin-left: 20px">
+          <a-form-model-item label="展馆名称" style="margin-left: 20px">
+            <a-select
+              style="width: 100px"
+              placeholder="展馆名称"
+              @change="zhanguanChange"
+              v-model="searchForm2.id"
+            >
+              <a-select-option
+                v-for="(item, index) in addressNameList"
+                :key="index"
+                :value="item.id"
+              >
+                {{ item.name }}
+              </a-select-option>
+            </a-select>
             <a-select
               v-model="searchForm.type"
-              style="width: 250px"
-              placeholder="请选择类型"
+              style="width: 100px"
+              placeholder="区域名称"
             >
-              <a-select-option :value="0"> 门禁 </a-select-option>
-              <a-select-option :value="1"> 软件 </a-select-option>
+              <a-select-option
+                v-for="(item, index) in quyuData"
+                :key="index"
+                :value="item.id"
+              >
+                {{ item.name }}
+              </a-select-option>
             </a-select>
-          </a-form-model-item> -->
+          </a-form-model-item>
         </a-form-model>
         <a-button type="primary" @click="softwarepage()">查询</a-button>
-        <!-- <a-button type="primary" @click="reset()">重置</a-button> -->
+        <a-button type="primary" @click="reset()">重置</a-button>
         <a-button type="primary" @click="addVisible = true">新增</a-button>
       </div>
       <div class="main">
@@ -89,7 +106,11 @@
           <a-input v-model="addForm.softwareNumber" />
         </a-form-model-item>
         <a-form-model-item label="序列号" prop="number">
-           <a-input-number  v-model="addForm.number" :min="1" style="width:236px" />
+          <a-input-number
+            v-model="addForm.number"
+            :min="1"
+            style="width: 236px"
+          />
         </a-form-model-item>
         <!-- <a-form-model-item label="选择类型">
           <a-select
@@ -110,8 +131,8 @@
 export default {
   data() {
     return {
-      labelCol: { span: 5 },
-      wrapperCol: { span: 14 },
+      labelCol: { span: 6 },
+      wrapperCol: { span: 18 },
       labelCol2: { span: 6 },
       wrapperCol2: { span: 12 },
       columns: [
@@ -176,11 +197,36 @@ export default {
       },
       dataLists: [],
       searchForm: {},
+      searchForm2:{},
       addForm: {},
       addVisible: false,
+      quyuData: [],
+      addressNameList: [],
     };
   },
   methods: {
+    zhanguanChange(e) {
+      console.log(e);
+      this.districtselect(e);
+    },
+    // 展馆名称
+    async areaAll() {
+      const res = await this.$api.areaAll();
+      if (res.success) {
+        this.addressNameList = res.data;
+      }
+    },
+    // 获取区域列表
+
+    async districtselect(e) {
+      var data = {
+        id: e,
+      };
+      const res = await this.$api.districtselect(data);
+      if (res.success) {
+        this.quyuData = res.data;
+      }
+    },
     //开发者管理列表
     async softwarepage() {
       var data = {
@@ -223,6 +269,7 @@ export default {
     },
     reset() {
       this.searchForm = {};
+      this.searchForm2 = {}
       this.softwarepage();
     },
     handleOk(e) {
@@ -241,10 +288,13 @@ export default {
       console.log("Clicked cancel button");
       this.addVisible = false;
       this.addForm = {};
+      this.softwarepage();
     },
   },
   mounted() {
     this.softwarepage();
+    this.areaAll();
+    // this.districtselect();
   },
 };
 </script>
@@ -260,9 +310,9 @@ export default {
       margin-left: 10px;
     }
   }
-  .ant-table-wrapper {
-    width: 1500px;
-  }
+  // .ant-table-wrapper {
+  //   width: 1500px;
+  // }
   span {
     color: rgb(10, 66, 187);
     cursor: pointer;

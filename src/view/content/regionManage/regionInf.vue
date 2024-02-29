@@ -267,6 +267,7 @@ export default {
       console.log("Clicked cancel button");
       this.addVisible = false;
       this.addForm = {};
+      this.softwarepage();
     },
   },
   mounted() {
@@ -298,9 +299,9 @@ export default {
     // text-align: center;
     margin-top: 20px;
   }
-  .ant-table-wrapper {
-    width: 1500px;
-  }
+  // .ant-table-wrapper {
+  //   width: 1500px;
+  // }
   span {
     color: rgb(10, 66, 187);
     cursor: pointer;

@@ -11,39 +11,36 @@
         <a-row>
           <a-col :span="4"
             ><div class="leftMenu">
-              <a-menu
-                :default-selected-keys="['1']"
-                :default-open-keys="['sub1']"
+              <!-- <a-menu
+                :defaultSelectedKeys="['11']"
+                :defaultOpenKeys="['sub1']"
                 mode="inline"
                 theme="light"
               >
                 <a-sub-menu key="sub1">
                   <span slot="title"
-                    ><a-icon type="mail" /><span style="margin-left: 20%"
+                    ><a-icon type="mail" /><span class="menuP1"
                       >体验展馆列表</span
                     ></span
                   >
-                  <!-- <a-menu-item key="1" @click="goContent(0)">
-                位置管理
-              </a-menu-item> -->
                   <a-menu-item
                     key="11"
                     @click="goContent(11)"
-                    style="padding-left: 33%"
+                    style="padding-left: 35%; letter-spacing: 1px"
                   >
                     体验展馆列表
                   </a-menu-item>
                 </a-sub-menu>
                 <a-sub-menu key="sub2">
                   <span slot="title"
-                    ><a-icon type="mail" /><span style="margin-left: 20%"
+                    ><a-icon type="appstore" /><span class="menuP1"
                       >区域管理</span
                     ></span
                   >
                   <a-menu-item
                     key="2"
                     @click="goContent(1)"
-                    style="padding-left: 33%"
+                    style="padding-left: 35%; letter-spacing: 1px"
                   >
                     区域管理
                   </a-menu-item>
@@ -51,91 +48,209 @@
 
                 <a-sub-menu key="sub3">
                   <span slot="title"
-                    ><a-icon type="mail" /><span style="margin-left: 20%"
+                    ><a-icon type="pie-chart" /><span class="menuP1"
                       >用户健康管理</span
                     ></span
                   >
                   <a-menu-item
                     key="3"
                     @click="goContent(2)"
-                    style="padding-left: 33%"
+                    style="padding-left: 35%; letter-spacing: 1px"
                   >
                     用户健康管理
                   </a-menu-item>
                 </a-sub-menu>
                 <a-sub-menu key="sub4">
                   <span slot="title"
-                    ><a-icon type="mail" /><span style="margin-left: 20%"
+                    ><a-icon type="desktop" /><span class="menuP1"
                       >电量管理</span
                     ></span
                   >
                   <a-menu-item
                     key="4"
                     @click="goContent(3)"
-                    style="padding-left: 33%"
+                    style="padding-left: 35%; letter-spacing: 1px"
                   >
                     电量管理
                   </a-menu-item>
                 </a-sub-menu>
                 <a-sub-menu key="sub6">
                   <span slot="title"
-                    ><a-icon type="mail" /><span style="margin-left: 20%"
+                    ><a-icon type="inbox" /><span class="menuP1"
                       >软件管理</span
                     ></span
                   >
                   <a-menu-item
                     key="5"
                     @click="goContent(5)"
-                    style="padding-left: 33%"
+                    style="padding-left: 35%; letter-spacing: 1px"
                   >
                     软件管理
                   </a-menu-item>
                 </a-sub-menu>
                 <a-sub-menu key="sub7">
                   <span slot="title"
-                    ><a-icon type="mail" /><span style="margin-left: 20%"
-                      >门禁管理</span
-                    ></span
+                    ><a-icon type="cloud" />
+                    <span class="menuP1">门禁管理</span></span
                   >
                   <a-menu-item
                     key="7"
                     @click="goContent(6)"
-                    style="padding-left: 33%"
+                    style="padding-left: 35%; letter-spacing: 1px"
                   >
                     门禁用户管理
                   </a-menu-item>
                   <a-menu-item
                     key="8"
                     @click="goContent(7)"
-                    style="padding-left: 33%"
+                    style="padding-left: 35%; letter-spacing: 1px"
                   >
                     门禁管理
                   </a-menu-item>
                 </a-sub-menu>
                 <a-sub-menu key="sub8">
                   <span slot="title"
-                    ><a-icon type="mail" /><span style="margin-left: 20%"
-                      >预约管理</span
-                    ></span
+                    ><a-icon type="bank" />
+                    <span class="menuP1">预约管理</span></span
                   >
                   <a-menu-item
                     key="9"
                     @click="goContent(8)"
-                    style="padding-left: 33%"
+                    style="padding-left: 35%; letter-spacing: 1px"
                   >
                     预约管理
                   </a-menu-item>
-                  <!-- <a-menu-item
-                    key="8"
-                    @click="goContent(9)"
-                    style="padding-left: 33%"
-                  >
-                    用户管理
-                  </a-menu-item> -->
                   <a-menu-item
                     key="10"
                     @click="goContent(10)"
-                    style="padding-left: 33%"
+                    style="padding-left: 35%; letter-spacing: 1px"
+                  >
+                    批次管理
+                  </a-menu-item>
+                </a-sub-menu>
+              </a-menu> -->
+              <a-menu
+                :defaultOpenKeys="[
+                  'sub1',
+                  'sub2',
+                  'sub3',
+                  'sub4',
+                  'sub6',
+                  'sub7',
+                  'sub8',
+                ]"
+                v-model="selectData"
+                mode="inline"
+                theme="light"
+                @select="change"
+              >
+                <a-sub-menu key="sub1">
+                  <span slot="title"
+                    ><a-icon type="mail" /><span class="menuP1"
+                      >体验展馆列表</span
+                    ></span
+                  >
+                  <a-menu-item
+                    key="10"
+                    @click="goContent(11)"
+                    style="padding-left: 35%; letter-spacing: 1px"
+                  >
+                    体验展馆列表
+                  </a-menu-item>
+                </a-sub-menu>
+                <a-sub-menu key="sub2">
+                  <span slot="title"
+                    ><a-icon type="appstore" /><span class="menuP1"
+                      >区域管理</span
+                    ></span
+                  >
+                  <a-menu-item
+                    key="20"
+                    @click="goContent(1)"
+                    style="padding-left: 35%; letter-spacing: 1px"
+                  >
+                    区域管理
+                  </a-menu-item>
+                </a-sub-menu>
+
+                <a-sub-menu key="sub3">
+                  <span slot="title"
+                    ><a-icon type="pie-chart" /><span class="menuP1"
+                      >用户健康管理</span
+                    ></span
+                  >
+                  <a-menu-item
+                    key="30"
+                    @click="goContent(2)"
+                    style="padding-left: 35%; letter-spacing: 1px"
+                  >
+                    用户健康管理
+                  </a-menu-item>
+                </a-sub-menu>
+                <a-sub-menu key="sub4">
+                  <span slot="title"
+                    ><a-icon type="desktop" /><span class="menuP1"
+                      >电量管理</span
+                    ></span
+                  >
+                  <a-menu-item
+                    key="40"
+                    @click="goContent(3)"
+                    style="padding-left: 35%; letter-spacing: 1px"
+                  >
+                    电量管理
+                  </a-menu-item>
+                </a-sub-menu>
+                <a-sub-menu key="sub6">
+                  <span slot="title"
+                    ><a-icon type="inbox" /><span class="menuP1"
+                      >软件管理</span
+                    ></span
+                  >
+                  <a-menu-item
+                    key="50"
+                    @click="goContent(5)"
+                    style="padding-left: 35%; letter-spacing: 1px"
+                  >
+                    软件管理
+                  </a-menu-item>
+                </a-sub-menu>
+                <a-sub-menu key="sub7">
+                  <span slot="title"
+                    ><a-icon type="cloud" />
+                    <span class="menuP1">门禁管理</span></span
+                  >
+                  <a-menu-item
+                    key="70"
+                    @click="goContent(6)"
+                    style="padding-left: 35%; letter-spacing: 1px"
+                  >
+                    门禁用户管理
+                  </a-menu-item>
+                  <a-menu-item
+                    key="71"
+                    @click="goContent(7)"
+                    style="padding-left: 35%; letter-spacing: 1px"
+                  >
+                    门禁管理
+                  </a-menu-item>
+                </a-sub-menu>
+                <a-sub-menu key="sub8">
+                  <span slot="title"
+                    ><a-icon type="bank" />
+                    <span class="menuP1">预约管理</span></span
+                  >
+                  <a-menu-item
+                    key="80"
+                    @click="goContent(8)"
+                    style="padding-left: 35%; letter-spacing: 1px"
+                  >
+                    预约管理
+                  </a-menu-item>
+                  <a-menu-item
+                    key="81"
+                    @click="goContent(10)"
+                    style="padding-left: 35%; letter-spacing: 1px"
                   >
                     批次管理
                   </a-menu-item>
@@ -156,9 +271,17 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      openData: ["sub1"],
+      selectData: [],
+    };
   },
   methods: {
+    change(e) {
+      this.selectData = e.key;
+      console.log(e);
+      sessionStorage.setItem("selectData", this.selectData);
+    },
     goOut() {
       sessionStorage.clear();
       this.$router.push({ path: "/" });
@@ -189,7 +312,14 @@ export default {
       }
     },
   },
-  mounted() {},
+  mounted() {
+    console.log("00", sessionStorage.getItem("selectData"));
+    if (sessionStorage.getItem("selectData") == null) {
+      this.selectData = ["10"];
+    } else {
+      this.selectData.push(sessionStorage.getItem("selectData"));
+    }
+  },
 };
 </script>
 
@@ -206,6 +336,7 @@ export default {
   display: flex;
   line-height: 66px;
   background-image: url("../../assets/images/zu15.png");
+  background-size: 100% 100%;
   background-repeat: no-repeat;
   position: relative;
   .topTitle {
@@ -233,5 +364,11 @@ export default {
   .rightConent {
     padding: 10px;
   }
+}
+.menuP1 {
+  margin-left: 20%;
+  font-size: 16px;
+  letter-spacing: 1px;
+  font-weight: 600;
 }
 </style>

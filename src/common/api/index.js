@@ -12,6 +12,7 @@ import {
     FindRankingRight,
 
     electricity,
+    electricityFind,
     addEditelectricity,
     electricityDelete,
 
@@ -59,6 +60,7 @@ import {
     experienceUserprint,
 
     fileuploadFlieImg,
+    districtselect,
 } from './admin'
 
 export default {
@@ -75,6 +77,7 @@ export default {
     FindRankingRight,
 
     electricity,
+    electricityFind,
     addEditelectricity,
     electricityDelete,
     softwareAll,
@@ -113,4 +116,5 @@ export default {
     experienceUserdelete,
     experienceUserprint,
     fileuploadFlieImg,
+    districtselect,
 }

@@ -274,6 +274,7 @@ export default {
       console.log("Clicked cancel button");
       this.addVisible = false;
       this.addForm = {};
+       this.subscribefindAllPage();
     },
   },
   mounted() {
@@ -296,9 +297,9 @@ export default {
   .main {
     // text-align: center;
   }
-  .ant-table-wrapper {
-    width: 1500px;
-  }
+  // .ant-table-wrapper {
+  //   width: 1500px;
+  // }
   span {
   }
 }

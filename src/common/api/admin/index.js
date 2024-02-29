@@ -58,6 +58,10 @@ export function FindRankingRight(params) {
 export function electricity(params) {
     return http.get(url.electricity, params);
 }
+//查询电量
+export function electricityFind(params) {
+    return http.get(url.electricityFind, params);
+}
 // 添加编辑电量
 export function addEditelectricity(data) {
     return http.post(url.addEditelectricity, data);
@@ -216,4 +220,9 @@ export function experienceUserprint(params) {
 // 上传文件
 export function fileuploadFlieImg(data) {
     return http.post(url.fileuploadFlieImg, data);
+}
+
+// 区域列表
+export function districtselect(params) {
+    return http.get(url.districtselect, params);
 }
